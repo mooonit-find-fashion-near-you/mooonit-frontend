@@ -16,16 +16,19 @@ export default function SectionTabs({ onSelect }: { onSelect: (section: string) 
   return (
     <section
       id="sections"
-      className="flex justify-center items-center gap-x-12 gap-y-6 py-6 flex-wrap px-8"
+      className="py-4 px-4 overflow-x-auto scrollbar-hide"
     >
-      {sections.map((sec) => (
-        <SectionButton
-          key={sec}
-          label={sec}
-          isActive={active === sec}
-          onClick={() => handleSelect(sec)}
-        />
-      ))}
+      <div className="flex items-center justify-start sm:justify-center gap-x-3 min-w-max">
+        {sections.map((sec) => (
+          <div key={sec} className="flex-shrink-0">
+            <SectionButton
+              label={sec}
+              isActive={active === sec}
+              onClick={() => handleSelect(sec)}
+            />
+          </div>
+        ))}
+      </div>
     </section>
   );
 }
