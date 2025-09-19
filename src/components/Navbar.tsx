@@ -26,11 +26,9 @@ const Navbar = () => {
                     {/* Main Header Row */}
                     <div className="flex items-center justify-between h-16 lg:h-20">
                         {/* Logo */}
-                        <div className="flex items-center">
-                            <figure>
-                                <Image src="/images/logo.svg" alt="Mooonit Logo" width={120} height={40} />
-                            </figure>
-                        </div>
+                        <figure>
+                            <Image src="/images/logo.svg" alt="Mooonit Logo" width={120} height={40} />
+                        </figure>
 
                         {/* Desktop Search Bar - Hidden on mobile */}
                         <div className="hidden lg:flex relative flex-1 items-center mx-8">
