@@ -9,6 +9,8 @@ interface SectionButtonProps {
 }
 
 export default function SectionButton({ label, isActive, onClick }: SectionButtonProps) {
+    console.log(`SectionButton: using image at /section-tabs/${label.toLowerCase().replace(" ", "")}.jpg`);
+    
     return (
         <button
             onClick={onClick}
@@ -20,16 +22,16 @@ export default function SectionButton({ label, isActive, onClick }: SectionButto
         >
             {/* Avatar / Image */}
             <figure
-                className={`rounded-full p-1 aspect-square w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 overflow-hidden object-cover border flex-shrink-0
+                className={`rounded-full w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 overflow-hidden border flex-shrink-0
           ${isActive ? "border-[#E54B4B]" : "border-[#FBBC04]"}
         `}
             >
                 <Image
-                    src={`/images/${label.toLowerCase().replace(" ", "")}.png`}
+                    src={`/section-tabs/${label.toLowerCase().replace(" ", "")}.jpg`}
                     alt={label}
-                    width={30}
-                    height={30}
-                    className="w-full h-full object-cover"
+                    width={100}
+                    height={100}
+                    className="object-cover"
                 />
             </figure>
 

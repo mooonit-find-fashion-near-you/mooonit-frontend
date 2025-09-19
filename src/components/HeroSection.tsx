@@ -44,7 +44,7 @@ export default function HeroSection({ activeSection }: { activeSection: string }
                     <p className="text-gray-600 max-w-lg">{data.description}</p>
 
                     {/* Stats */}
-                    <div className="flex items-center gap-8 text-lg font-medium text-gray-800">
+                    {/* <div className="flex items-center gap-8 text-lg font-medium text-gray-800">
                         {data.stats.map((stat, idx) => (
                             <>
                                 <div key={idx} className="flex items-center gap-4">
@@ -59,12 +59,12 @@ export default function HeroSection({ activeSection }: { activeSection: string }
                                 )}
                             </>
                         ))}
-                    </div>
+                    </div> */}
 
                     <Button
                         variant="outline"
                         className="bg-[#FFDC91] hover:bg-[#FFDC91] hover:cursor-pointer rounded-full px-8 py-6 border border-[#FBBC04]"
-                        >
+                    >
                         Explore Nearby Shops
                     </Button>
                 </div>
