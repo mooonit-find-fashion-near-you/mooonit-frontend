@@ -1,6 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @tailwind utilities;
+
+@font-face {
+  font-family: 'TOPLUXURY';
+  src: url('/fonts/TOPLUXURY.otf') format('opentype'),
+    url('/fonts/TOPLUXURY.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 
 * ::selection {
   @apply bg-[#FFDC91] text-[black];

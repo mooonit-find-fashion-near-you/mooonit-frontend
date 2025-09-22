@@ -19,9 +19,8 @@ const MooonitHomepage: React.FC = () => {
       <SectionTabs onSelect={setSelectedSection} />
       <HeroSection activeSection={selectedSection} />
       <SubCategories activeSection={selectedSection} />
-      <TrendingShops />
-      <Advertisments />
-
+      <TrendingShops activeSection={selectedSection} />
+      <Advertisments activeSection={selectedSection} />
       <Footer />
     </>
   );

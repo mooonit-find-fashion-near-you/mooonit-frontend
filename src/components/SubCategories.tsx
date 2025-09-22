@@ -44,7 +44,7 @@ const SubCategories: React.FC<SubCategoriesProps> = ({ activeSection }) => {
                             </div>
 
                             {/* Title */}
-                            <h1 className="font-medium text-gray-800 text-base text-center">
+                            <h1 className="font-medium text-gray-800 text-2xl text-center font-[TOPLUXURY]">
                                 {category.name}
                             </h1>
                         </div>
