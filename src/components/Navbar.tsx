@@ -39,18 +39,18 @@ const Navbar = () => {
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     onKeyDown={(e) => e.key === "Enter" && handleSearchSubmit(e)}
-                                    className="w-full pl-4 pr-6 py-2 focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none"
+                                    className="w-full pl-4 pr-6 py-2 focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none font-[outfit]"
                                 />
                                 <div className="border-l border-gray-400 py-3"></div>
-                                <div className="h-full flex items-center">
+                                <div className="h-full flex items-center font-[outfit]">
                                     <Select
                                         onValueChange={(val: string) => setCategory(val)}
                                         defaultValue="all"
                                     >
-                                        <SelectTrigger className="w-32 text-gray-500 h-9 rounded-none py-5 focus:ring-0 border-none">
+                                        <SelectTrigger className="w-32 text-gray-500 h-9 rounded-none py-5 focus:ring-0 border-none font-[outfit]">
                                             <SelectValue placeholder="Category" />
                                         </SelectTrigger>
-                                        <SelectContent>
+                                        <SelectContent className="font-[outfit]">
                                             <SelectItem value="all">All Category</SelectItem>
                                             <SelectItem value="clothes">Clothes</SelectItem>
                                             <SelectItem value="accessories">Accessories</SelectItem>

@@ -1,35 +1,58 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { PromotionalBanner } from "@/components/PromotionalBanner"
-import { advertisements } from "@/data/advertisements"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 
-export default function Advertisments() {
-    const handleButtonClick = (adId: string) => {
-        console.log("Ad clicked:", adId)
-    }
+type Advertisement = {
+    id: string
+    section: string
+    saleText: string
+    headline: string
+    buttonText: string
+    imageUrl: string
+    imageAlt: string
+    backgroundColor: string
+}
+
+export default function Advertisments({ activeSection }: { activeSection: string }) {
+    const [ads, setAds] = useState<Advertisement[]>([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        const fetchAds = async () => {
+            setLoading(true)
+            try {
+                const res = await fetch(`/api/advertisements?section=${activeSection}`)
+                const data = await res.json()
+                setAds(data)
+            } catch (error) {
+                console.error("Failed to load advertisements:", error)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchAds()
+    }, [activeSection])
+
+    if (loading) return <p className="text-center py-8">Loading advertisements...</p>
 
     return (
-        <div className="min-h-screen bg-gray-100 p-4">
+        <div className="min-h-screen p-4">
             <div className="max-w-7xl mx-auto relative">
-                {/* gradient fade overlays */}
-                <div className="pointer-events-none absolute top-0 left-0 h-full w-40 bg-gradient-to-r from-gray-100 via-gray-100/70 to-transparent z-10" />
-                <div className="pointer-events-none absolute top-0 right-0 h-full w-40 bg-gradient-to-l from-gray-100 via-gray-100/70 to-transparent z-10" />
-
                 <Carousel className="w-full">
                     <CarouselContent>
-                        {advertisements.map((ad) => (
+                        {ads.map((ad) => (
                             <CarouselItem key={ad.id} className="md:basis-1/2 lg:basis-1/2">
                                 <div className="p-1">
                                     <PromotionalBanner
                                         saleText={ad.saleText}
-                                        title={ad.title}
-                                        subtitle={ad.subtitle}
+                                        headline={ad.headline}
                                         buttonText={ad.buttonText}
                                         imageUrl={ad.imageUrl}
                                         imageAlt={ad.imageAlt}
-                                        backgroundColor={ad.backgroundColor}
-                                        onButtonClick={() => handleButtonClick(ad.id)}
+                                        onButtonClick={() => console.log("Ad clicked:", ad.id)}
                                     />
                                 </div>
                             </CarouselItem>

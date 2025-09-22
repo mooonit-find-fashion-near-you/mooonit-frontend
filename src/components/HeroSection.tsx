@@ -23,7 +23,7 @@ export default function HeroSection({ activeSection }: { activeSection: string }
             {/* Right Content */}
             <div className="flex-1 flex flex-col space-y-6 right-0 items-end">
                 {/* Heading */}
-                <h1 className="text-[5rem] font-bold top-16 text-gray-900 absolute leading-tight flex flex-col items-end">
+                <h1 className="text-[5rem] font-bold font-[TOPLUXURY] top-16 text-gray-900 absolute leading-tight flex flex-col items-end">
                     {data.title}
                 </h1>
 
@@ -36,20 +36,20 @@ export default function HeroSection({ activeSection }: { activeSection: string }
                         height={200}
                         className="object-cover flex-1 h-36 object-top"
                     />
-                    <span className="text-gray-900 text-[5rem] font-bold">{data.subtitle}</span>
+                    <h1 className="text-gray-900 text-[5rem] font-bold font-[TOPLUXURY]">{data.subtitle}</h1>
                 </figure>
 
                 <div className="flex flex-col items-start gap-6 w-[36rem]">
                     {/* Paragraph */}
-                    <p className="text-gray-600 max-w-lg">{data.description}</p>
+                    <p className="text-gray-600 max-w-lg font-[outfit]">{data.description}</p>
 
                     {/* Stats */}
-                    {/* <div className="flex items-center gap-8 text-lg font-medium text-gray-800">
+                    <div className="flex items-center gap-8 text-lg font-medium text-gray-800">
                         {data.stats.map((stat, idx) => (
                             <>
                                 <div key={idx} className="flex items-center gap-4">
-                                    <span className="text-4xl font-bold text-gray-900">{stat.value}</span>
-                                    <p>
+                                    <span className="text-4xl font-bold text-gray-900 font-[TOPLUXURY]">{stat.value}</span>
+                                    <p className="text-base font-[outfit]">
                                         {stat.label.split(" ")[0]} <br />
                                         {stat.label.split(" ").slice(1).join(" ")}
                                     </p>
@@ -59,11 +59,11 @@ export default function HeroSection({ activeSection }: { activeSection: string }
                                 )}
                             </>
                         ))}
-                    </div> */}
+                    </div>
 
                     <Button
                         variant="outline"
-                        className="bg-[#FFDC91] hover:bg-[#FFDC91] hover:cursor-pointer rounded-full px-8 py-6 border border-[#FBBC04]"
+                        className="bg-[#FFDC91] hover:bg-[#FFDC91] hover:cursor-pointer font-[outfit] text-lg rounded-full p-8 border border-[#FBBC04]"
                     >
                         Explore Nearby Shops
                     </Button>

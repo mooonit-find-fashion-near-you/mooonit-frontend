@@ -15,7 +15,7 @@ export const heroData: Record<
         description:
             "Step into the world of modern women’s fashion—crafted with timeless designs, premium fabrics, and unmatched attention to detail.",
         stats: [
-            { label: "Exclusive Styles", value: "1,200+" },
+            { label: "Exclusive Styles", value: "999+" },
             { label: "Top-rated Shops", value: "850+" },
         ],
         mainImage: "/images/hero-women.jpg",
