@@ -35,7 +35,7 @@ const [selectedCategory, setSelectedCategory] = useState();
             </h2>
 
             {/* Category Picker */}
-            <SubCategories activeSection={activeSection} />
+            <SubCategories activeSection={activeSection} hideBg={true} />
 
             {/* Content Area */}
             <div className="mt-12">
