@@ -2,6 +2,7 @@
 
 import Advertisments from '@/components/Advertisments';
 import Footer from '@/components/Footer';
+import GetTheApp from '@/components/GetTheApp';
 import HeroSection from '@/components/HeroSection';
 import Navbar from '@/components/Navbar';
 import SectionTabs from '@/components/SectionTabs';
@@ -23,6 +24,7 @@ const MooonitHomepage: React.FC = () => {
       <TrendingShops activeSection={selectedSection} />
       <Advertisments activeSection={selectedSection} />
       <ShopProductsSection activeSection={selectedSection} />
+      <GetTheApp />
       <Footer />
     </>
   );

@@ -44,6 +44,7 @@ export function PromotionalBanner({
                         alt={imageAlt}
                         className="h-full w-auto object-cover"
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     <div className="absolute w-full h-full top-0 left-0 z-0 opacity-20 bg-black"></div>
                 </figure>

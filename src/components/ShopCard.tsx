@@ -17,9 +17,9 @@ interface ShopCardProps {
 
 const ShopCard = ({ shop }: ShopCardProps) => {
   return (
-    <div key={shop.id} className="bg-white rounded-2xl overflow-hidden shadow-md font-[outfit]">
+    <div key={shop.id} className="bg-white max-w-md rounded-2xl overflow-hidden shadow-md font-[outfit]">
       {/* Image Container */}
-      <div className="relative h-60 overflow-hidden rounded-t-2xl rounded-b-4xl">
+      <div className="relative h-64 overflow-hidden rounded-t-2xl rounded-b-4xl">
         <Image
           src={shop.image}
           alt={shop.title}

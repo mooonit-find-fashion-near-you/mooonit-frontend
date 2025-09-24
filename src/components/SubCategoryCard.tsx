@@ -7,7 +7,7 @@ import { SubCategory } from "@/data/subCategoriesData";
 interface SubCategoryCardProps {
     category: SubCategory;
     hideBg?: boolean;
-    isActive?: boolean; // new
+    isActive?: boolean; 
 }
 
 const SubCategoryCard: React.FC<SubCategoryCardProps> = ({ category, hideBg, isActive }) => {
