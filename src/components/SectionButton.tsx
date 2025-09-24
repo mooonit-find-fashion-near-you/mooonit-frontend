@@ -9,7 +9,6 @@ interface SectionButtonProps {
 }
 
 export default function SectionButton({ label, isActive, onClick }: SectionButtonProps) {
-    console.log(`SectionButton: using image at /section-tabs/${label.toLowerCase().replace(" ", "")}.jpg`);
 
     return (
         <button

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { heroData } from "@/data/heroData";
 import { Button } from "./ui/button";
+import React from "react";
 
 export default function HeroSection({ activeSection }: { activeSection: string }) {
     const data = heroData[activeSection] || heroData["Women"];
@@ -46,19 +47,22 @@ export default function HeroSection({ activeSection }: { activeSection: string }
                     {/* Stats */}
                     <div className="flex items-center gap-8 text-lg font-medium text-gray-800">
                         {data.stats.map((stat, idx) => (
-                            <>
-                                <div key={idx} className="flex items-center gap-4">
-                                    <span className="text-4xl font-bold text-gray-900 font-[TOPLUXURY]">{stat.value}</span>
+                            <React.Fragment key={idx}>
+                                <div className="flex items-center gap-4">
+                                    <span className="text-4xl font-bold text-gray-900 font-[TOPLUXURY]">
+                                        {stat.value}
+                                    </span>
                                     <p className="text-base font-[outfit]">
                                         {stat.label.split(" ")[0]} <br />
                                         {stat.label.split(" ").slice(1).join(" ")}
                                     </p>
                                 </div>
                                 {idx < data.stats.length - 1 && (
-                                    <span key={`sep-${idx}`} className="h-10 border-l border-black" />
+                                    <span className="h-10 border-l border-black" />
                                 )}
-                            </>
+                            </React.Fragment>
                         ))}
+
                     </div>
 
                     <Button

@@ -2,9 +2,11 @@
 
 import Advertisments from '@/components/Advertisments';
 import Footer from '@/components/Footer';
+import GetTheApp from '@/components/GetTheApp';
 import HeroSection from '@/components/HeroSection';
 import Navbar from '@/components/Navbar';
 import SectionTabs from '@/components/SectionTabs';
+import ShopProductsSection from '@/components/ShopProductsSection';
 import SubCategories from '@/components/SubCategories';
 import TrendingShops from '@/components/TrendingShops';
 import React, { useState } from 'react';
@@ -21,6 +23,8 @@ const MooonitHomepage: React.FC = () => {
       <SubCategories activeSection={selectedSection} />
       <TrendingShops activeSection={selectedSection} />
       <Advertisments activeSection={selectedSection} />
+      <ShopProductsSection activeSection={selectedSection} />
+      <GetTheApp />
       <Footer />
     </>
   );

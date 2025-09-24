@@ -39,7 +39,7 @@ export default function Advertisments({ activeSection }: { activeSection: string
     if (loading) return <p className="text-center py-8">Loading advertisements...</p>
 
     return (
-        <div className="min-h-screen p-4">
+        <div className="p-4">
             <div className="max-w-7xl mx-auto relative">
                 <Carousel className="w-full">
                     <CarouselContent>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import SectionButton from "./SectionButton";
 
-const sections = ["Women", "Men", "Foot Wear", "Accessories"];
+const sections = ["Women", "Foot Wear", "Accessories", "Bags"];
 
 export default function SectionTabs({ onSelect }: { onSelect: (section: string) => void }) {
   const [active, setActive] = useState("Women");
