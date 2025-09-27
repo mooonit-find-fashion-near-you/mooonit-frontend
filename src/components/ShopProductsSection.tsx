@@ -8,6 +8,7 @@ import { SubCategory } from "@/data/subCategoriesData";
 import ShopCard from "@/components/ShopCard";
 import ProductCard from "@/components/ProductCard";
 import axios from "axios";
+import Link from "next/link";
 
 interface ShopProductsSectionProps {
     activeSection: string;
@@ -21,36 +22,27 @@ const ShopProductsSection: React.FC<ShopProductsSectionProps> = ({ activeSection
     const [products, setProducts] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
 
-    // Fetch data from backend whenever filters change
     useEffect(() => {
         if (!selectedCategory) return;
 
         const fetchData = async () => {
             setLoading(true);
-            console.log("Fetching data...");
             try {
                 if (activeTab === "Shop") {
-                    console.log("Fetching shops...");
                     const res = await axios.get(
                         `/api/shops?section=${activeSection}&category=${selectedCategory.slug}`
                     );
-                    console.log(`/api/shops?section=${activeSection}&category=${selectedCategory.slug}`);
-
-                    console.log("Fetched shops:", res.data);
                     setShops(res.data);
                 } else {
-                    console.log("Fetching products...");
                     const res = await axios.get(
                         `/api/products?section=${activeSection}&category=${selectedCategory.slug}`
                     );
-                    console.log("Fetched products:", res.data);
                     setProducts(res.data);
                 }
             } catch (err) {
                 console.error("Error fetching data:", err);
             } finally {
                 setLoading(false);
-                console.log("Finished fetching data");
             }
         };
 
@@ -95,18 +87,38 @@ const ShopProductsSection: React.FC<ShopProductsSectionProps> = ({ activeSection
                             Our Shops
                         </h1>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center gap-6">
-                            {shops.map((shop) => (
-                                <ShopCard key={shop.id} shop={shop} />
+                            {shops.slice(0, 6).map((shop) => (
+                                <ShopCard key={shop.id} shop={shop} activeSection={activeSection} selectedCategory={selectedCategory} />
                             ))}
                         </div>
+                        {shops.length > 6 && selectedCategory && (
+                            <div className="text-center mt-8">
+                                <Link
+                                    href={`/shops?section=${activeSection}&category=${selectedCategory.slug}`}
+                                    className="px-6 py-2 rounded-md bg-black text-white hover:bg-gray-800 transition"
+                                >
+                                    Explore More
+                                </Link>
+                            </div>
+                        )}
                     </>
                 ) : (
                     <>
                         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6 place-items-center">
-                            {products.map((product) => (
+                            {products.slice(0, 6).map((product) => (
                                 <ProductCard key={product.id} {...product} />
                             ))}
                         </div>
+                        {products.length > 6 && selectedCategory && (
+                            <div className="text-center mt-8">
+                                <Link
+                                    href={`/products?section=${activeSection}&category=${selectedCategory.slug}`}
+                                    className="px-6 py-2 rounded-md bg-black text-white hover:bg-gray-800 transition"
+                                >
+                                    Explore More
+                                </Link>
+                            </div>
+                        )}
                     </>
                 )}
             </div>
