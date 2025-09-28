@@ -9,7 +9,7 @@ interface ProductCardProps {
     overlayText: string
     title: string
     description: string
-    price: string 
+    price: string
     onAddToCart?: () => void
 }
 
@@ -45,7 +45,7 @@ export default function ProductCard({ image, imageAlt, overlayText, title, descr
                     className="w-full font-[outfit] bg-[#ffdc91] hover:bg-[#fbbc04] text-[#2c2d3a] font-medium py-3 rounded-full flex items-center justify-center gap-2 transition-colors"
                 >
                     <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M14.041 6.5V4.75M14.041 4.75H17.541L18.416 18.75H2.66602L3.54102 4.75H7.04102M14.041 4.75C14.041 3.82174 13.6723 2.9315 13.0159 2.27513C12.3595 1.61875 11.4693 1.25 10.541 1.25C9.61276 1.25 8.72252 1.61875 8.06614 2.27513C7.40976 2.9315 7.04102 3.82174 7.04102 4.75M14.041 4.75H7.04102M7.04102 4.75V6.5" stroke="#2C2D3A" stroke-width="1.66667" stroke-miterlimit="10" />
+                        <path d="M14.041 6.5V4.75M14.041 4.75H17.541L18.416 18.75H2.66602L3.54102 4.75H7.04102M14.041 4.75C14.041 3.82174 13.6723 2.9315 13.0159 2.27513C12.3595 1.61875 11.4693 1.25 10.541 1.25C9.61276 1.25 8.72252 1.61875 8.06614 2.27513C7.40976 2.9315 7.04102 3.82174 7.04102 4.75M14.041 4.75H7.04102M7.04102 4.75V6.5" stroke="#2C2D3A" strokeWidth="1.66667" strokeMiterlimit="10" />
                     </svg>
                     Add To Cart
                 </Button>

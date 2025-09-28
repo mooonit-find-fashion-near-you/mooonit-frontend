@@ -1,4 +1,3 @@
-// components/FiltersBar.tsx
 import { Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectItem, SelectTrigger, SelectContent, SelectValue, } from "@/components/ui/select";
@@ -23,9 +22,9 @@ export default function FiltersBar({ activeCategory, selectedSizes, priceRange, 
                 <span className="font-normal text-2xl font-[TOPLUXURY]">Filters</span>
 
                 <Select value={activeCategory} onValueChange={onCategoryChange}>
-                    <SelectTrigger className="w-64 bg-[#ffdc91] border-[#ffdc91] hover:bg-[#fbbc04] focus:ring-2 focus:ring-[#fbbc04] text-sm font-medium">
+                    <SelectTrigger className="w-fit bg-[#ffdc91] border-[#ffdc91] hover:bg-[#fbbc04] focus:ring-2 focus:ring-[#fbbc04] text-sm font-medium">
                         <SelectValue>
-                            <div className="flex items-center justify-between w-full">
+                            <div className="flex items-center justify-between w-full gap-2">
                                 <span>{getSelectedCategoryName()}</span>
                                 <span className="text-xs bg-white/30 px-2 py-1 rounded">
                                     {getProductCount(activeCategory)} products
@@ -62,13 +61,6 @@ export default function FiltersBar({ activeCategory, selectedSizes, priceRange, 
                         Clear Filters
                     </Button>
                 )}
-            </div>
-
-            <div className="flex items-center gap-4 text-[#757575] font-[TOPLUXURY] text-xl">
-                <span>All</span>
-                <span>I</span>
-                <span className="bg-[#fbbc04] px-2 py-1 rounded">N</span>
-                <span>XXI</span>
             </div>
         </div>
     );
