@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { heroData } from "@/data/heroData";
-import { Button } from "./ui/button";
 import React from "react";
+import { Button } from "@/components/ui/button";
 
 export default function HeroSection({ activeSection }: { activeSection: string }) {
     const data = heroData[activeSection] || heroData["Women"];

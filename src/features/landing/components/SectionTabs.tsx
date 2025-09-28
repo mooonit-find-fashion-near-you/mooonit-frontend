@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import SectionButton from "./SectionButton";
+import SectionButton from "../SectionButton";
 
 const sections = ["Women", "Foot Wear", "Accessories", "Bags"];
 

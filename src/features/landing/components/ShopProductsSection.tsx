@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import SectionButton from "@/components/SectionButton";
+import SectionButton from "@/features/landing/SectionButton";
 import SubCategories from "./SubCategories";
 import { SubCategory } from "@/data/subCategoriesData";
 

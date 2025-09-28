@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { PromotionalBanner } from "@/components/PromotionalBanner"
+import { PromotionalBanner } from "@/features/landing/PromotionalBanner"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 
 type Advertisement = {

@@ -1,13 +1,13 @@
 "use client"
 
-import Advertisments from '@/components/Advertisments';
+import Advertisments from '@/features/landing/components/Advertisments';
 
-import HeroSection from '@/components/HeroSection';
-import SectionTabs from '@/components/SectionTabs';
-import ShopProductsSection from '@/components/ShopProductsSection';
-import SubCategories from '@/components/SubCategories';
-import TrendingShops from '@/components/TrendingShops';
+import SectionTabs from '@/features/landing/components/SectionTabs';
+import ShopProductsSection from '@/features/landing/components/ShopProductsSection';
+import SubCategories from '@/features/landing/components/SubCategories';
+import TrendingShops from '@/features/landing/components/TrendingShops';
 import React, { useState } from 'react';
+import HeroSection from '@/features/landing/components/HeroSection';
 
 const MooonitHomepage: React.FC = () => {
 

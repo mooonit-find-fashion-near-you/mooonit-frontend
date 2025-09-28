@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
-import ShopCard from "./ShopCard"
+import ShopCard from "../../../components/ShopCard"
 
 type Shop = {
     id: number

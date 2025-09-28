@@ -2,7 +2,7 @@
 
 import { Search, ShoppingCart, User } from "lucide-react";
 import React, { useState } from "react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "./ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../ui/select";
 import Image from "next/image";
 
 const Navbar = () => {

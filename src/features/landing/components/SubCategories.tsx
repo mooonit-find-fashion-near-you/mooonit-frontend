@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { subCategoriesData, SubCategory } from "@/data/subCategoriesData";
-import SubCategoryCard from "./SubCategoryCard";
+import SubCategoryCard from "../SubCategoryCard";
 import Link from "next/link";
 
 interface SubCategoriesProps {

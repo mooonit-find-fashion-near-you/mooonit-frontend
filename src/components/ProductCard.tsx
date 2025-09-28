@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 interface ProductCardProps {
     image: string
@@ -8,7 +9,7 @@ interface ProductCardProps {
     overlayText: string
     title: string
     description: string
-    price: string
+    price: string 
     onAddToCart?: () => void
 }
 
@@ -16,7 +17,14 @@ export default function ProductCard({ image, imageAlt, overlayText, title, descr
     return (
         <div className="bg-[#ffffff] rounded-2xl overflow-hidden shadow-lg max-w-md">
             <div className="relative">
-                <img src={image || "/placeholder.svg"} alt={imageAlt} className="aspect-square object-cover rounded-3xl" />
+                <Image
+                    src={image}
+                    alt={imageAlt}
+                    width={400}
+                    height={400}
+                    className="aspect-square object-cover rounded-3xl"
+                    priority
+                />
                 <div className="absolute bottom-0 left-0 right-0 w-full h-1/2 bg-gradient-to-t from-black/55 rounded-b-3xl"></div>
                 <div className="absolute bottom-6 left-6 flex items-center gap-3">
                     <svg width="20" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
