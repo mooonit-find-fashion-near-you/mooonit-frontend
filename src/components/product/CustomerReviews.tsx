@@ -145,7 +145,7 @@ export default function CustomerReviews({ productId }: CustomerReviewsProps) {
                                         style={{ width: rating.percentage }}
                                     ></div>
                                 </div>
-                                <span className="text-sm text-[#757575] w-8 text-right">
+                                <span className="text-sm bg-gray-200 rounded-sm grid place-items-center text-[#757575] px-2 py-0.5 text-right">
                                     {rating.count}
                                 </span>
                             </div>
@@ -159,7 +159,7 @@ export default function CustomerReviews({ productId }: CustomerReviewsProps) {
 
                     {/* Navigation Arrows */}
                     {reviewData.reviews.length > 1 && (
-                        <div className="flex justify-between absolute top-[35%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[81%] mt-4">
+                        <div className="flex justify-between absolute top-5/12 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[82%] mt-4">
                             <button
                                 onClick={handlePrevReview}
                                 className="h-8 aspect-square rounded-full bg-gray-200 shadow-xl shadow-black/40 hover:bg-gray-300 cursor-pointer grid place-items-center border border-gray-400 text-gray-700"
@@ -216,7 +216,7 @@ function ReviewCard({ review }: ReviewCardProps) {
     };
 
     return (
-        <div className="bg-white absolute top-5/12 w-full max-w-3/4 left-1/2 transform -translate-1/2 p-6 rounded-xl shadow-lg">
+        <div className="bg-white absolute top-1/2 w-full max-w-3/4 left-1/2 transform -translate-1/2 p-6 rounded-xl shadow-lg">
             <div className="flex space-x-1 mb-3">
                 {[1, 2, 3, 4, 5].map((star) => (
                     <Star
