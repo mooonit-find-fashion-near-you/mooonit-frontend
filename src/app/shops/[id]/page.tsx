@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import { shops, Shop } from "@/data/shops";
 import { subCategoriesData } from "@/data/subCategoriesData";
-import ShopHero from "@/features/shop/components/ShopHero";
-import FiltersBar from "@/features/shop/components/FiltersBar";
-import SidebarFilters from "@/features/shop/components/SidebarFilters";
-import ProductGrid from "@/features/shop/components/ProductGrid";
+import ShopHero from "@/components/shop/main/ShopHero";
+import FiltersBar from "@/components/shop/main/FiltersBar";
+import SidebarFilters from "@/components/shop/main/SidebarFilters";
+import ProductGrid from "@/components/shop/main/ProductGrid";
 import LoadingState from "@/components/feedback/LoadingState";
 
 interface Product {
-  id: number;
+  id: string | undefined;
   title: string;
   price: string;
   image: string;
@@ -37,7 +37,7 @@ export default function ShopPage() {
 
   const [shop, setShop] = useState<Shop | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
-  const [allProducts, setAllProducts] = useState<Product[]>([]); // Store all products for price range calculation
+  // const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState<string>(selectedCategorySlug || "all");
   const [priceRange, setPriceRange] = useState([0, 10000]);
@@ -99,7 +99,7 @@ export default function ShopPage() {
       if (!response.ok) throw new Error("Failed to fetch all products");
 
       const productsData: Product[] = await response.json();
-      setAllProducts(productsData);
+      // setAllProducts(productsData);
 
       // Calculate and set dynamic price range
       const priceRange = calculatePriceRange(productsData);

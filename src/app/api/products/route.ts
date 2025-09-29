@@ -3,7 +3,7 @@ import { mockProducts } from '@/data/mockProducts';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  
+
   const shopId = searchParams.get('shopId');
   const section = searchParams.get('section');
   const category = searchParams.get('category');
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
 
     // Filter by shopId
     if (shopId) {
-      filteredProducts = filteredProducts.filter(product => 
+      filteredProducts = filteredProducts.filter(product =>
         product.shopId === parseInt(shopId)
       );
     }
@@ -38,21 +38,22 @@ export async function GET(request: NextRequest) {
     // Filter by price range
     if (minPrice) {
       filteredProducts = filteredProducts.filter(product =>
-        product.price >= parseInt(minPrice)
+        Number(product.price) >= parseInt(minPrice)
       );
     }
 
     if (maxPrice) {
       filteredProducts = filteredProducts.filter(product =>
-        product.price <= parseInt(maxPrice)
+        Number(product.price) <= parseInt(maxPrice)
       );
     }
+
 
     // Filter by sizes
     if (sizes) {
       const sizeArray = sizes.split(',');
       filteredProducts = filteredProducts.filter(product =>
-        sizeArray.some(size => product.sizes.includes(size))
+        sizeArray.some(size => product.sizes?.includes(size))
       );
     }
 
@@ -63,30 +64,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error fetching products:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch products' }, 
-      { status: 500 }
-    );
-  }
-}
-
-// Optional: Endpoint for category counts
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const { shopId, section } = body;
-
-    // This would normally query your database
-    const categoryCounts = {
-      dresses: 12,
-      shoes: 8,
-      accessories: 15,
-      tops: 7
-    };
-
-    return NextResponse.json(categoryCounts);
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Failed to fetch category counts' }, 
+      { error: 'Failed to fetch products' },
       { status: 500 }
     );
   }

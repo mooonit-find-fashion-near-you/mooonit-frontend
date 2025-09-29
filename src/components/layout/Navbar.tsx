@@ -4,6 +4,7 @@ import { Search, ShoppingCart, User } from "lucide-react";
 import React, { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../ui/select";
 import Image from "next/image";
+import Link from "next/link";
 
 const Navbar = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -27,7 +28,9 @@ const Navbar = () => {
                     <div className="flex items-center justify-between h-16 lg:h-20">
                         {/* Logo */}
                         <figure>
-                            <Image src="/images/logo.svg" alt="Mooonit Logo" width={120} height={40} />
+                            <Link href="/">
+                                <Image src="/images/logo.svg" alt="Mooonit Logo" width={120} height={40} />
+                            </Link>
                         </figure>
 
                         {/* Desktop Search Bar - Hidden on mobile */}
@@ -52,9 +55,9 @@ const Navbar = () => {
                                         </SelectTrigger>
                                         <SelectContent className="font-[outfit]">
                                             <SelectItem value="all">All Category</SelectItem>
-                                            <SelectItem value="clothes">Clothes</SelectItem>
-                                            <SelectItem value="accessories">Accessories</SelectItem>
+                                            <SelectItem value="clothes">Women</SelectItem>
                                             <SelectItem value="footwear">Footwear</SelectItem>
+                                            <SelectItem value="accessories">Accessories</SelectItem>
                                             <SelectItem value="bags">Bags</SelectItem>
                                         </SelectContent>
                                     </Select>
