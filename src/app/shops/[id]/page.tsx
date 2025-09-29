@@ -1,7 +1,7 @@
 // page.tsx (main file)
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import { shops, Shop } from "@/data/shops";
 import { subCategoriesData } from "@/data/subCategoriesData";
@@ -25,25 +25,28 @@ export default function ShopPage() {
 
   const [shop, setShop] = useState<Shop | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
-  // const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState<string>(selectedCategorySlug || "all");
   const [priceRange, setPriceRange] = useState([0, 10000]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [categoryCounts, setCategoryCounts] = useState<CategoryCount>({});
   const [dynamicPriceRange, setDynamicPriceRange] = useState<{ min: number; max: number }>({ min: 0, max: 10000 });
-  const [filtersInitialized, setFiltersInitialized] = useState(false);
+
+  // Use refs to track initialization state
+  const isInitialized = useRef(false);
+  const filterTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Helper function to extract numeric price from string
   const extractPrice = (priceString: string): number => {
     if (!priceString) return 0;
 
-    // Remove currency symbols, spaces, and commas
-    const numericString = priceString.replace(/[₹Rs.,\s]/g, '');
+    // Remove ₹, Rs, commas, spaces — but KEEP the dot
+    const numericString = priceString.replace(/[₹,\s]|Rs\.?/g, '');
     const price = parseFloat(numericString);
 
     return isNaN(price) ? 0 : price;
   };
+
   // Calculate dynamic price range from available products
   const calculatePriceRange = (productList: Product[]) => {
     if (productList.length === 0) {
@@ -60,15 +63,21 @@ export default function ShopPage() {
     };
   };
 
-  const fetchProducts = async (filters: { shopId: number; section: string; category?: string; minPrice?: number; maxPrice?: number; sizes?: string[]; }) => {
+  const fetchProducts = async (filters: {
+    shopId: number;
+    section: string;
+    category?: string;
+    minPrice?: number;
+    maxPrice?: number;
+    sizes?: string[];
+  }) => {
     try {
-      setLoading(true);
       const params = new URLSearchParams({
         shopId: filters.shopId.toString(),
         section: filters.section,
         ...(filters.category && filters.category !== 'all' && { category: filters.category }),
-        ...(filters.minPrice && { minPrice: filters.minPrice.toString() }),
-        ...(filters.maxPrice && { maxPrice: filters.maxPrice.toString() }),
+        ...(filters.minPrice !== undefined && { minPrice: filters.minPrice.toString() }),
+        ...(filters.maxPrice !== undefined && { maxPrice: filters.maxPrice.toString() }),
         ...(filters.sizes && filters.sizes.length > 0 && { sizes: filters.sizes.join(',') })
       });
 
@@ -76,33 +85,9 @@ export default function ShopPage() {
       if (!response.ok) throw new Error('Failed to fetch products');
 
       const productsData = await response.json();
-      setProducts(productsData);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-      setProducts([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchAllProducts = async (shopId: number, section: string) => {
-    try {
-      const response = await fetch(`/api/products?shopId=${shopId}&section=${section}`);
-      if (!response.ok) throw new Error("Failed to fetch all products");
-
-      const productsData: Product[] = await response.json();
-      // setAllProducts(productsData);
-
-      // Calculate and set dynamic price range
-      const priceRange = calculatePriceRange(productsData);
-      setDynamicPriceRange(priceRange);
-
-      // Reset price filter to use new range if current range is outside bounds
-      setPriceRange([priceRange.min, priceRange.max]);
-
       return productsData;
     } catch (error) {
-      console.error("Error fetching all products:", error);
+      console.error("Error fetching products:", error);
       return [];
     }
   };
@@ -117,13 +102,14 @@ export default function ShopPage() {
       // group products by category slug
       const counts: CategoryCount = {};
       productsData.forEach((product) => {
-        const slug = product.category.toLowerCase(); // assuming product.category = "topwear"
+        const slug = product.category.toLowerCase();
         counts[slug] = (counts[slug] || 0) + 1;
       });
 
-      setCategoryCounts(counts);
+      return counts;
     } catch (error) {
       console.error("Error fetching category counts:", error);
+      return {};
     }
   };
 
@@ -146,50 +132,85 @@ export default function ShopPage() {
     return options;
   };
 
+  // Initial load effect
   useEffect(() => {
     if (!id) return;
 
-    const fetchShopData = async () => {
+    // Reset initialization flag when shop or section changes
+    isInitialized.current = false;
+
+    const initializeShopData = async () => {
       try {
+        setLoading(true);
         const shopId = parseInt(id as string);
         const foundShop = shops.find(s => s.id === shopId);
 
-        if (!foundShop) throw new Error("Shop not found");
+        if (!foundShop) {
+          throw new Error("Shop not found");
+        }
 
         setShop(foundShop);
 
-        // Fetch all data in parallel
-        await Promise.all([
-          fetchAllProducts(shopId, selectedSection),
+        // Fetch all products for this shop and section to get counts and price range
+        const [allProducts, counts] = await Promise.all([
+          fetchProducts({ shopId, section: selectedSection }),
           fetchCategoryCounts(shopId, selectedSection)
         ]);
-        setFiltersInitialized(true); // Indicate that initial filters are set
 
-        // Then fetch filtered products
-        await fetchProducts({
+        // Calculate and set dynamic price range
+        const priceRangeData = calculatePriceRange(allProducts);
+        setDynamicPriceRange(priceRangeData);
+        setPriceRange([priceRangeData.min, priceRangeData.max]);
+        setCategoryCounts(counts);
+
+        // Now fetch filtered products with initial filters
+        const filteredProducts = await fetchProducts({
           shopId,
           section: selectedSection,
-          category: activeCategory,
-          minPrice: priceRange[0],
-          maxPrice: priceRange[1],
-          sizes: selectedSizes
+          category: selectedCategorySlug || "all",
+          minPrice: priceRangeData.min,
+          maxPrice: priceRangeData.max,
+          sizes: []
         });
+
+        setProducts(filteredProducts);
+        setActiveCategory(selectedCategorySlug || "all");
+
+        // Mark as initialized only after everything is loaded
+        isInitialized.current = true;
       } catch (err) {
-        console.error("Error fetching shop:", err);
+        console.error("Error initializing shop:", err);
+      } finally {
         setLoading(false);
       }
     };
 
-    fetchShopData();
-  }, [id, selectedSection]);
+    initializeShopData();
 
+    // Cleanup function
+    return () => {
+      if (filterTimeoutRef.current) {
+        clearTimeout(filterTimeoutRef.current);
+      }
+    };
+  }, [id, selectedSection]); // Only depend on id and selectedSection
+
+  // Filter update effect
   useEffect(() => {
-    if (!id || !shop || !filtersInitialized) return;
+    // Don't run this effect until initialization is complete
+    if (!isInitialized.current || !id || !shop) return;
 
-    const shopId = parseInt(id as string);
+    // Clear any existing timeout
+    if (filterTimeoutRef.current) {
+      clearTimeout(filterTimeoutRef.current);
+    }
 
-    const timeoutId = setTimeout(() => {
-      fetchProducts({
+    // Debounce filter updates
+    filterTimeoutRef.current = setTimeout(async () => {
+      setLoading(true);
+
+      const shopId = parseInt(id as string);
+      const filteredProducts = await fetchProducts({
         shopId,
         section: selectedSection,
         category: activeCategory,
@@ -198,13 +219,16 @@ export default function ShopPage() {
         sizes: selectedSizes
       });
 
-      if (activeCategory !== "all") {
-        fetchCategoryCounts(shopId, selectedSection);
-      }
+      setProducts(filteredProducts);
+      setLoading(false);
     }, 300);
 
-    return () => clearTimeout(timeoutId);
-  }, [activeCategory, selectedSection, priceRange, selectedSizes, id, shop, filtersInitialized]);
+    return () => {
+      if (filterTimeoutRef.current) {
+        clearTimeout(filterTimeoutRef.current);
+      }
+    };
+  }, [activeCategory, priceRange, selectedSizes]); // Only filter-related dependencies
 
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
@@ -222,7 +246,7 @@ export default function ShopPage() {
 
   const clearAllFilters = () => {
     setActiveCategory("all");
-    setPriceRange([dynamicPriceRange.min, dynamicPriceRange.max]); // Reset to dynamic range
+    setPriceRange([dynamicPriceRange.min, dynamicPriceRange.max]);
     setSelectedSizes([]);
   };
 

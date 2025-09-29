@@ -110,8 +110,8 @@ export default function SidebarFilters({
                                 className="w-full"
                             />
                             <div className="flex justify-between text-sm text-[#757575]">
-                                <span>Rs. {priceRange[0].toLocaleString()}</span>
-                                <span>Rs. {priceRange[1].toLocaleString()}</span>
+                                <span>₹{priceRange[0].toLocaleString()}.00</span>
+                                <span>₹{priceRange[1].toLocaleString()}.00</span>
                             </div>
                         </>
                     )}

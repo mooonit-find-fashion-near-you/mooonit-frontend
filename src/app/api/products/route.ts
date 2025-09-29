@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { mockProducts } from '@/data/mockProducts';
 
-// Helper function to extract numeric price (same as in page.tsx)
+// Helper function to extract numeric price
 const extractPrice = (priceString: string): number => {
   if (!priceString) return 0;
-  const numericString = priceString.replace(/[₹Rs.,\s]/g, '');
+  // Remove ₹, Rs, commas, spaces — but keep the dot
+  const numericString = priceString.replace(/[₹Rs,\s]/g, '');
   const price = parseFloat(numericString);
   return isNaN(price) ? 0 : price;
 };
+
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
