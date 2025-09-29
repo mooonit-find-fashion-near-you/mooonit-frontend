@@ -1,41 +1,87 @@
-// components/product/RecommendedProducts.tsx
+// components/product/RecommendedProducts.tsx (with shadcn carousel)
+"use client";
+
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
 import { Product } from "@/data/mockProducts";
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Button } from "@/components/ui/button";
 
 interface RecommendedProductsProps {
     products: Product[];
+    currentProductId: string;
 }
 
-export default function RecommendedProducts({ products }: RecommendedProductsProps) {
+export default function RecommendedProducts({
+    products,
+    currentProductId
+}: RecommendedProductsProps) {
+    const router = useRouter();
+
+    const handleProductClick = (productId: string) => {
+        router.push(`/products/${productId}`);
+    };
+
+    if (products.length === 0) {
+        return null;
+    }
+
     return (
         <section className="mb-12">
-            <div className="flex items-center justify-between mb-8">
-                <h2 className="text-3xl font-normal font-[TOPLUXURY]">You Might Also Like</h2>
-                <div className="flex space-x-2">
-                    <button className="p-2 border border-[#e7e7e7] rounded-full hover:bg-[#f0f0f0]">
-                        <ChevronLeft className="w-5 h-5 text-[#757575]" />
-                    </button>
-                    <button className="p-2 border border-[#e7e7e7] rounded-full hover:bg-[#f0f0f0]">
-                        <ChevronRight className="w-5 h-5 text-[#757575]" />
-                    </button>
-                </div>
-            </div>
+            <Carousel
+                opts={{ align: "start", loop: true, }}
+                className="w-full"
+            >
+                <div className="flex items-center justify-between mb-8">
+                    <h2 className="text-3xl font-normal font-[TOPLUXURY]">
+                        You Might Also Like
+                    </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {products.map((product) => (
-                    <ProductCard
-                        key={product.id}
-                        id={product.id}
-                        image={product.images?.[0] || ""}
-                        imageAlt={product.title}
-                        overlayText={product.category}
-                        title={product.title}
-                        description={product.description}
-                        price={product.price.toString()}
-                    />
-                ))}
-            </div>
+                    {/* Custom navigation buttons that work with the carousel */}
+                    <div className="flex space-x-2">
+                        <CarouselPrevious className="static translate-y-0 border border-[#e7e7e7] hover:bg-[#f0f0f0]" />
+                        <CarouselNext className="static translate-y-0 border border-[#e7e7e7] hover:bg-[#f0f0f0]" />
+                    </div>
+                </div>
+
+                {/* FIXME: due to overflow shadow of it is not visible. also responsiveness is ruined */}
+                <CarouselContent className="-ml-4">
+                    {products.map((product) => (
+                        <CarouselItem
+                            key={product.id}
+                            className="pl-5 md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                        >
+                            <div
+                                className="cursor-pointer"
+                                onClick={() => handleProductClick(product.id)}
+                            >
+                                <ProductCard
+                                    id={product.id}
+                                    image={product.images?.[0] || ""}
+                                    imageAlt={product.title}
+                                    overlayText={product.category}
+                                    title={product.title}
+                                    description={product.description}
+                                    price={product.price.toString()}
+                                />
+                            </div>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+
+                {/* Mobile-only navigation arrows */}
+                <div className="flex justify-center mt-6 md:hidden">
+                    <CarouselPrevious className="static translate-y-0 mx-2" />
+                    <CarouselNext className="static translate-y-0 mx-2" />
+                </div>
+            </Carousel>
         </section>
     );
 }

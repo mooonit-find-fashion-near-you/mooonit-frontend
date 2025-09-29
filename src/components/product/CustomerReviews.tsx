@@ -1,7 +1,7 @@
 // components/product/CustomerReviews.tsx
 "use client";
 
-import { ArrowBigLeftDash, ArrowBigRightDash, Star } from "lucide-react";
+import { ArrowBigLeftDash, ArrowBigRightDash, BadgeCheck, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -232,10 +232,10 @@ function ReviewCard({ review }: ReviewCardProps) {
             <p className="text-[#757575] mb-4">{review.comment}</p>
 
             <div className="flex items-center justify-between">
-                <span className="font-semibold text-[#2c2d3a]">
+                <span className="font-semibold flex items-center gap-1 text-[#2c2d3a]">
                     {review.author}
                     {review.verified && (
-                        <span className="ml-2 text-xs text-green-600">✓ Verified</span>
+                        <BadgeCheck size={15} className="text-green-600" />
                     )}
                 </span>
                 <span className="text-sm text-[#757575]">
