@@ -61,7 +61,7 @@ export default function ProductPage() {
                     />
                 </div>
 
-                <CustomerReviews />
+                <CustomerReviews productId={id as string} />
                 <RecommendedProducts products={recommendedProducts} />
             </main>
         </div>

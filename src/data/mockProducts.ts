@@ -27,7 +27,7 @@ const getRandomSizes = () => {
 // helper function to generate 7 random images
 const generateImages = () => {
     const randomId = Math.floor(Math.random() * 10000);
-    return Array.from({ length: 7 }, (_, i) =>
+    return Array.from({ length: 5 }, (_, i) =>
         `https://picsum.photos/1920/1080?random=${randomId + i}`
     );
 };
@@ -51,7 +51,7 @@ export const mockProducts: Product[] = [
     { id: "prod-16", images: generateImages(), imageAlt: "Culottes", overlayText: "Smart Casual", title: "Wide-Leg Culottes", description: "Chic culottes perfect for semi-formal occasions", price: "₹1,999.00", oldPrice: "₹2,399.00", section: "Women", category: "bottomwear", shopId: 8, sizes: getRandomSizes() },
     { id: "prod-17", images: generateImages(), imageAlt: "Midi Skirt", overlayText: "Versatile", title: "Pleated Midi Skirt", description: "Elegant pleated skirt that pairs with everything", price: "₹1,599.00", oldPrice: "₹1,899.00", section: "Women", category: "bottomwear", shopId: 9, sizes: getRandomSizes() },
     { id: "prod-18", images: generateImages(), imageAlt: "Jogger Pants", overlayText: "Comfort", title: "Casual Jogger Pants", description: "Comfortable jogger-style pants for relaxed days", price: "₹1,399.00", oldPrice: "₹1,699.00", section: "Women", category: "bottomwear", shopId: 9, sizes: getRandomSizes() },
-    { id: "prod-19", images: generateImages(), imageAlt: "Evening Gown", overlayText: "Luxury", title: "Designer Evening Gown", description: "Exclusive designer gown for red carpet events", price: "₹8,999.00", oldPrice: "₹1,0999.00", section: "Women", category: "bottomwear", shopId: 10, sizes: getRandomSizes() },
+    { id: "prod-19", images: generateImages(), imageAlt: "Evening Gown", overlayText: "Luxury", title: "Designer Evening Gown", description: "Exclusive designer gown for red carpet events", price: "₹8,999.00", oldPrice: "₹10,999.00", section: "Women", category: "bottomwear", shopId: 10, sizes: getRandomSizes() },
     { id: "prod-20", images: generateImages(), imageAlt: "Sequined Skirt", overlayText: "Party Wear", title: "Sequined Party Skirt", description: "Sparkling sequined skirt for night parties", price: "₹4,299.00", oldPrice: "₹4,999.00", section: "Women", category: "bottomwear", shopId: 10, sizes: getRandomSizes() },
     { id: "prod-21", images: generateImages(), imageAlt: "Designer Kurti", overlayText: "Best Seller", title: "Designer Printed Kurti", description: "Handcrafted ethnic kurti with intricate embroidery work", price: "₹1,899.00", oldPrice: "₹2,199.00", section: "Women", category: "topwear", shopId: 1, sizes: getRandomSizes() },
     { id: "prod-22", images: generateImages(), imageAlt: "Silk Saree", overlayText: "Premium", title: "Pure Silk Saree", description: "Traditional silk sare e with golden zari border", price: "₹4,599.00", oldPrice: "₹5,299.00", section: "Women", category: "topwear", shopId: 1, sizes: getRandomSizes() },
@@ -71,7 +71,7 @@ export const mockProducts: Product[] = [
     { id: "prod-36", images: generateImages(), imageAlt: "Culottes", overlayText: "Smart Casual", title: "Wide-Leg Culottes", description: "Chic culottes perfect for semi-formal occasions", price: "₹1,999.00", oldPrice: "₹2,399.00", section: "Women", category: "bottomwear", shopId: 8, sizes: getRandomSizes() },
     { id: "prod-37", images: generateImages(), imageAlt: "Midi Skirt", overlayText: "Versatile", title: "Pleated Midi Skirt", description: "Elegant pleated skirt that pairs with everything", price: "₹1,599.00", oldPrice: "₹1,899.00", section: "Women", category: "bottomwear", shopId: 9, sizes: getRandomSizes() },
     { id: "prod-38", images: generateImages(), imageAlt: "Jogger Pants", overlayText: "Comfort", title: "Casual Jogger Pants", description: "Comfortable jogger-style pants for relaxed days", price: "₹1,399.00", oldPrice: "₹1,699.00", section: "Women", category: "bottomwear", shopId: 9, sizes: getRandomSizes() },
-    { id: "prod-39", images: generateImages(), imageAlt: "Evening Gown", overlayText: "Luxury", title: "Designer Evening Gown", description: "Exclusive designer gown for red carpet events", price: "₹8,999.00", oldPrice: "₹1,0999.00", section: "Women", category: "bottomwear", shopId: 10, sizes: getRandomSizes() },
+    { id: "prod-39", images: generateImages(), imageAlt: "Evening Gown", overlayText: "Luxury", title: "Designer Evening Gown", description: "Exclusive designer gown for red carpet events", price: "₹8,999.00", oldPrice: "₹10,999.00", section: "Women", category: "bottomwear", shopId: 10, sizes: getRandomSizes() },
     { id: "prod-40", images: generateImages(), imageAlt: "Sequined Skirt", overlayText: "Party Wear", title: "Sequined Party Skirt", description: "Sparkling sequined skirt for night parties", price: "₹4,299.00", oldPrice: "₹4,999.00", section: "Women", category: "bottomwear", shopId: 10, sizes: getRandomSizes() }
 ];
 

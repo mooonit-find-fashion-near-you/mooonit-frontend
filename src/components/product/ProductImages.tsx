@@ -1,5 +1,6 @@
 // components/product/ProductImages.tsx
 import Image from "next/image";
+import { useState } from "react";
 
 interface ProductImagesProps {
     images: string[];
@@ -7,30 +8,39 @@ interface ProductImagesProps {
 }
 
 export default function ProductImages({ images, title }: ProductImagesProps) {
+    const [selectedImage, setSelectedImage] = useState(0);
+
     return (
-        <div className="flex space-x-4">
-            <div className="flex flex-col space-y-4">
-                {images?.map((image: string, index: number) => (
-                    <div key={index} className="w-16 bg-[#ffbeb9] rounded-lg overflow-hidden">
+        <div className="flex flex-col lg:flex-row gap-4">
+            {/* Thumbnails - Horizontal on mobile, vertical on desktop */}
+            <div className="flex lg:flex-col gap-2 gap-y-3 order-2 lg:order-1 overflow-x-auto lg:overflow-visible">
+                {images.map((image, index) => (
+                    <button
+                        key={index}
+                        onClick={() => setSelectedImage(index)}
+                        className={`flex-shrink-0 w-22 h-22 rounded-lg p-0.5 border-2 transition-colors ${selectedImage === index ? 'border-[#E54B4B]' : 'border-gray-200 opacity-80 cursor-pointer hover:opacity-90'
+                            }`}
+                    >
                         <Image
                             src={image}
-                            alt={`Product thumbnail ${index + 1}`}
-                            width={192}
-                            height={108}
-                            className="w-full object-cover aspect-square"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            alt=""
+                            width={64}
+                            height={64}
+                            className="w-full h-full object-cover rounded-[0.45rem]"
                         />
-                    </div>
+                    </button>
                 ))}
             </div>
-            <div className="bg-[#ffbeb9] rounded-lg overflow-hidden relative">
+
+            {/* Main Image */}
+            <div className="order-1 lg:order-2 flex-1 aspect-square max-h-11/12">
                 <Image
-                    src={images?.[0]}
+                    src={images[selectedImage]}
                     alt={title}
-                    width={192}
-                    height={108}
-                    className="w-full h-full object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    width={800}
+                    height={800}
+                    className="w-full h-full object-cover rounded-lg"
+                    priority
                 />
             </div>
         </div>
