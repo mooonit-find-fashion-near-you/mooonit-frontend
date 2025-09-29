@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { mockProducts } from '@/data/mockProducts';
 
+// Helper function to extract numeric price (same as in page.tsx)
+const extractPrice = (priceString: string): number => {
+  if (!priceString) return 0;
+  const numericString = priceString.replace(/[₹Rs.,\s]/g, '');
+  const price = parseFloat(numericString);
+  return isNaN(price) ? 0 : price;
+};
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
 
@@ -35,19 +43,20 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Filter by price range
+    // Filter by price range 
     if (minPrice) {
+      const minPriceNum = parseInt(minPrice);
       filteredProducts = filteredProducts.filter(product =>
-        Number(product.price) >= parseInt(minPrice)
+        extractPrice(product.price) >= minPriceNum
       );
     }
 
     if (maxPrice) {
+      const maxPriceNum = parseInt(maxPrice);
       filteredProducts = filteredProducts.filter(product =>
-        Number(product.price) <= parseInt(maxPrice)
+        extractPrice(product.price) <= maxPriceNum
       );
     }
-
 
     // Filter by sizes
     if (sizes) {

@@ -10,19 +10,7 @@ import FiltersBar from "@/components/shop/main/FiltersBar";
 import SidebarFilters from "@/components/shop/main/SidebarFilters";
 import ProductGrid from "@/components/shop/main/ProductGrid";
 import LoadingState from "@/components/feedback/LoadingState";
-
-interface Product {
-  id: string | undefined;
-  title: string;
-  price: string;
-  image: string;
-  category: string;
-  section: string;
-  shopId: number;
-  sizes: string[];
-  overlayText: string;
-  description: string;
-}
+import { Product } from "@/data/mockProducts";
 
 interface CategoryCount {
   [key: string]: number;
@@ -44,14 +32,18 @@ export default function ShopPage() {
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [categoryCounts, setCategoryCounts] = useState<CategoryCount>({});
   const [dynamicPriceRange, setDynamicPriceRange] = useState<{ min: number; max: number }>({ min: 0, max: 10000 });
+  const [filtersInitialized, setFiltersInitialized] = useState(false);
 
   // Helper function to extract numeric price from string
   const extractPrice = (priceString: string): number => {
-    // Remove "Rs. " and any commas, then parse
-    const numericString = priceString.replace(/Rs\.?\s?|,/g, '');
-    return parseInt(numericString) || 0;
-  };
+    if (!priceString) return 0;
 
+    // Remove currency symbols, spaces, and commas
+    const numericString = priceString.replace(/[₹Rs.,\s]/g, '');
+    const price = parseFloat(numericString);
+
+    return isNaN(price) ? 0 : price;
+  };
   // Calculate dynamic price range from available products
   const calculatePriceRange = (productList: Product[]) => {
     if (productList.length === 0) {
@@ -106,10 +98,7 @@ export default function ShopPage() {
       setDynamicPriceRange(priceRange);
 
       // Reset price filter to use new range if current range is outside bounds
-      setPriceRange(prevRange => [
-        Math.max(prevRange[0], priceRange.min),
-        Math.min(prevRange[1], priceRange.max)
-      ]);
+      setPriceRange([priceRange.min, priceRange.max]);
 
       return productsData;
     } catch (error) {
@@ -169,8 +158,12 @@ export default function ShopPage() {
 
         setShop(foundShop);
 
-        // First fetch all products to establish price range
-        await fetchAllProducts(shopId, selectedSection);
+        // Fetch all data in parallel
+        await Promise.all([
+          fetchAllProducts(shopId, selectedSection),
+          fetchCategoryCounts(shopId, selectedSection)
+        ]);
+        setFiltersInitialized(true); // Indicate that initial filters are set
 
         // Then fetch filtered products
         await fetchProducts({
@@ -181,8 +174,6 @@ export default function ShopPage() {
           maxPrice: priceRange[1],
           sizes: selectedSizes
         });
-
-        await fetchCategoryCounts(shopId, selectedSection);
       } catch (err) {
         console.error("Error fetching shop:", err);
         setLoading(false);
@@ -190,28 +181,30 @@ export default function ShopPage() {
     };
 
     fetchShopData();
-  }, [id]);
+  }, [id, selectedSection]);
 
   useEffect(() => {
-    if (!id || !shop) return;
+    if (!id || !shop || !filtersInitialized) return;
 
-    fetchProducts({
-      shopId: parseInt(id as string),
-      section: selectedSection,
-      category: activeCategory,
-      minPrice: priceRange[0],
-      maxPrice: priceRange[1],
-      sizes: selectedSizes
-    });
-    fetchCategoryCounts(parseInt(id as string), selectedSection);
-  }, [activeCategory, selectedSection, priceRange, selectedSizes, id, shop]);
+    const shopId = parseInt(id as string);
 
-  // Update dynamic price range when section changes
-  useEffect(() => {
-    if (!id || !shop) return;
+    const timeoutId = setTimeout(() => {
+      fetchProducts({
+        shopId,
+        section: selectedSection,
+        category: activeCategory,
+        minPrice: priceRange[0],
+        maxPrice: priceRange[1],
+        sizes: selectedSizes
+      });
 
-    fetchAllProducts(parseInt(id as string), selectedSection);
-  }, [selectedSection, id, shop]);
+      if (activeCategory !== "all") {
+        fetchCategoryCounts(shopId, selectedSection);
+      }
+    }, 300);
+
+    return () => clearTimeout(timeoutId);
+  }, [activeCategory, selectedSection, priceRange, selectedSizes, id, shop, filtersInitialized]);
 
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category);

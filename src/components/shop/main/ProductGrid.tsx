@@ -1,19 +1,7 @@
 // components/ProductGrid.tsx
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
-
-interface Product {
-    id: string | undefined;
-    title: string;
-    price: string;
-    image: string;
-    category: string;
-    section: string;
-    shopId: number;
-    sizes: string[];
-    overlayText: string;
-    description: string;
-}
+import { Product } from "@/data/mockProducts";
 
 interface ProductGridProps {
     loading: boolean;
@@ -25,6 +13,7 @@ interface ProductGridProps {
 }
 
 export default function ProductGrid({ loading, products, activeCategory, selectedSection, getSelectedCategoryName, onClearFilters }: ProductGridProps) {
+    
     const hasActiveFilters = activeCategory !== "all";
 
     if (loading) {
@@ -65,7 +54,7 @@ export default function ProductGrid({ loading, products, activeCategory, selecte
                         key={product.id}
                         id={product.id}
                         price={product.price}
-                        image={product.image}
+                        image={product.images[0]} // Use the first image from the images array
                         imageAlt={product.title}
                         overlayText={product.overlayText}
                         title={product.title}

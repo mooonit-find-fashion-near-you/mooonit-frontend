@@ -65,7 +65,7 @@ export default function ProductCard({ id, image, imageAlt, overlayText, title, d
                     {description}
                 </p>
                 <div className="text-[#e54b4b] text-xl font-semibold mb-6 font-[TOPLUXURY]">
-                    Rs. {price}
+                    {price}
                 </div>
 
                 <Button

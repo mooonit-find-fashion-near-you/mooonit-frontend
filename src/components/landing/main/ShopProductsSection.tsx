@@ -95,7 +95,7 @@ const ShopProductsSection: React.FC<ShopProductsSectionProps> = ({ activeSection
                             <div className="text-center mt-8">
                                 <Link
                                     href={`/shops?section=${activeSection}&category=${selectedCategory.slug}`}
-                                    className="px-6 py-2 rounded-md bg-black text-white hover:bg-gray-800 transition"
+                                    className="px-6 py-4 rounded-full bg-[#FFDC91] border border-[#FBBC04] font-[outfit] text-base font-semibold cursor-pointer"
                                 >
                                     Explore More
                                 </Link>
@@ -122,12 +122,11 @@ const ShopProductsSection: React.FC<ShopProductsSectionProps> = ({ activeSection
                                 ))}
                         </div>
                         {products.length > 6 && selectedCategory && (
-                            <div className="text-center mt-8">
+                            <div className="text-center mt-12">
                                 <Link
                                     href={`/products?section=${activeSection}&category=${selectedCategory.slug}`}
-                                    className="px-6 py-2 rounded-md bg-black text-white hover:bg-gray-800 transition"
+                                    className="px-6 py-4 rounded-full bg-[#FFDC91] border border-[#FBBC04] font-[outfit] text-base font-semibold cursor-pointer"
                                 >
-                                    {/* FIXME: improve my ui ft. match to figma file */}
                                     Explore More
                                 </Link>
                             </div>
