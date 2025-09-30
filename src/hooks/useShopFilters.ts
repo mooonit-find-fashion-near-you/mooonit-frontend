@@ -1,6 +1,6 @@
+import { useState, useEffect, useRef } from 'react';
 import { Product } from '@/data/mockProducts';
 import { fetchProducts } from '@/services/productService';
-import { useState, useEffect, useRef } from 'react';
 
 interface UseShopFiltersProps {
     shopId: string | string[] | undefined;
@@ -26,14 +26,22 @@ export const useShopFilters = ({
     const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
 
     const filterTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const initialRender = useRef(true);
 
-    // Update price range when dynamic range changes
     useEffect(() => {
-        setPriceRange([dynamicPriceRange.min, dynamicPriceRange.max]);
-    }, [dynamicPriceRange]);
+        // Only update if values actually changed
+        if (priceRange[0] !== dynamicPriceRange.min || priceRange[1] !== dynamicPriceRange.max) {
+            setPriceRange([dynamicPriceRange.min, dynamicPriceRange.max]);
+        }
+    }, [dynamicPriceRange.min, dynamicPriceRange.max]); 
 
     // Filter update effect
     useEffect(() => {
+        if (initialRender.current) {
+            initialRender.current = false;
+            return;
+        }
+
         if (!isInitialized.current || !shopId) return;
 
         if (filterTimeoutRef.current) {
@@ -62,7 +70,12 @@ export const useShopFilters = ({
                 clearTimeout(filterTimeoutRef.current);
             }
         };
-    }, [activeCategory, priceRange, selectedSizes]);
+    }, [activeCategory, priceRange, selectedSizes, selectedSection]); // Added selectedSection
+
+    // Reset initial render flag when shop changes
+    useEffect(() => {
+        initialRender.current = true;
+    }, [shopId, selectedSection]);
 
     const clearAllFilters = () => {
         setActiveCategory('all');

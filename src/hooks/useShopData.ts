@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { shops, Shop } from '@/data/shops';
 import { Product } from '@/data/mockProducts';
-import { fetchCategoryCounts, fetchProducts } from '@/services/productService';
+import { fetchProducts, fetchCategoryCounts } from '@/services/productService';
 import { calculatePriceRange } from '@/utils/productUtils';
 
 interface UseShopDataProps {
@@ -14,7 +14,7 @@ interface CategoryCount {
   [key: string]: number;
 }
 
-export const useShopData = ({ shopId, selectedSection, selectedCategorySlug }: UseShopDataProps) => {
+export const useShopData = ({ shopId, selectedSection }: UseShopDataProps) => {
   const [shop, setShop] = useState<Shop | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +26,8 @@ export const useShopData = ({ shopId, selectedSection, selectedCategorySlug }: U
   useEffect(() => {
     if (!shopId) return;
 
-    isInitialized.current = false;
+    // Prevent re-initialization if already initialized with same params
+    if (isInitialized.current) return;
 
     const initializeShopData = async () => {
       try {
@@ -46,17 +47,7 @@ export const useShopData = ({ shopId, selectedSection, selectedCategorySlug }: U
         const priceRangeData = calculatePriceRange(allProducts);
         setDynamicPriceRange(priceRangeData);
         setCategoryCounts(counts);
-
-        const filteredProducts = await fetchProducts({
-          shopId: id,
-          section: selectedSection,
-          category: selectedCategorySlug || 'all',
-          minPrice: priceRangeData.min,
-          maxPrice: priceRangeData.max,
-          sizes: []
-        });
-
-        setProducts(filteredProducts);
+        setProducts(allProducts);
         isInitialized.current = true;
       } catch (err) {
         console.error('Error initializing shop:', err);
@@ -66,6 +57,11 @@ export const useShopData = ({ shopId, selectedSection, selectedCategorySlug }: U
     };
 
     initializeShopData();
+  }, [shopId, selectedSection]);
+
+  // Reset initialization when shop or section changes
+  useEffect(() => {
+    isInitialized.current = false;
   }, [shopId, selectedSection]);
 
   return {
