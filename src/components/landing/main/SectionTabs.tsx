@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import SectionButton from "../SectionButton";
-
-const sections = ["Women", "Foot Wear", "Accessories", "Bags"];
+import { sections } from "@/data/heroData";
 
 export default function SectionTabs({ onSelect }: { onSelect: (section: string) => void }) {
   const [active, setActive] = useState("Women");

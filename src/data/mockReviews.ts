@@ -9,77 +9,41 @@ export interface Review {
     verified: boolean;
 }
 
-export const mockReviews: Review[] = [
-    {
-        id: 'rev-1',
-        productId: 'prod-1',
-        rating: 5,
-        comment: 'Absolutely love this kurti! The fabric is premium and the embroidery is exquisite.',
-        author: 'Priya Sharma',
-        date: '2024-01-15',
-        verified: true
-    },
-    {
-        id: 'rev-2',
-        productId: 'prod-1',
-        rating: 4,
-        comment: 'Good quality material, but the size runs a bit small. Would recommend ordering one size up.',
-        author: 'Anjali Patel',
-        date: '2024-01-10',
-        verified: true
-    },
-    {
-        id: 'rev-3',
-        productId: 'prod-1',
-        rating: 5,
-        comment: 'Perfect for festive occasions. Received many compliments!',
-        author: 'Rohit Kumar',
-        date: '2024-01-08',
-        verified: false
-    },
-    {
-        id: 'rev-4',
-        productId: 'prod-2',
-        rating: 5,
-        comment: 'Beautiful silk saree with authentic zari work. Worth every penny!',
-        author: 'Deepika Singh',
-        date: '2024-01-12',
-        verified: true
-    },
-    {
-        id: 'rev-5',
-        productId: 'prod-2',
-        rating: 4,
-        comment: 'Great quality silk saree. The fabric is soft and luxurious, and the zari work is elegant and intricate.',
-        author: 'Neha Kapoor',
-        date: '2024-01-09',
-        verified: true
-    },
-    {
-        id: 'rev-6',
-        productId: 'prod-2',
-        rating: 5,
-        comment: 'Excellent silk saree, perfect for any occasion. Highly recommended!',
-        author: 'Rajesh Kumar',
-        date: '2024-01-11',
-        verified: false
-    },
-    {
-        id: 'rev-7',
-        productId: 'prod-3',
-        rating: 4,
-        comment: 'Good quality cotton shirt. The fit is comfortable and the fabric is soft and breathable.',
-        author: 'Sneha Patel',
-        date: '2024-01-14',
-        verified: true
-    },
-    {
-        id: 'rev-8',
-        productId: 'prod-3',
-        rating: 5,
-        comment: 'Excellent cotton shirt, perfect for any occasion. Highly recommended!',
-        author: 'Ravi Kumar',
-        date: '2024-01-13',
-        verified: false
-    }
+const authors = [
+    "Priya Sharma", "Anjali Patel", "Rohit Kumar", "Deepika Singh", "Neha Kapoor",
+    "Rajesh Kumar", "Sneha Patel", "Ravi Kumar", "Aditi Verma", "Karan Mehta",
+    "Pooja Rani", "Vikas Sharma", "Nisha Agarwal", "Suresh Iyer", "Maya Nair",
+    "Aman Tiwari", "Simran Kaur", "Arjun Desai", "Meena Joshi", "Rahul Bhat"
 ];
+
+const comments = [
+    "Absolutely love this piece! The quality exceeded my expectations.",
+    "Good fabric and design, but sizing could be better.",
+    "Perfect for casual and festive wear. Got many compliments!",
+    "Fabric feels premium and comfortable.",
+    "Decent product for the price. Could be improved.",
+    "Looks exactly like the photos. Very happy with this purchase.",
+    "Delivery was fast and packaging was nice.",
+    "Not worth the price. Expected better quality.",
+    "Stylish and trendy. Fits well.",
+    "Great value for money. Would recommend."
+];
+
+// Helper: random choice
+function pick<T>(arr: T[]): T {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// Generate reviews
+export const mockReviews: Review[] = Array.from({ length: 40 * 3 }).map((_, i) => {
+    const productId = `prod-${Math.floor(i / 3) + 1}`;
+    return {
+        id: `rev-${i + 1}`,
+        productId,
+        rating: Math.floor(Math.random() * 3) + 3, // 3 to 5 stars
+        comment: pick(comments),
+        author: pick(authors),
+        date: `${Math.floor(Math.random() * 12) + 1}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, "0")}-${Math.floor(Math.random() * 10) + 2020}`,
+        verified: Math.random() < 0.7, // 70% verified
+    };
+});
