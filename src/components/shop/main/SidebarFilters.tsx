@@ -10,7 +10,6 @@ interface SidebarFiltersProps {
     onCategoryChange: (category: string) => void;
     onSizeToggle: (size: string) => void;
     onPriceChange: (value: number[]) => void;
-    // New props for dynamic price range
     minPrice: number;
     maxPrice: number;
 }

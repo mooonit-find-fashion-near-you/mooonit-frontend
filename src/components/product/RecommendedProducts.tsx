@@ -1,27 +1,17 @@
 // components/product/RecommendedProducts.tsx (with shadcn carousel)
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
 import { Product } from "@/data/mockProducts";
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, } from "@/components/ui/carousel";
 
 interface RecommendedProductsProps {
     products: Product[];
-    currentProductId: string;
 }
 
 export default function RecommendedProducts({
     products,
-    currentProductId
 }: RecommendedProductsProps) {
     const router = useRouter();
 
