@@ -21,7 +21,7 @@ export default function ShopHero({ shop }: ShopHeroProps) {
             <div className="absolute left-0 bg-gradient-to-r from-black/70 to-transparent w-1/2 h-full"></div>
             <figcaption className="absolute top-5/12 transform -translate-y-1/2 left-18 text-white flex flex-col items-start">
                 <h1 className="text-[5.5rem] font-normal mb-2 uppercase font-[TOPLUXURY]">
-                    {shop.title}
+                    {shop.name}
                 </h1>
                 <p className="flex items-center justify-center gap-2 font-[outfit] text-xl">
                     <svg width="15" height="15" className="text-[#4285f4]" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">

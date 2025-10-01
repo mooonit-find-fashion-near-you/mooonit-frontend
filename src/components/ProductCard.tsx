@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
+import { useState } from "react"
 
 interface ProductCardProps {
     id: string | undefined
@@ -12,10 +13,41 @@ interface ProductCardProps {
     title: string
     description: string
     price: string
-    onAddToCart?: () => void
+    onAddToCart?: () => Promise<void> | void
 }
 
-export default function ProductCard({ id, image, imageAlt, overlayText, title, description, price, onAddToCart, }: ProductCardProps) {
+export default function ProductCard({
+    id,
+    image,
+    imageAlt,
+    overlayText,
+    title,
+    description,
+    price,
+    onAddToCart
+}: ProductCardProps) {
+    const [isAdding, setIsAdding] = useState(false)
+    const [isInCart, setIsInCart] = useState(false)
+
+    const handleAddToCart = async () => {
+        if (isAdding || isInCart) return
+
+        setIsAdding(true)
+        try {
+            // Call the API via the parent component's function
+            if (onAddToCart) {
+                await onAddToCart()
+            }
+            // If successful, update the button state
+            setIsInCart(true)
+        } catch (error) {
+            console.error('Failed to add to cart:', error)
+            // Handle error state if needed
+        } finally {
+            setIsAdding(false)
+        }
+    }
+
     // Add a fallback image or conditionally render
     const imageSrc = image && image.trim() !== '' ? image : `https://picsum.photos/1920/1080?random=${Math.floor(Math.random() * 1000)}`;
 
@@ -68,26 +100,78 @@ export default function ProductCard({ id, image, imageAlt, overlayText, title, d
                     {price}
                 </div>
 
-                <Button
-                    onClick={onAddToCart}
-                    className="w-full font-[outfit] bg-[#ffdc91] hover:bg-[#fbbc04] text-[#2c2d3a] font-medium py-3 rounded-full flex items-center justify-center gap-2 transition-colors"
-                >
-                    <svg
-                        width="21"
-                        height="20"
-                        viewBox="0 0 21 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                {isInCart ? (
+                    <Link href="/cart" className="block">
+                        <Button
+                            className="w-full cursor-pointer font-[outfit] bg-[#4CAF50] hover:bg-[#45a049] text-white font-medium py-3 rounded-full flex items-center justify-center gap-2 transition-colors"
+                        >
+                            <svg
+                                width="21"
+                                height="20"
+                                viewBox="0 0 21 20"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M8.5 14.5H15.5C16.0523 14.5 16.5 14.0523 16.5 13.5V7.5C16.5 6.94772 16.0523 6.5 15.5 6.5H8.5C7.94772 6.5 7.5 6.94772 7.5 7.5V13.5C7.5 14.0523 7.94772 14.5 8.5 14.5Z"
+                                    stroke="white"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                                <path
+                                    d="M10.5 9.5V11.5"
+                                    stroke="white"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                                <path
+                                    d="M7.5 7.5V5.5C7.5 4.96957 7.71071 4.46086 8.08579 4.08579C8.46086 3.71071 8.96957 3.5 9.5 3.5H11.5C12.0304 3.5 12.5391 3.71071 12.9142 4.08579C13.2893 4.46086 13.5 4.96957 13.5 5.5V7.5"
+                                    stroke="white"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                            View Cart
+                        </Button>
+                    </Link>
+                ) : (
+                    <Button
+                        onClick={handleAddToCart}
+                        disabled={isAdding}
+                        className="w-full cursor-pointer font-[outfit] bg-[#ffdc91] hover:bg-[#fbbc04] text-[#2c2d3a] font-medium py-3 rounded-full flex items-center justify-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        <path
-                            d="M14.041 6.5V4.75M14.041 4.75H17.541L18.416 18.75H2.66602L3.54102 4.75H7.04102M14.041 4.75C14.041 3.82174 13.6723 2.9315 13.0159 2.27513C12.3595 1.61875 11.4693 1.25 10.541 1.25C9.61276 1.25 8.72252 1.61875 8.06614 2.27513C7.40976 2.9315 7.04102 3.82174 7.04102 4.75M14.041 4.75H7.04102M7.04102 4.75V6.5"
-                            stroke="#2C2D3A"
-                            strokeWidth="1.66667"
-                            strokeMiterlimit="10"
-                        />
-                    </svg>
-                    Add To Cart
-                </Button>
+                        {isAdding ? (
+                            <>
+                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-[#2c2d3a]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Adding...
+                            </>
+                        ) : (
+                            <>
+                                <svg
+                                    width="21"
+                                    height="20"
+                                    viewBox="0 0 21 20"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M14.041 6.5V4.75M14.041 4.75H17.541L18.416 18.75H2.66602L3.54102 4.75H7.04102M14.041 4.75C14.041 3.82174 13.6723 2.9315 13.0159 2.27513C12.3595 1.61875 11.4693 1.25 10.541 1.25C9.61276 1.25 8.72252 1.61875 8.06614 2.27513C7.40976 2.9315 7.04102 3.82174 7.04102 4.75M14.041 4.75H7.04102M7.04102 4.75V6.5"
+                                        stroke="#2C2D3A"
+                                        strokeWidth="1.66667"
+                                        strokeMiterlimit="10"
+                                    />
+                                </svg>
+                                Add To Cart
+                            </>
+                        )}
+                    </Button>
+                )}
             </div>
         </div>
     )

@@ -26,19 +26,23 @@ export const useShopFilters = ({
     const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
 
     const filterTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const initialRender = useRef(true);
+    const isFirstRender = useRef(true);
 
     useEffect(() => {
-        // Only update if values actually changed
+        setActiveCategory(selectedCategorySlug || 'all');
+    }, [selectedCategorySlug]);
+
+    // Update price range when dynamic range changes (only if different)
+    useEffect(() => {
         if (priceRange[0] !== dynamicPriceRange.min || priceRange[1] !== dynamicPriceRange.max) {
             setPriceRange([dynamicPriceRange.min, dynamicPriceRange.max]);
         }
-    }, [dynamicPriceRange.min, dynamicPriceRange.max]); 
+    }, [dynamicPriceRange.min, dynamicPriceRange.max]);
 
-    // Filter update effect
+    // Filter update effect - only runs when user changes filters
     useEffect(() => {
-        if (initialRender.current) {
-            initialRender.current = false;
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
             return;
         }
 
@@ -70,11 +74,10 @@ export const useShopFilters = ({
                 clearTimeout(filterTimeoutRef.current);
             }
         };
-    }, [activeCategory, priceRange, selectedSizes, selectedSection]); // Added selectedSection
+    }, [activeCategory, priceRange, selectedSizes]);
 
-    // Reset initial render flag when shop changes
     useEffect(() => {
-        initialRender.current = true;
+        isFirstRender.current = true;
     }, [shopId, selectedSection]);
 
     const clearAllFilters = () => {

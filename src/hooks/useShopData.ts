@@ -1,3 +1,6 @@
+// ===========================
+// hooks/useShopData.ts
+// ===========================
 import { useState, useEffect, useRef } from 'react';
 import { shops, Shop } from '@/data/shops';
 import { Product } from '@/data/mockProducts';
@@ -14,7 +17,7 @@ interface CategoryCount {
   [key: string]: number;
 }
 
-export const useShopData = ({ shopId, selectedSection }: UseShopDataProps) => {
+export const useShopData = ({ shopId, selectedSection, selectedCategorySlug }: UseShopDataProps) => {
   const [shop, setShop] = useState<Shop | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -26,8 +29,8 @@ export const useShopData = ({ shopId, selectedSection }: UseShopDataProps) => {
   useEffect(() => {
     if (!shopId) return;
 
-    // Prevent re-initialization if already initialized with same params
-    if (isInitialized.current) return;
+    // Reset initialization when shop or section changes
+    isInitialized.current = false;
 
     const initializeShopData = async () => {
       try {
@@ -39,6 +42,7 @@ export const useShopData = ({ shopId, selectedSection }: UseShopDataProps) => {
 
         setShop(foundShop);
 
+        // Fetch ALL products to calculate price range and counts
         const [allProducts, counts] = await Promise.all([
           fetchProducts({ shopId: id, section: selectedSection }),
           fetchCategoryCounts(id, selectedSection)
@@ -47,7 +51,19 @@ export const useShopData = ({ shopId, selectedSection }: UseShopDataProps) => {
         const priceRangeData = calculatePriceRange(allProducts);
         setDynamicPriceRange(priceRangeData);
         setCategoryCounts(counts);
-        setProducts(allProducts);
+
+        // Apply the initial category filter from URL
+        const initialCategory = selectedCategorySlug || 'all';
+        const filteredProducts = await fetchProducts({
+          shopId: id,
+          section: selectedSection,
+          category: initialCategory,
+          minPrice: priceRangeData.min,
+          maxPrice: priceRangeData.max,
+          sizes: []
+        });
+
+        setProducts(filteredProducts);
         isInitialized.current = true;
       } catch (err) {
         console.error('Error initializing shop:', err);
@@ -57,12 +73,7 @@ export const useShopData = ({ shopId, selectedSection }: UseShopDataProps) => {
     };
 
     initializeShopData();
-  }, [shopId, selectedSection]);
-
-  // Reset initialization when shop or section changes
-  useEffect(() => {
-    isInitialized.current = false;
-  }, [shopId, selectedSection]);
+  }, [shopId, selectedSection, selectedCategorySlug]);
 
   return {
     shop,
@@ -75,3 +86,4 @@ export const useShopData = ({ shopId, selectedSection }: UseShopDataProps) => {
     setLoading
   };
 };
+

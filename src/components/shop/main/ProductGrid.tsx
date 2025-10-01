@@ -16,6 +16,8 @@ export default function ProductGrid({ loading, products, activeCategory, selecte
     
     const hasActiveFilters = activeCategory !== "all";
 
+    console.log(products);
+
     if (loading) {
         return (
             <main className="flex-1">

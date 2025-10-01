@@ -76,15 +76,19 @@ const Navbar = () => {
 
                         {/* Header Icons */}
                         <div className="flex items-center space-x-2 sm:space-x-4">
-                            <button className="p-2 text-gray-600 hover:text-gray-900 transition-colors">
-                                <User size={19} />
-                            </button>
-                            <button className="relative p-2 text-gray-600 hover:text-gray-900 transition-colors">
-                                <ShoppingCart size={19} />
-                                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                                    0
-                                </span>
-                            </button>
+                            <Link href="/account">
+                                <button className="cursor-pointer p-2 text-gray-600 hover:text-gray-900 transition-colors">
+                                    <User size={19} />
+                                </button>
+                            </Link>
+                            <Link href="/cart">
+                                <button className="cursor-pointer relative p-2 text-gray-600 hover:text-gray-900 transition-colors">
+                                    <ShoppingCart size={19} />
+                                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                        0
+                                    </span>
+                                </button>
+                            </Link>
                         </div>
                     </div>
 
