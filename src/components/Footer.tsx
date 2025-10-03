@@ -8,9 +8,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Navigation Column */}
           <div>
-            <h1 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">
+            <h2 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">
               NAVIGATION
-            </h1>
+            </h2>
             <ul className="space-y-4">
               <li>
                 <a
@@ -57,9 +57,9 @@ export default function Footer() {
 
           {/* What We Do Column */}
           <div>
-            <h1 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">
+            <h2 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">
               WHAT WE DO
-            </h1>
+            </h2>
             <ul className="space-y-4">
               <li>
                 <a
@@ -114,9 +114,9 @@ export default function Footer() {
 
           {/* Legal Column */}
           <div>
-            <h1 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">
+            <h2 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">
               LEGAL
-            </h1>
+            </h2>
             <ul className="space-y-4">
               <li>
                 <a
@@ -147,9 +147,9 @@ export default function Footer() {
 
           {/* Download Column */}
           <div>
-            <h1 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">
+            <h2 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">
               DOWNLOAD NOW
-            </h1>
+            </h2>
             <div className="space-y-4">
               {/* Google Play Button */}
               <a href="#" className="block">
@@ -235,6 +235,7 @@ export default function Footer() {
             <div className="flex space-x-4">
               <a
                 href="#"
+                aria-label="Facebook"
                 className="w-12 h-12 rounded-full border border-[#979797] flex items-center justify-center hover:bg-[#979797]/10 transition-colors"
               >
                 <svg
@@ -249,6 +250,7 @@ export default function Footer() {
               </a>
               <a
                 href="#"
+                aria-label="LinkedIn"
                 className="w-12 h-12 rounded-full border border-[#979797] flex items-center justify-center hover:bg-[#979797]/10 transition-colors"
               >
                 <svg
@@ -263,6 +265,7 @@ export default function Footer() {
               </a>
               <a
                 href="#"
+                aria-label="Twitter"
                 className="w-12 h-12 rounded-full border border-[#979797] flex items-center justify-center hover:bg-[#979797]/10 transition-colors"
               >
                 <svg

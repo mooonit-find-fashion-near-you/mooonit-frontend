@@ -40,9 +40,9 @@ export default function HeroSection({
             height={200}
             className="object-cover flex-1 h-36 object-top"
           />
-          <h1 className="text-gray-900 text-[5rem] font-bold font-[TOPLUXURY]">
+          <h2 className="text-gray-900 text-[5rem] font-bold font-[TOPLUXURY]">
             {data.subtitle}
-          </h1>
+          </h2>
         </figure>
 
         <div className="flex flex-col items-start gap-6 w-[36rem]">

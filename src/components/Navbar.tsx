@@ -1,23 +1,16 @@
 "use client";
 
-import { Search, ShoppingCart, User } from "lucide-react";
+import { ShoppingCart, User } from "lucide-react";
 import React, { useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
 import Image from "next/image";
+import { SearchForm } from "./SearchForm";
 
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState<string>("all");
 
-  // handle form submit for both desktop and mobile search forms
-  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  // perform search action (no DOM event required; SearchForm handles preventDefault)
+  const handleSearchSubmit = () => {
     // TODO: replace console.log with real search/navigation logic
     console.log("Search query:", searchQuery, "Category:", category);
   };
@@ -43,50 +36,17 @@ const Navbar: React.FC = () => {
             </figure>
 
             {/* Desktop Search Bar - Hidden on mobile */}
-            <form
-              onSubmit={handleSearchSubmit}
-              className="hidden lg:flex relative flex-1 items-center mx-8"
-              role="search"
-              aria-label="Site search"
-            >
-              <div className="flex items-center flex-1 border border-gray-300 rounded-l">
-                <input
-                  type="search"
-                  aria-label="Search"
-                  placeholder="Search..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-4 pr-6 py-2 focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none font-[outfit]"
-                />
-                <div className="border-l border-gray-400 py-3" aria-hidden />
-                <div className="h-full flex items-center font-[outfit]">
-                  <Select
-                    value={category}
-                    onValueChange={(val: string) => setCategory(val)}
-                  >
-                    <SelectTrigger className="w-32 text-gray-500 h-9 rounded-none py-5 focus:ring-0 border-none font-[outfit]">
-                      <SelectValue placeholder="Category" />
-                    </SelectTrigger>
-                    <SelectContent className="font-[outfit]">
-                      <SelectItem value="all">All Category</SelectItem>
-                      <SelectItem value="clothes">Clothes</SelectItem>
-                      <SelectItem value="accessories">Accessories</SelectItem>
-                      <SelectItem value="footwear">Footwear</SelectItem>
-                      <SelectItem value="bags">Bags</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              <div className="transform bg-[#FFDC91] border-[#FBBC04] border rounded-r-lg">
-                <button
-                  type="submit"
-                  className="p-2 px-6 text-gray-600 hover:text-gray-900 transition-colors"
-                  aria-label="Submit search"
-                >
-                  <Search size={18} />
-                </button>
-              </div>
-            </form>
+            <div className="hidden lg:flex relative flex-1 items-center mx-8">
+              <SearchForm
+                searchQuery={searchQuery}
+                onSearchQueryChange={(v) => setSearchQuery(v)}
+                category={category}
+                onCategoryChange={(v) => setCategory(v)}
+                onSubmit={handleSearchSubmit}
+                className="flex-1 flex items-center"
+                submitAriaLabel="Submit search"
+              />
+            </div>
 
             {/* Header Icons */}
             <div className="flex items-center space-x-2 sm:space-x-4">
@@ -103,61 +63,20 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Mobile Search Bar - Shown below header on small screens */}
-          <form
-            onSubmit={handleSearchSubmit}
-            className="lg:hidden pb-4"
-            role="search"
-            aria-label="Mobile search"
-          >
+          {/* Mobile Search Bar using shared component */}
+          <div className="lg:hidden pb-4">
             <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden min-w-0">
-              {/* Search Input */}
-              <input
-                type="search"
-                aria-label="Search"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 min-w-0 pl-3 pr-2 py-2 text-sm outline-none focus:ring-2 focus:ring-yellow-400"
+              <SearchForm
+                searchQuery={searchQuery}
+                onSearchQueryChange={(v) => setSearchQuery(v)}
+                category={category}
+                onCategoryChange={(v) => setCategory(v)}
+                onSubmit={handleSearchSubmit}
+                className="flex-1 flex items-center"
+                submitAriaLabel="Submit mobile search"
               />
-
-              {/* Separator (hidden on very small screens) */}
-              <div
-                className="border-l border-gray-300 h-6 mx-1 hidden xs:block"
-                aria-hidden
-              />
-
-              {/* Category Select (hide text on very small screens, keep icon/short form) */}
-              <Select
-                value={category}
-                onValueChange={(val: string) => setCategory(val)}
-              >
-                <SelectTrigger className="px-2 py-2 text-gray-500 text-sm border-none focus:ring-0 max-w-[90px] truncate">
-                  <SelectValue placeholder="All" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">
-                    All{" "}
-                    <span className="hidden [@media(min-width:325px)]:inline">
-                      Category
-                    </span>
-                  </SelectItem>
-                  <SelectItem value="clothes">Clothes</SelectItem>
-                  <SelectItem value="accessories">Accessories</SelectItem>
-                  <SelectItem value="footwear">Footwear</SelectItem>
-                  <SelectItem value="bags">Bags</SelectItem>
-                </SelectContent>
-              </Select>
-
-              {/* Search Button */}
-              <button
-                type="submit"
-                className="bg-[#FFDC91] border-l border-[#FBBC04] px-3 py-2 text-gray-600 hover:text-gray-900 transition-colors shrink-0"
-                aria-label="Submit mobile search"
-              >
-                <Search size={16} />
-              </button>
             </div>
-          </form>
+          </div>
         </nav>
       </header>
     </>

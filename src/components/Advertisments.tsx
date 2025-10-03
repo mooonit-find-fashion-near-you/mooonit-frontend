@@ -28,6 +28,7 @@ export default function Advertisments({
 }) {
   const [ads, setAds] = useState<Advertisement[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -35,6 +36,7 @@ export default function Advertisments({
 
     const fetchAds = async () => {
       setLoading(true);
+      setError(null);
       try {
         const res = await fetch(
           `/api/advertisements?section=${encodeURIComponent(activeSection)}`,
@@ -42,9 +44,9 @@ export default function Advertisments({
         );
         if (!res.ok) {
           // log and set empty ads to avoid breaking the carousel
-          console.error(
-            `Failed to load advertisements: ${res.status} ${res.statusText}`
-          );
+          const message = `Failed to load advertisements: ${res.status} ${res.statusText}`;
+          console.error(message);
+          setError(message);
           setAds([]);
           return;
         }
@@ -57,6 +59,7 @@ export default function Advertisments({
           if (typeof err.name === "string" && err.name === "AbortError") return;
         }
         console.error("Failed to load advertisements:", error);
+        setError(String(error));
         setAds([]);
       } finally {
         setLoading(false);
@@ -70,6 +73,40 @@ export default function Advertisments({
 
   if (loading)
     return <p className="text-center py-8">Loading advertisements...</p>;
+
+  if (error)
+    return (
+      <div className="text-center py-8">
+        <p className="mb-4">{error}</p>
+        <button
+          className="bg-[#FFDC91] px-4 py-2 rounded"
+          onClick={() => {
+            setError(null);
+            setLoading(true);
+            // trigger re-fetch by calling fetchAds through effect: update a key by changing state
+            // simplest is to call fetch directly here
+            (async () => {
+              try {
+                const res = await fetch(
+                  `/api/advertisements?section=${encodeURIComponent(
+                    activeSection
+                  )}`
+                );
+                if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+                const data = await res.json();
+                setAds(Array.isArray(data) ? data : []);
+              } catch (e) {
+                setError(String(e));
+              } finally {
+                setLoading(false);
+              }
+            })();
+          }}
+        >
+          Retry
+        </button>
+      </div>
+    );
 
   if (!ads || ads.length === 0)
     return <p className="text-center py-8">No advertisements available.</p>;
