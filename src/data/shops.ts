@@ -1,124 +1,62 @@
-type Shop = {
-  id: number
-  name: string
-  section: string
-  image: string
-  title: string
-  rating: number
-  time: string
-  distance: string
-  location: string
+import { subCategoriesData } from "./subCategoriesData";
+import { sections } from './heroData';
+
+export type Shop = {
+  id: number;
+  name: string;
+  image: string;
+  title: string;
+  rating: number;
+  time: string;
+  distance: string;
+  location: string;
+  section: string;
+  category: string;
 }
 
-export const shops: Shop[] = [
-  {
-    id: 1,
-    name: "Elegant Styles",
-    section: "Women",
-    image: "https://picsum.photos/600/400?random=101",
-    title: "Trendy Ethnic Wear",
-    rating: 4.5,
-    time: "30 min",
-    distance: "2 km",
-    location: "MG Road, Indore"
-  },
-  {
-    id: 2,
-    name: "Urban Chic",
-    section: "Women",
-    image: "https://picsum.photos/600/400?random=102",
-    title: "Casual Tops & Bottoms",
-    rating: 4.2,
-    time: "20 min",
-    distance: "1.5 km",
-    location: "Palasia, Indore"
-  },
-  {
-    id: 3,
-    name: "Grace Boutique",
-    section: "Women",
-    image: "https://picsum.photos/600/400?random=103",
-    title: "Evening & Party Wear",
-    rating: 4.8,
-    time: "25 min",
-    distance: "2.5 km",
-    location: "Vijay Nagar, Indore"
-  },
-  {
-    id: 4,
-    name: "Modern Threads",
-    section: "Women",
-    image: "https://picsum.photos/600/400?random=104",
-    title: "Western Dresses & Jeans",
-    rating: 4.4,
-    time: "30 min",
-    distance: "3 km",
-    location: "MG Road, Indore"
-  },
-  {
-    id: 5,
-    name: "Ethnic Aura",
-    section: "Women",
-    image: "https://picsum.photos/600/400?random=105",
-    title: "Sarees & Kurtis",
-    rating: 4.6,
-    time: "35 min",
-    distance: "2 km",
-    location: "AB Road, Indore"
-  },
-  {
-    id: 6,
-    name: "Chic & Charm",
-    section: "Women",
-    image: "https://picsum.photos/600/400?random=106",
-    title: "Casual Chic Outfits",
-    rating: 4.3,
-    time: "20 min",
-    distance: "1.8 km",
-    location: "Palasia, Indore"
-  },
-  {
-    id: 7,
-    name: "Feminine Flair",
-    section: "Women",
-    image: "https://picsum.photos/600/400?random=107",
-    title: "Boho & Trendy Styles",
-    rating: 4.7,
-    time: "30 min",
-    distance: "2.2 km",
-    location: "Vijay Nagar, Indore"
-  },
-  {
-    id: 8,
-    name: "Radiant Wardrobe",
-    section: "Women",
-    image: "https://picsum.photos/600/400?random=108",
-    title: "Office & Casual Wear",
-    rating: 4.5,
-    time: "25 min",
-    distance: "2 km",
-    location: "MG Road, Indore"
-  },
-  {
-    id: 9,
-    name: "Trendy Tones",
-    section: "Women",
-    image: "https://picsum.photos/600/400?random=109",
-    title: "Stylish Dresses & Tops",
-    rating: 4.4,
-    time: "30 min",
-    distance: "2.5 km",
-    location: "AB Road, Indore"
-  },
-  {
-    id: 10,
-    name: "Grace & Glam",
-    section: "Women",
-    image: "https://picsum.photos/600/400?random=110",
-    title: "Evening Gowns & Sarees",
-    rating: 4.8,
-    time: "35 min",
-    distance: "3 km",
-    location: "Vijay Nagar, Indore"
-  }
-];
+// Utility functions
+const getRandomNum = (max: number) => Math.floor(Math.random() * max) + 1;
+const getRandomRating = () => +(Math.random() * 1.5 + 3.5).toFixed(1); // 3.5 - 5.0
+const getRandomDistance = () => `${(Math.random() * 5 + 0.5).toFixed(1)} km`; // 0.5 - 5 km
+const getRandomTime = () => `${Math.floor(Math.random() * 30 + 15)} min`; // 15 - 45 min
+const getRandomLocation = () => {
+  const locations = ["MG Road, Indore", "Palasia, Indore", "Vijay Nagar, Indore", "AB Road, Indore", "Rajwada, Indore"];
+  return locations[Math.floor(Math.random() * locations.length)];
+};
+
+// Generate shop names
+const adjectives = ["Elegant", "Urban", "Chic", "Grace", "Modern", "Trendy", "Radiant", "Feminine", "Classic"];
+const nouns = ["Styles", "Boutique", "Threads", "Wardrobe", "Aura", "Charm", "Flair", "Tones", "Glam"];
+
+export const generateShops = (countPerCategory = 5): Shop[] => {
+  const shops: Shop[] = [];
+  let idCounter = 1;
+
+  sections.forEach((section) => {
+    const categories = subCategoriesData[section.toLowerCase()];
+    if (!categories) return;
+
+    categories.forEach((cat) => {
+      for (let i = 0; i < countPerCategory; i++) {
+        const shop: Shop = {
+          id: idCounter++,
+          name: `${adjectives[getRandomNum(adjectives.length) - 1]} ${nouns[getRandomNum(nouns.length) - 1]}`,
+          image: `https://picsum.photos/2048/1080?random=${getRandomNum(1000)}`,
+          title: `Stylish ${cat.name}`,
+          rating: getRandomRating(),
+          time: getRandomTime(),
+          distance: getRandomDistance(),
+          location: getRandomLocation(),
+          section,
+          category: cat.slug
+        };
+        shops.push(shop);
+      }
+    });
+  });
+
+  return shops;
+};
+
+// Usage
+export const shops = generateShops(10); // generates 5 shops per category
