@@ -51,7 +51,7 @@ export default function TrendingShops({ activeSection }: { activeSection: string
                         {shops.map((shop) => (
                             <CarouselItem key={shop.id} className="md:basis-1/2 lg:basis-1/3">
                                 <div className="px-4 pb-8">
-                                    <ShopCard shop={shop} activeSection={activeSection} selectedCategory={null} />
+                                    <ShopCard shop={shop} activeSection={activeSection} selectedCategory={"all"} />
                                 </div>
                             </CarouselItem>
                         ))}

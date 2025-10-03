@@ -35,7 +35,7 @@ function pick<T>(arr: T[]): T {
 }
 
 // Generate reviews
-export const mockReviews: Review[] = Array.from({ length: 40 * 3 }).map((_, i) => {
+export const mockReviews: Review[] = Array.from({ length: 1000 * 5 }).map((_, i) => {
     const productId = `prod-${Math.floor(i / 3) + 1}`;
     return {
         id: `rev-${i + 1}`,

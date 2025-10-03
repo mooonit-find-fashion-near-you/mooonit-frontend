@@ -16,13 +16,13 @@ interface Shop {
 interface ShopCardProps {
   shop: Shop;
   activeSection: string;
-  selectedCategory: SubCategory | null;
+  selectedCategory: SubCategory | null | "all";
 }
 
 const ShopCard = ({ shop, activeSection, selectedCategory }: ShopCardProps) => {
   return (
     <Link
-      href={`/shops/${shop.id}?section=${activeSection}&category=${selectedCategory?.slug}`}
+      href={`/shops/${shop.id}?section=${activeSection}&category=${selectedCategory === "all" ? "all" : selectedCategory?.slug}`}
     >
       <div key={shop.id} className="bg-white max-w-md rounded-2xl overflow-hidden shadow-md font-[outfit]">
         {/* Image Container */}

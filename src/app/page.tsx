@@ -7,7 +7,7 @@ import HeroSection from '@/components/landing/main/HeroSection';
 import SubCategories from '@/components/landing/main/SubCategories';
 import TrendingShops from '@/components/landing/main/TrendingShops';
 import Advertisments from '@/components/landing/main/Advertisments';
-import ShopProductsSection from '@/components/landing/main/ShopProductsSection';
+import ShopProductsSection from '@/components/landing/main/ShopsProductsSection';
 
 const MooonitHomepage: React.FC = () => {
 
