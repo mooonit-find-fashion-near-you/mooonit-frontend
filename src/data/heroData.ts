@@ -1,3 +1,5 @@
+const getRandomNum = () => Math.floor(Math.random() * 1000);
+
 export const heroData: Record<
     string,
     {
@@ -21,18 +23,6 @@ export const heroData: Record<
         mainImage: "/images/hero-women.jpg",
         miniImage: "/images/hero-mini-women.jpg",
     },
-    Men: {
-        title: "REDEFINE YOUR WARDROBE",
-        subtitle: "MEN",
-        description:
-            "From casual wear to tailored classics, explore men’s fashion built on comfort, durability, and contemporary style.",
-        stats: [
-            { label: "Premium Outfits", value: "1,000+" },
-            { label: "Verified Sellers", value: "720+" },
-        ],
-        mainImage: "/images/hero-men.jpg",
-        miniImage: "/images/hero-mini-men.jpg",
-    },
     "Foot Wear": {
         title: "WALK WITH CONFIDENCE",
         subtitle: "FOOTWEAR",
@@ -42,8 +32,8 @@ export const heroData: Record<
             { label: "Styles Available", value: "650+" },
             { label: "Comfort Rated", value: "97%" },
         ],
-        mainImage: "/images/hero-footwear.jpg",
-        miniImage: "/images/hero-mini-footwear.jpg",
+        mainImage: `https://picsum.photos/1920/1080?random=${getRandomNum()}`,
+        miniImage: `https://picsum.photos/1920/1080?random=${getRandomNum()}`,
     },
     Accessories: {
         title: "DETAILS THAT DEFINE YOU",
@@ -54,7 +44,22 @@ export const heroData: Record<
             { label: "Curated Products", value: "800+" },
             { label: "Customer Favorites", value: "500+" },
         ],
-        mainImage: "/images/hero-accessories.jpg",
-        miniImage: "/images/hero-mini-accessories.jpg",
+        mainImage: `https://picsum.photos/1920/1080?random=${getRandomNum()}`,
+        miniImage: `https://picsum.photos/1920/1080?random=${getRandomNum()}`,
+    },
+    Bags: {
+        title: "CARRY YOUR WORLD",
+        subtitle: "BAGS",
+        description:
+            "From sleek clutches to spacious backpacks, discover bags that blend functionality with high-end design.",
+        stats: [
+            { label: "Styles to Explore", value: "400+" },
+            { label: "Trending Now", value: "250+" },
+        ],
+        mainImage: `https://picsum.photos/1920/1080?random=${getRandomNum()}`,
+        miniImage: `https://picsum.photos/1920/1080?random=${getRandomNum()}`,
     },
 };
+
+// 👇 auto-sync sections
+export const sections = Object.keys(heroData);
