@@ -12,12 +12,6 @@ type OTPInputProps = {
     disabled?: boolean
 }
 
-type CountdownTimerProps = {
-    seconds: number
-    onResend: () => void
-    isResending: boolean
-}
-
 export default function Login() {
     const [phoneNumber, setPhoneNumber] = useState("")
     const [showOTP, setShowOTP] = useState(false)
@@ -163,7 +157,7 @@ export default function Login() {
             {/* Right: Form */}
             <div className="flex flex-col items-center md:items-stretch min-w-[300px] md:min-w-[400px]">
                 <header className="text-center mb-6 md:mb-8">
-                    <h1 className={cn("font-[TOPLUXURY] text-[#2c2d3a] text-3xl md:text-5xl leading-tight")}>
+                    <h1 className="font-[TOPLUXURY] text-[#2c2d3a] text-3xl md:text-5xl leading-tight">
                         {showOTP ? "Enter OTP" : "Two Step Verification"}
                     </h1>
                     <p className="mt-4 text-sm md:text-base text-[#2c2d3a]/70">
