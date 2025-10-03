@@ -45,20 +45,26 @@ export default function HeroSection({ activeSection }: { activeSection: string }
 
                     {/* Stats */}
                     <div className="flex items-center gap-8 text-lg font-medium text-gray-800">
-                        {data.stats.map((stat, idx) => (
-                            <>
-                                <div key={idx} className="flex items-center gap-4">
-                                    <span className="text-4xl font-bold text-gray-900 font-[TOPLUXURY]">{stat.value}</span>
-                                    <p className="text-base font-[outfit]">
-                                        {stat.label.split(" ")[0]} <br />
-                                        {stat.label.split(" ").slice(1).join(" ")}
-                                    </p>
+                        {data.stats.map((stat, idx) => {
+                            // split the label once for readability and performance
+                            const [firstWord, ...rest] = stat.label.split(" ")
+                            const restLabel = rest.join(" ")
+
+                            return (
+                                <div key={stat.value + "-" + idx} className="flex items-center gap-4">
+                                    <div className="flex items-center gap-4">
+                                        <span className="text-4xl font-bold text-gray-900 font-[TOPLUXURY]">{stat.value}</span>
+                                        <p className="text-base font-[outfit]">
+                                            {firstWord} <br />
+                                            {restLabel}
+                                        </p>
+                                    </div>
+                                    {idx < data.stats.length - 1 && (
+                                        <span className="h-10 border-l border-black" aria-hidden />
+                                    )}
                                 </div>
-                                {idx < data.stats.length - 1 && (
-                                    <span key={`sep-${idx}`} className="h-10 border-l border-black" />
-                                )}
-                            </>
-                        ))}
+                            )
+                        })}
                     </div>
 
                     <Button

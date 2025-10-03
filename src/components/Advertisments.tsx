@@ -20,23 +20,42 @@ export default function Advertisments({ activeSection }: { activeSection: string
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
+        const controller = new AbortController()
+        const signal = controller.signal
+
         const fetchAds = async () => {
             setLoading(true)
             try {
-                const res = await fetch(`/api/advertisements?section=${activeSection}`)
+                const res = await fetch(`/api/advertisements?section=${encodeURIComponent(activeSection)}`, { signal })
+                if (!res.ok) {
+                    // log and set empty ads to avoid breaking the carousel
+                    console.error(`Failed to load advertisements: ${res.status} ${res.statusText}`)
+                    setAds([])
+                    return
+                }
                 const data = await res.json()
-                setAds(data)
-            } catch (error) {
+                setAds(Array.isArray(data) ? data : [])
+            } catch (error: unknown) {
+                // narrow unknown to check for AbortError and other error shapes
+                if (typeof error === 'object' && error !== null) {
+                    const err = error as { name?: unknown }
+                    if (typeof err.name === 'string' && err.name === 'AbortError') return
+                }
                 console.error("Failed to load advertisements:", error)
+                setAds([])
             } finally {
                 setLoading(false)
             }
         }
 
         fetchAds()
+
+        return () => controller.abort()
     }, [activeSection])
 
     if (loading) return <p className="text-center py-8">Loading advertisements...</p>
+
+    if (!ads || ads.length === 0) return <p className="text-center py-8">No advertisements available.</p>
 
     return (
         <div className="min-h-screen p-4">

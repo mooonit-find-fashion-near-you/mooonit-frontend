@@ -5,13 +5,14 @@ import React, { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "./ui/select";
 import Image from "next/image";
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState("");
-    const [category, setCategory] = useState("all");
+    const [category, setCategory] = useState<string>("all");
 
-    // explicitly type event handler (for form/button/input)
-    const handleSearchSubmit = (e: React.FormEvent | React.KeyboardEvent) => {
+    // handle form submit for both desktop and mobile search forms
+    const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        // TODO: replace console.log with real search/navigation logic
         console.log("Search query:", searchQuery, "Category:", category);
     };
 
@@ -31,22 +32,24 @@ const Navbar = () => {
                         </figure>
 
                         {/* Desktop Search Bar - Hidden on mobile */}
-                        <div className="hidden lg:flex relative flex-1 items-center mx-8">
+                        <form
+                            onSubmit={handleSearchSubmit}
+                            className="hidden lg:flex relative flex-1 items-center mx-8"
+                            role="search"
+                            aria-label="Site search"
+                        >
                             <div className="flex items-center flex-1 border border-gray-300 rounded-l">
                                 <input
-                                    type="text"
+                                    type="search"
+                                    aria-label="Search"
                                     placeholder="Search..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    onKeyDown={(e) => e.key === "Enter" && handleSearchSubmit(e)}
                                     className="w-full pl-4 pr-6 py-2 focus:ring-2 focus:ring-yellow-400 focus:border-transparent outline-none font-[outfit]"
                                 />
-                                <div className="border-l border-gray-400 py-3"></div>
+                                <div className="border-l border-gray-400 py-3" aria-hidden />
                                 <div className="h-full flex items-center font-[outfit]">
-                                    <Select
-                                        onValueChange={(val: string) => setCategory(val)}
-                                        defaultValue="all"
-                                    >
+                                    <Select value={category} onValueChange={(val: string) => setCategory(val)}>
                                         <SelectTrigger className="w-32 text-gray-500 h-9 rounded-none py-5 focus:ring-0 border-none font-[outfit]">
                                             <SelectValue placeholder="Category" />
                                         </SelectTrigger>
@@ -62,14 +65,14 @@ const Navbar = () => {
                             </div>
                             <div className="transform bg-[#FFDC91] border-[#FBBC04] border rounded-r-lg">
                                 <button
-                                    type="button"
-                                    onClick={handleSearchSubmit}
+                                    type="submit"
                                     className="p-2 px-6 text-gray-600 hover:text-gray-900 transition-colors"
+                                    aria-label="Submit search"
                                 >
                                     <Search size={18} />
                                 </button>
                             </div>
-                        </div>
+                        </form>
 
                         {/* Header Icons */}
                         <div className="flex items-center space-x-2 sm:space-x-4">
@@ -86,23 +89,28 @@ const Navbar = () => {
                     </div>
 
                     {/* Mobile Search Bar - Shown below header on small screens */}
-                    <div className="lg:hidden pb-4">
+                    <form
+                        onSubmit={handleSearchSubmit}
+                        className="lg:hidden pb-4"
+                        role="search"
+                        aria-label="Mobile search"
+                    >
                         <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden min-w-0">
                             {/* Search Input */}
                             <input
-                                type="text"
+                                type="search"
+                                aria-label="Search"
                                 placeholder="Search..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                onKeyDown={(e) => e.key === "Enter" && handleSearchSubmit(e)}
                                 className="flex-1 min-w-0 pl-3 pr-2 py-2 text-sm outline-none focus:ring-2 focus:ring-yellow-400"
                             />
 
                             {/* Separator (hidden on very small screens) */}
-                            <div className="border-l border-gray-300 h-6 mx-1 hidden xs:block"></div>
+                            <div className="border-l border-gray-300 h-6 mx-1 hidden xs:block" aria-hidden />
 
                             {/* Category Select (hide text on very small screens, keep icon/short form) */}
-                            <Select onValueChange={(val: string) => setCategory(val)} defaultValue="all">
+                            <Select value={category} onValueChange={(val: string) => setCategory(val)}>
                                 <SelectTrigger className="px-2 py-2 text-gray-500 text-sm border-none focus:ring-0 max-w-[90px] truncate">
                                     <SelectValue placeholder="All" />
                                 </SelectTrigger>
@@ -117,14 +125,14 @@ const Navbar = () => {
 
                             {/* Search Button */}
                             <button
-                                type="button"
-                                onClick={handleSearchSubmit}
+                                type="submit"
                                 className="bg-[#FFDC91] border-l border-[#FBBC04] px-3 py-2 text-gray-600 hover:text-gray-900 transition-colors shrink-0"
+                                aria-label="Submit mobile search"
                             >
                                 <Search size={16} />
                             </button>
                         </div>
-                    </div>
+                    </form>
 
                 </nav>
             </header>
