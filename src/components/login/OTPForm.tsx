@@ -15,21 +15,23 @@ type OTPFormProps = {
     isResending: boolean
     setIsResending: (resending: boolean) => void
     onBack: () => void
+    onSuccessfulVerification: () => void
 }
 
 export function OTPForm({
-    // phoneNumber,
+    phoneNumber,
     otpValue,
     setOtpValue,
     isLoading,
     setIsLoading,
-    // error,
+    error,
     setError,
     resendCountdown,
     setResendCountdown,
     isResending,
     setIsResending,
     onBack,
+    onSuccessfulVerification,
 }: OTPFormProps) {
     const handleVerifyOTP = async () => {
         if (otpValue.length !== 6) {
@@ -45,8 +47,19 @@ export function OTPForm({
             await new Promise(resolve => setTimeout(resolve, 1500))
 
             // TODO: Replace with actual API call
-            console.log("OTP verified successfully!")
-            alert("OTP verified successfully!")
+            // const response = await fetch('/api/verify-otp', {
+            //   method: 'POST',
+            //   headers: { 'Content-Type': 'application/json' },
+            //   body: JSON.stringify({ 
+            //     phone: `+91${phoneNumber}`, 
+            //     otp: otpValue 
+            //   })
+            // })
+
+            // if (!response.ok) throw new Error('Invalid OTP')
+
+            // Call the success handler which will show gender popup
+            onSuccessfulVerification()
         } catch (err) {
             setError("Invalid OTP. Please try again.")
             console.error("Verify OTP error:", err)

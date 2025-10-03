@@ -1,11 +1,12 @@
 "use client"
 
-import { LeftImageSection } from "@/components/login/LeftImageSection"
 import { useState } from "react"
-import { ErrorMessage } from "./ErrorMessage"
-import { HeaderSection } from "./HeaderSection"
-import { LoginForm } from "./LoginForm"
-import { OTPForm } from "./OTPForm"
+import { LoginForm } from "@/components/login/LoginForm"
+import { OTPForm } from "@/components/login/OTPForm"
+import { LeftImageSection } from "@/components/login/LeftImageSection"
+import { HeaderSection } from "@/components/login/HeaderSection"
+import { ErrorMessage } from "@/components/login/ErrorMessage"
+import { GenderPopup } from "@/components/login/GenderPopup"
 
 export default function Login() {
     const [phoneNumber, setPhoneNumber] = useState("")
@@ -15,6 +16,7 @@ export default function Login() {
     const [error, setError] = useState("")
     const [resendCountdown, setResendCountdown] = useState(0)
     const [isResending, setIsResending] = useState(false)
+    const [showGenderPopup, setShowGenderPopup] = useState(false)
 
     const resetOTPState = () => {
         setShowOTP(false)
@@ -23,43 +25,57 @@ export default function Login() {
         setResendCountdown(0)
     }
 
+    const handleSuccessfulVerification = () => {
+        console.log("OTP verified successfully!")
+        setShowGenderPopup(true)
+    }
+
     return (
-        <div className="w-fit mx-auto flex justify-center gap-11 items-start font-[outfit] mt-12 bg-white p-8 md:p-12 rounded-3xl shadow-lg border">
-            <LeftImageSection />
+        <>
+            <div className="w-fit mx-auto flex justify-center gap-11 items-start font-[outfit] mt-12 bg-white p-8 md:p-12 rounded-3xl shadow-lg border">
+                <LeftImageSection />
 
-            <div className="flex flex-col items-center md:items-stretch min-w-[300px] md:min-w-[400px]">
-                <HeaderSection showOTP={showOTP} phoneNumber={phoneNumber} />
+                <div className="flex flex-col items-center md:items-stretch min-w-[300px] md:min-w-[400px]">
+                    <HeaderSection showOTP={showOTP} phoneNumber={phoneNumber} />
 
-                <ErrorMessage error={error} />
+                    <ErrorMessage error={error} />
 
-                {!showOTP ? (
-                    <LoginForm
-                        phoneNumber={phoneNumber}
-                        setPhoneNumber={setPhoneNumber}
-                        error={error}
-                        setError={setError}
-                        isLoading={isLoading}
-                        setIsLoading={setIsLoading}
-                        setShowOTP={setShowOTP}
-                        setResendCountdown={setResendCountdown}
-                    />
-                ) : (
-                    <OTPForm
-                        phoneNumber={phoneNumber}
-                        otpValue={otpValue}
-                        setOtpValue={setOtpValue}
-                        isLoading={isLoading}
-                        setIsLoading={setIsLoading}
-                        error={error}
-                        setError={setError}
-                        resendCountdown={resendCountdown}
-                        setResendCountdown={setResendCountdown}
-                        isResending={isResending}
-                        setIsResending={setIsResending}
-                        onBack={resetOTPState}
-                    />
-                )}
+                    {!showOTP ? (
+                        <LoginForm
+                            phoneNumber={phoneNumber}
+                            setPhoneNumber={setPhoneNumber}
+                            error={error}
+                            setError={setError}
+                            isLoading={isLoading}
+                            setIsLoading={setIsLoading}
+                            setShowOTP={setShowOTP}
+                            setResendCountdown={setResendCountdown}
+                        />
+                    ) : (
+                        <OTPForm
+                            phoneNumber={phoneNumber}
+                            otpValue={otpValue}
+                            setOtpValue={setOtpValue}
+                            isLoading={isLoading}
+                            setIsLoading={setIsLoading}
+                            error={error}
+                            setError={setError}
+                            resendCountdown={resendCountdown}
+                            setResendCountdown={setResendCountdown}
+                            isResending={isResending}
+                            setIsResending={setIsResending}
+                            onBack={resetOTPState}
+                            onSuccessfulVerification={handleSuccessfulVerification}
+                        />
+                    )}
+                </div>
             </div>
-        </div>
+
+            <GenderPopup
+                isOpen={showGenderPopup}
+                onClose={() => setShowGenderPopup(false)}
+                phoneNumber={phoneNumber}
+            />
+        </>
     )
 }
