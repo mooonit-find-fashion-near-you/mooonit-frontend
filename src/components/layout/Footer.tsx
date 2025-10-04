@@ -8,7 +8,7 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                     {/* Navigation Column */}
                     <div>
-                        <h1 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">NAVIGATION</h1>
+                        <h2 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">NAVIGATION</h2>
                         <ul className="space-y-4">
                             <li>
                                 <a href="#" className="text-[#a6a6a6] hover:text-white transition-colors">
@@ -40,7 +40,7 @@ export default function Footer() {
 
                     {/* What We Do Column */}
                     <div>
-                        <h1 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">WHAT WE DO</h1>
+                        <h2 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">WHAT WE DO</h2>
                         <ul className="space-y-4">
                             <li>
                                 <a href="#" className="text-[#a6a6a6] hover:text-white transition-colors">
@@ -77,7 +77,7 @@ export default function Footer() {
 
                     {/* Legal Column */}
                     <div>
-                        <h1 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">LEGAL</h1>
+                        <h2 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">LEGAL</h2>
                         <ul className="space-y-4">
                             <li>
                                 <a href="#" className="text-[#a6a6a6] hover:text-white transition-colors">
@@ -99,7 +99,7 @@ export default function Footer() {
 
                     {/* Download Column */}
                     <div>
-                        <h1 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">DOWNLOAD NOW</h1>
+                        <h2 className="text-[#ffffff] font-semibold text-lg mb-6 tracking-wide">DOWNLOAD NOW</h2>
                         <div className="space-y-4">
                             {/* Google Play Button */}
                             <a href="#" className="block">
@@ -146,18 +146,21 @@ export default function Footer() {
                         <div className="flex space-x-4">
                             <a
                                 href="#"
+                                aria-label="Visit our Facebook page"
                                 className="w-12 h-12 rounded-full border border-[#979797] flex items-center justify-center hover:bg-[#979797]/10 transition-colors"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M14 13.5H16.5L17.5 9.5H14V7.5C14 6.47062 14 5.5 16 5.5H17.5V2.1401C17.1743 2.09685 15.943 2 14.6429 2C11.9284 2 10 3.65686 10 6.69971V9.5H7V13.5H10V22H14V13.5Z"></path></svg>
                             </a>
                             <a
                                 href="#"
+                                aria-label="Visit our LinkedIn page"
                                 className="w-12 h-12 rounded-full border border-[#979797] flex items-center justify-center hover:bg-[#979797]/10 transition-colors"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M6.94048 4.99993C6.94011 5.81424 6.44608 6.54702 5.69134 6.85273C4.9366 7.15845 4.07187 6.97605 3.5049 6.39155C2.93793 5.80704 2.78195 4.93715 3.1105 4.19207C3.43906 3.44699 4.18654 2.9755 5.00048 2.99993C6.08155 3.03238 6.94097 3.91837 6.94048 4.99993ZM7.00048 8.47993H3.00048V20.9999H7.00048V8.47993ZM13.3205 8.47993H9.34048V20.9999H13.2805V14.4299C13.2805 10.7699 18.0505 10.4299 18.0505 14.4299V20.9999H22.0005V13.0699C22.0005 6.89993 14.9405 7.12993 13.2805 10.1599L13.3205 8.47993Z"></path></svg>
                             </a>
                             <a
                                 href="#"
+                                aria-label="Visit our Twitter page"
                                 className="w-12 h-12 rounded-full border border-[#979797] flex items-center justify-center hover:bg-[#979797]/10 transition-colors"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.6874 3.0625L12.6907 8.77425L8.37045 3.0625H2.11328L9.58961 12.8387L2.50378 20.9375H5.53795L11.0068 14.6886L15.7863 20.9375H21.8885L14.095 10.6342L20.7198 3.0625H17.6874ZM16.6232 19.1225L5.65436 4.78217H7.45745L18.3034 19.1225H16.6232Z"></path></svg>
