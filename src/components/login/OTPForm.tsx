@@ -1,5 +1,5 @@
 import { OTPInput } from "./OTPInput"
-import { PrimaryButton } from "./PrimaryButton"
+import { PrimaryLoginButton } from "./PrimaryLoginButton"
 import { ResendOTP } from "./ResendOTP"
 
 type OTPFormProps = {
@@ -108,7 +108,7 @@ export function OTPForm({
                 onResend={handleResendOTP}
             />
 
-            <PrimaryButton
+            <PrimaryLoginButton
                 onClick={handleVerifyOTP}
                 disabled={otpValue.length !== 6 || isLoading}
                 isLoading={isLoading}
@@ -116,7 +116,7 @@ export function OTPForm({
                 className="mt-2"
             >
                 Verify OTP
-            </PrimaryButton>
+            </PrimaryLoginButton>
 
             <button
                 type="button"

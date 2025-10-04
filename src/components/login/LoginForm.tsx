@@ -1,7 +1,7 @@
 import { Divider } from "./Divider"
 import { GoogleSignInButton } from "./GoogleSignInButton"
 import { PhoneInput } from "./PhoneInput"
-import { PrimaryButton } from "./PrimaryButton"
+import { PrimaryLoginButton } from "./PrimaryLoginButton"
 
 type LoginFormProps = {
     phoneNumber: string
@@ -67,7 +67,7 @@ export function LoginForm({
                 isLoading={isLoading}
             />
 
-            <PrimaryButton
+            <PrimaryLoginButton
                 onClick={handleSendOTP}
                 disabled={phoneNumber.length !== 10 || isLoading}
                 isLoading={isLoading}
@@ -75,7 +75,7 @@ export function LoginForm({
                 className="mt-5 md:mt-6"
             >
                 Send One Time Password
-            </PrimaryButton>
+            </PrimaryLoginButton>
 
             <Divider text="Or continue with" />
 

@@ -9,7 +9,7 @@ type PrimaryButtonProps = {
     className?: string
 }
 
-export function PrimaryButton({
+export function PrimaryLoginButton({
     onClick,
     disabled = false,
     isLoading = false,

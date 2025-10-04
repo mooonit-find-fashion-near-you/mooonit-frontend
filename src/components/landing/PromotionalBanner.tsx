@@ -52,3 +52,22 @@ export function PromotionalBanner({
         </div>
     )
 }
+
+export function PromotionalBannerSkeleton() {
+    return (
+        <div className="relative overflow-hidden rounded-2xl animate-pulse bg-gray-200">
+            <div className="flex items-center justify-between h-96">
+                <div className="flex-1 p-8 lg:p-12 z-10 space-y-4">
+                    <div className="h-5 w-24 bg-gray-400 rounded"></div> {/* saleText */}
+                    <div className="h-12 w-3/4 bg-gray-400 rounded"></div> {/* headline */}
+                    <div className="h-10 w-32 bg-gray-400 rounded"></div> {/* button */}
+                </div>
+                <div className="flex-1 p-8 lg:p-12 z-10 space-y-4">
+                    <div className="h-5 w-24 bg-gray-400 rounded"></div> {/* saleText */}
+                    <div className="h-12 w-3/4 bg-gray-400 rounded"></div> {/* headline */}
+                    <div className="h-10 w-32 bg-gray-400 rounded"></div> {/* button */}
+                </div>
+            </div>
+        </div>
+    );
+}
