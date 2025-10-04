@@ -32,11 +32,9 @@ export const useShopFilters = ({
         setActiveCategory(selectedCategorySlug || 'all');
     }, [selectedCategorySlug]);
 
-    // Update price range when dynamic range changes (only if different)
+    // Update price range when dynamic range changes (only on section/shop change)
     useEffect(() => {
-        if (priceRange[0] !== dynamicPriceRange.min || priceRange[1] !== dynamicPriceRange.max) {
-            setPriceRange([dynamicPriceRange.min, dynamicPriceRange.max]);
-        }
+        setPriceRange([dynamicPriceRange.min, dynamicPriceRange.max]);
     }, [dynamicPriceRange.min, dynamicPriceRange.max]);
 
     // Filter update effect - only runs when user changes filters
@@ -74,6 +72,7 @@ export const useShopFilters = ({
                 clearTimeout(filterTimeoutRef.current);
             }
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeCategory, priceRange, selectedSizes]);
 
     useEffect(() => {

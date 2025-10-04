@@ -1,5 +1,6 @@
 'use client';
 
+import { useCallback } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 
 import ShopHero from '@/components/shop/main/ShopHero';
@@ -12,6 +13,7 @@ import { useShopData } from '@/hooks/useShopData';
 import { useShopFilters } from '@/hooks/useShopFilters';
 
 import { getCategoryOptions, getSelectedCategoryName, getProductCount } from '@/utils/categoryUtils';
+import { Product } from '@/data/mockProducts';
 
 export default function ShopPage() {
   const { id } = useParams();
@@ -31,6 +33,14 @@ export default function ShopPage() {
     setLoading
   } = useShopData({ shopId: id, selectedSection, selectedCategorySlug });
 
+  const handleProductsUpdate = useCallback((products: Product[]) => {
+    setProducts(products);
+  }, [setProducts]);
+
+  const handleLoadingUpdate = useCallback((loading: boolean) => {
+    setLoading(loading);
+  }, [setLoading]);
+
   const {
     activeCategory,
     priceRange,
@@ -45,8 +55,8 @@ export default function ShopPage() {
     selectedCategorySlug,
     dynamicPriceRange,
     isInitialized,
-    onProductsUpdate: setProducts,
-    onLoadingUpdate: setLoading
+    onProductsUpdate: handleProductsUpdate,
+    onLoadingUpdate: handleLoadingUpdate
   });
 
   if (loading && !shop) return <LoadingState message="Loading shop..." />;

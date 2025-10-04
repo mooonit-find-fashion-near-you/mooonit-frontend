@@ -36,6 +36,7 @@ export default function ProductDetails({
 
             <p className="text-[#757575] leading-relaxed">{product.description}</p>
 
+            {/* TODO: Display variants in place of SizeSelector */}
             <SizeSelector
                 sizes={product.sizes || []}
                 selectedSize={selectedSize}

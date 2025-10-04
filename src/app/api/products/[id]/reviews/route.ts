@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { mockReviews } from '@/data/mockReviews';
 
 export async function GET(
-    request: NextRequest,
+    _request: NextRequest,
     { params }: { params: { id: string } }
 ) {
-    const productId = params.id;
+    const { id: productId } = params;
 
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 500));

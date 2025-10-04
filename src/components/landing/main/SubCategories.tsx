@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { subCategoriesData, SubCategory } from "@/data/subCategoriesData";
 import SubCategoryCard from "../SubCategoryCard";
 import Link from "next/link";
@@ -12,7 +12,9 @@ interface SubCategoriesProps {
 }
 
 const SubCategories: React.FC<SubCategoriesProps> = ({ activeSection, hideBg, onCategorySelect }) => {
-    const currentSubCategories = subCategoriesData[activeSection.toLowerCase()] || [];
+    const currentSubCategories = useMemo(() =>
+        subCategoriesData[activeSection.toLowerCase()] || []
+        , [activeSection]);
 
     const [activeCategoryId, setActiveCategoryId] = useState(
         hideBg ? currentSubCategories[0]?.id : null
@@ -22,7 +24,7 @@ const SubCategories: React.FC<SubCategoriesProps> = ({ activeSection, hideBg, on
         if (hideBg && currentSubCategories.length > 0) {
             onCategorySelect?.(currentSubCategories[0]);
         }
-    }, [activeSection]); // runs when section changes
+    }, [activeSection, hideBg, currentSubCategories, onCategorySelect]);
 
     if (currentSubCategories.length === 0) {
         return null;

@@ -80,6 +80,7 @@ export async function GET(request: Request): Promise<Response> {
 
         return Response.json(shops);
     } catch (error) {
+        console.error('Failed to fetch shops:', error);
         return Response.json({ error: 'Failed to fetch shops' }, { status: 500 });
     }
 }

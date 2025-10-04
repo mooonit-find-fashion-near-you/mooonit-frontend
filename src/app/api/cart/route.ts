@@ -88,6 +88,7 @@ export async function POST(request: Request) {
 
         return NextResponse.json(cartItems)
     } catch (error) {
+        console.error(error)
         return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
     }
 }

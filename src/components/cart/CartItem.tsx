@@ -1,7 +1,7 @@
 // components/cart/CartItem.tsx
 "use client"
 
-import { Trash } from "lucide-react"
+import Image from "next/image"
 import { QuantityStepper } from "./QuantityStepper"
 import { CartItem as CartItemType } from '@/lib/cartService'
 
@@ -24,10 +24,12 @@ export function CartItem({ item, onQuantityChange, onRemove, updating = false }:
     return (
         <div className={`relative flex items-center gap-4 sm:gap-6 ${updating ? 'opacity-50' : ''}`}>
             {/* Thumbnail */}
-            <img
-                src={item.image || "/placeholder.svg"}
+            <Image
+                src={item.image}
                 alt={`${item.name} thumbnail`}
                 className="size-[96px] sm:size-[112px] rounded-xl object-cover bg-white"
+                width={96}
+                height={96}
             />
 
             {/* Details */}

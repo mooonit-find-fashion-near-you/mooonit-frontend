@@ -19,12 +19,12 @@ type OTPFormProps = {
 }
 
 export function OTPForm({
-    phoneNumber,
+    // phoneNumber,
     otpValue,
     setOtpValue,
     isLoading,
     setIsLoading,
-    error,
+    // error,
     setError,
     resendCountdown,
     setResendCountdown,

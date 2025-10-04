@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { cn } from "@/lib/utils"
-import Image from "next/image"
 
 type GenderOption = "male" | "female" | "other" | "prefer-not-to-say"
 

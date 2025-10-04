@@ -46,7 +46,7 @@ export default function SearchPage() {
     return (
         <div className="p-6">
             <h1 className="text-xl font-bold mb-4">
-                Showing top {results.length} Results for "{query}" ({category})
+                Showing top {results.length} Results for &quot;{query}&quot; ({category})
             </h1>
 
             {loading ? (

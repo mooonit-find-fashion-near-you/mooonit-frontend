@@ -1,7 +1,6 @@
 // mockProducts.ts
 import { Shop, shops } from './shops';
 
-// Interfaces
 export interface Product {
     id: string;
     images: string[];
