@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
-import ShopCard from "../../ShopCard"
+import ShopCard, { ShopCardSkeleton } from "../../ShopCard"
 
 type Shop = {
     id: number
@@ -40,7 +40,23 @@ export default function TrendingShops({ activeSection }: { activeSection: string
         fetchShops()
     }, [activeSection])
 
-    if (loading) return <p className="text-center py-8 text-sm sm:text-base">Loading shops...</p>
+    if (loading) {
+        return (
+            <div className="py-6 sm:py-8 md:py-10">
+                <div className="max-w-[85rem] mx-auto px-3 sm:px-4 lg:px-6">
+                    <h1 className="text-[#2c2d3a] text-2xl sm:text-3xl md:text-4xl font-medium text-center mb-4 sm:mb-6 md:mb-8 font-[TOPLUXURY]">
+                        Trending Shops
+                    </h1>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+                        {[1, 2, 3].map((i) => (
+                            <ShopCardSkeleton key={i} />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className="py-6 sm:py-8 md:py-10">
