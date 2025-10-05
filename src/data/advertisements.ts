@@ -3,7 +3,7 @@ export const advertisements = [
     id: "ad1",
     section: "Women",
     saleText: "Flat 40% Off",
-    headline: "New Women’s Wear",
+    headline: "Women’s Wear",
     buttonText: "Shop Now",
     imageUrl: "https://picsum.photos/1200/600?random=201",
     imageAlt: "Women Fashion Sale",

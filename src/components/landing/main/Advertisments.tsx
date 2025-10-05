@@ -83,17 +83,19 @@ export default function Advertisements({ activeSection }: { activeSection: strin
     // Skeleton loader for better UX
     if (loading) {
         return (
-            <div className="max-w-7xl mx-auto relative">
-                <PromotionalBannerSkeleton />
+            <div className="w-full px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto">
+                    <PromotionalBannerSkeleton />
+                </div>
             </div>
         )
     }
 
     if (error) {
         return (
-            <div className="p-4">
-                <div className="max-w-7xl mx-auto text-center py-8">
-                    <p className="text-red-500 mb-4">{error}</p>
+            <div className="w-full px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto text-center py-8 sm:py-12">
+                    <p className="text-red-500 mb-4 text-sm sm:text-base">{error}</p>
                     <PrimaryButton onClick={handleRetry} label="Try Again" />
                 </div>
             </div>
@@ -102,12 +104,12 @@ export default function Advertisements({ activeSection }: { activeSection: strin
 
     if (ads.length === 0) {
         return (
-            <div className="p-4">
-                <div className="max-w-7xl mx-auto text-center py-8">
-                    <p className="text-gray-500 mb-4">No advertisements available</p>
+            <div className="w-full px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto text-center py-8 sm:py-12">
+                    <p className="text-gray-500 mb-4 text-sm sm:text-base">No advertisements available</p>
                     <button
                         onClick={handleRetry}
-                        className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+                        className="px-4 py-2 sm:px-6 sm:py-3 bg-gray-500 text-white rounded hover:bg-gray-600 text-sm sm:text-base transition-colors"
                     >
                         Refresh
                     </button>
@@ -117,12 +119,15 @@ export default function Advertisements({ activeSection }: { activeSection: strin
     }
 
     return (
-        <div className="p-4">
-            <div className="max-w-7xl mx-auto relative">
-                <Carousel className="w-full">
-                    <CarouselContent>
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+            <div className="max-w-7xl mx-auto">
+                <Carousel
+                    className="w-full"
+                    opts={{ align: "start", loop: true, }}
+                >
+                    <CarouselContent className="-ml-2 sm:-ml-4">
                         {ads.map((ad) => (
-                            <CarouselItem key={ad.id} className="md:basis-1/2 lg:basis-1/2">
+                            <CarouselItem key={ad.id} className="pl-2 sm:pl-4 basis-full md:basis-1/2 lg:basis-1/2">
                                 <div className="p-1">
                                     <PromotionalBanner
                                         saleText={ad.saleText}
@@ -136,8 +141,10 @@ export default function Advertisements({ activeSection }: { activeSection: strin
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
+                    <div className="hidden sm:block">
+                        <CarouselPrevious />
+                        <CarouselNext />
+                    </div>
                 </Carousel>
             </div>
         </div>
