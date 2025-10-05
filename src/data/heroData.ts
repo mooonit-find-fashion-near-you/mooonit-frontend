@@ -12,7 +12,7 @@ export const heroData: Record<
     }
 > = {
     Women: {
-        title: "ELEGANCE IN EVERY STITCH",
+        title: "STYLE IN EVERY STITCH",
         subtitle: "WOMEN",
         description:
             "Step into the world of modern women’s fashion—crafted with timeless designs, premium fabrics, and unmatched attention to detail.",

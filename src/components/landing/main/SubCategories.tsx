@@ -31,8 +31,8 @@ const SubCategories: React.FC<SubCategoriesProps> = ({ activeSection, hideBg, on
     }
 
     return (
-        <section className="px-4">
-            <div className="flex gap-6 p-10 max-w-[95rem] mx-auto overflow-x-auto scrollbar-hide snap-both">
+        <section className="px-3 sm:px-4 md:px-6 lg:px-8">
+            <div className="flex gap-3 sm:gap-4 md:gap-5 lg:gap-6 max-sm:pb-9 p-4 sm:p-6 md:p-8 lg:p-10 max-w-[95rem] mx-auto overflow-x-auto scrollbar-hide snap-x snap-mandatory">
                 {currentSubCategories.map((category: SubCategory) => {
                     const isActive = hideBg && activeCategoryId === category.id;
 
@@ -40,7 +40,7 @@ const SubCategories: React.FC<SubCategoriesProps> = ({ activeSection, hideBg, on
                         <React.Fragment key={category.id}>
                             {hideBg ? (
                                 <div
-                                    className="flex-shrink-0 snap-start cursor-pointer"
+                                    className="flex-shrink-0 snap-start snap-always cursor-pointer"
                                     onClick={() => {
                                         setActiveCategoryId(category.id);
                                         onCategorySelect?.(category);
@@ -55,7 +55,7 @@ const SubCategories: React.FC<SubCategoriesProps> = ({ activeSection, hideBg, on
                             ) : (
                                 <Link
                                     href={`/products?section=${activeSection.toLowerCase()}&category=${category.slug}`}
-                                    className="flex-shrink-0 snap-start"
+                                    className="flex-shrink-0 snap-start snap-always"
                                 >
                                     <SubCategoryCard category={category} hideBg={hideBg} />
                                 </Link>
