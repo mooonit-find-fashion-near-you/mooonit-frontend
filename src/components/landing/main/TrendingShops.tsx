@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
 import ShopCard from "../../ShopCard"
 
 type Shop = {
@@ -20,6 +21,8 @@ export default function TrendingShops({ activeSection }: { activeSection: string
     const [shops, setShops] = useState<Shop[]>([])
     const [loading, setLoading] = useState(true)
 
+    const autoplayPlugin = Autoplay({ delay: 3000 })
+
     useEffect(() => {
         const fetchShops = async () => {
             setLoading(true)
@@ -37,27 +40,31 @@ export default function TrendingShops({ activeSection }: { activeSection: string
         fetchShops()
     }, [activeSection])
 
-    if (loading) return <p className="text-center py-8">Loading shops...</p>
+    if (loading) return <p className="text-center py-8 text-sm sm:text-base">Loading shops...</p>
 
     return (
-        <div className="py-8">
-            <div className="max-w-[85rem] mx-auto px-4">
-                <h1 className="text-[#2c2d3a] text-4xl font-medium text-center mb-12 font-[TOPLUXURY]">
+        <div className="py-6 sm:py-8 md:py-10">
+            <div className="max-w-[85rem] mx-auto px-3 sm:px-4 lg:px-6">
+                <h1 className="text-[#2c2d3a] text-2xl sm:text-3xl md:text-4xl font-medium text-center mb-4 sm:mb-6 md:mb-8 font-[TOPLUXURY]">
                     Trending Shops
                 </h1>
 
-                <Carousel opts={{ align: "start" }} className="w-full">
-                    <CarouselContent>
+                <Carousel
+                    opts={{ align: "start", loop: true }}
+                    plugins={[autoplayPlugin]}
+                    className="w-full"
+                >
+                    <CarouselContent className="-ml-2 sm:-ml-4">
                         {shops.map((shop) => (
-                            <CarouselItem key={shop.id} className="md:basis-1/2 lg:basis-1/3">
-                                <div className="px-4 pb-8">
+                            <CarouselItem key={shop.id} className="pl-2 sm:pl-4 basis-full sm:basis-1/2 xl:basis-1/3">
+                                <div className="pb-6 sm:pb-8">
                                     <ShopCard shop={shop} activeSection={activeSection} selectedCategory={"all"} />
                                 </div>
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
+                    <CarouselPrevious className="hidden sm:flex -left-4 lg:-left-12" />
+                    <CarouselNext className="hidden sm:flex -right-4 lg:-right-12" />
                 </Carousel>
             </div>
         </div>

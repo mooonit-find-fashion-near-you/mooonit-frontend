@@ -24,73 +24,73 @@ const ShopCard = ({ shop, activeSection, selectedCategory }: ShopCardProps) => {
     <Link
       href={`/shops/${shop.id}?section=${activeSection}&category=${selectedCategory === "all" ? "all" : selectedCategory?.slug}`}
     >
-      <div key={shop.id} className="bg-white max-w-md rounded-2xl overflow-hidden shadow-md font-[outfit]">
+      <div key={shop.id} className="bg-white w-full rounded-2xl overflow-hidden shadow-md font-[outfit] hover:shadow-lg transition-shadow">
         {/* Image Container */}
-        <div className="relative h-64 overflow-hidden rounded-t-2xl rounded-b-4xl">
+        <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden rounded-t-2xl rounded-b-4xl">
           <Image
             src={shop.image}
             alt={shop.title}
-            className="object-cover"
+            className="object-cover w-full h-full"
             loading="lazy"
             width={600}
             height={600}
           />
 
           {/* Certified Badge */}
-          <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm shadow-black/25 shadow-md rounded-full px-4 pl-2.5 py-1.5 flex items-center gap-2">
-            <svg width="18" height="18" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <div className="absolute top-3 sm:top-4 left-3 sm:left-4 bg-white/90 backdrop-blur-sm shadow-black/25 shadow-md rounded-full px-3 sm:px-4 pl-2 sm:pl-2.5 py-1 sm:py-1.5 flex items-center gap-1.5 sm:gap-2">
+            <svg width="16" height="16" className="sm:w-[18px] sm:h-[18px]" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M25.3448 14.7732L23.5565 12.5553L24.872 10.0678L22.5045 8.66142L22.873 5.84864L20.1384 5.41607L19.4542 2.65762L16.7717 3.30683L15.1941 0.980957L12.8794 2.54965L10.5655 0.980957L8.98714 3.30683L6.30466 2.65762L5.62118 5.41607L2.88586 5.84864L3.25437 8.66142L0.887562 10.0678L2.20238 12.5553L0.414062 14.7732L2.57088 16.6122L1.67673 19.3163L4.30636 20.2357L4.46419 23.1029L7.19882 22.9942L8.35649 25.5903L10.8804 24.4549L12.8794 26.4562L14.8784 24.4549L17.4031 25.5903L18.5601 22.9942L21.2954 23.1029L21.4532 20.2357L24.0828 19.3163L23.1887 16.6122L25.3448 14.7732Z" fill="#EA9C00" />
               <path d="M12.8799 22.6163C17.6731 22.6163 21.5587 18.6206 21.5587 13.6917C21.5587 8.76281 17.6731 4.76715 12.8799 4.76715C8.08678 4.76715 4.20117 8.76281 4.20117 13.6917C4.20117 18.6206 8.08678 22.6163 12.8799 22.6163Z" fill="#FFBEB9" />
               <path d="M11.3525 17.964L7.67091 14.1781C7.3024 13.7992 7.3024 13.2043 7.67091 12.8261C8.03942 12.4479 8.61791 12.4471 8.98573 12.8261L11.4054 15.3143L16.8225 9.74374C17.191 9.3648 17.7695 9.3648 18.1373 9.74374C18.5058 10.1227 18.5058 10.7176 18.1373 11.0958L11.3519 17.9647L11.3525 17.964Z" fill="#F7F7F7" />
             </svg>
-            <span className="text-[#808080] text-md font-semibold">Certified</span>
+            <span className="text-[#808080] text-sm sm:text-md font-semibold">Certified</span>
           </div>
 
           {/* Dark underlay */}
           <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black"></div>
 
           {/* Rating Badge */}
-          <div className="absolute bottom-8 right-4 bg-[#ffdc91] rounded-full px-3 py-1.5 flex items-center gap-1">
-            <Star className="w-4 h-4 fill-[#ea9c00] text-[#ea9c00]" />
-            <span className="text-[#2c2d3a] text-sm font-medium">{shop.rating}</span>
+          <div className="absolute bottom-6 sm:bottom-8 right-3 sm:right-4 bg-[#ffdc91] rounded-full px-2.5 sm:px-3 py-1 sm:py-1.5 flex items-center gap-1">
+            <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-[#ea9c00] text-[#ea9c00]" />
+            <span className="text-[#2c2d3a] text-xs sm:text-sm font-medium">{shop.rating}</span>
           </div>
 
           {/* Title Overlay */}
-          <div className="absolute bottom-8 left-4 right-16">
-            <h3 className="text-white text-xl font-medium leading-tight font-[TOPLUXURY]">{shop.title}</h3>
+          <div className="absolute bottom-6 sm:bottom-8 left-3 sm:left-4 right-14 sm:right-16">
+            <h3 className="text-white text-base sm:text-lg md:text-xl font-medium leading-tight font-[TOPLUXURY]">{shop.title}</h3>
           </div>
         </div>
 
         {/* Discount Banner */}
-        <div className="bg-[#ffbeb9] px-4 py-1.5 transform -translate-y-1/2 flex items-center gap-2 rounded-full mx-5">
-          <svg width="18" height="18" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div className="bg-[#ffbeb9] px-3 sm:px-4 py-1 sm:py-1.5 transform -translate-y-1/2 flex items-center gap-1.5 sm:gap-2 rounded-full mx-4 sm:mx-5">
+          <svg width="16" height="16" className="sm:w-[18px] sm:h-[18px]" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17.9938 10.4958L19.031 8.668C19.1557 8.44808 19.1896 8.18669 19.1253 7.9413C19.0609 7.6959 18.9037 7.48659 18.6881 7.35939L16.8936 6.30177V4.1942C16.8936 3.94012 16.7946 3.69646 16.6184 3.5168C16.4422 3.33714 16.2032 3.23621 15.9541 3.23621H13.8881L12.8518 1.40742C12.7266 1.18796 12.5217 1.02758 12.2815 0.960993C12.1623 0.928054 12.0379 0.91956 11.9155 0.936005C11.7931 0.952449 11.6751 0.993505 11.5684 1.05679L9.7739 2.11441L7.97942 1.05583C7.76363 0.928803 7.50719 0.894378 7.26651 0.960132C7.02583 1.02589 6.82063 1.18643 6.69604 1.40646L5.65881 3.23621H3.5928C3.34363 3.23621 3.10466 3.33714 2.92846 3.5168C2.75227 3.69646 2.65328 3.94012 2.65328 4.1942V6.30081L0.858799 7.35843C0.751724 7.42123 0.657874 7.50499 0.582641 7.60488C0.507408 7.70478 0.452274 7.81885 0.420408 7.94054C0.388543 8.06223 0.380572 8.18914 0.396955 8.31398C0.413338 8.43882 0.453752 8.55913 0.515874 8.668L1.5531 10.4958L0.515874 12.3237C0.391847 12.5438 0.358196 12.805 0.422259 13.0503C0.486321 13.2956 0.642901 13.5052 0.857859 13.6332L2.65234 14.6909V16.7975C2.65234 17.0515 2.75133 17.2952 2.92752 17.4749C3.10372 17.6545 3.34269 17.7555 3.59186 17.7555H5.65881L6.69604 19.5852C6.77921 19.7302 6.89797 19.8506 7.04063 19.9346C7.18329 20.0186 7.34493 20.0632 7.50966 20.0642C7.67314 20.0642 7.83567 20.0201 7.98036 19.9349L9.77296 18.8773L11.5674 19.9349C11.7832 20.0617 12.0394 20.0962 12.28 20.0306C12.5206 19.9651 12.7259 19.8049 12.8508 19.5852L13.8871 17.7555H15.9531C16.2023 17.7555 16.4413 17.6545 16.6175 17.4749C16.7937 17.2952 16.8926 17.0515 16.8926 16.7975V14.6909L18.6871 13.6332C18.794 13.5703 18.8877 13.4864 18.9628 13.3865C19.0379 13.2866 19.0929 13.1725 19.1248 13.0509C19.1566 12.9293 19.1646 12.8025 19.1484 12.6777C19.1321 12.5529 19.0919 12.4326 19.0301 12.3237L17.9938 10.4958ZM7.42416 5.69632C7.79805 5.69645 8.15658 5.84802 8.42087 6.11768C8.68516 6.38735 8.83357 6.75302 8.83344 7.13426C8.83332 7.5155 8.68467 7.88107 8.42021 8.15056C8.15574 8.42004 7.79711 8.57137 7.42322 8.57124C7.04934 8.57111 6.69081 8.41955 6.42652 8.14988C6.16223 7.88021 6.01382 7.51454 6.01394 7.1333C6.01407 6.75206 6.16271 6.38649 6.42718 6.11701C6.69165 5.84752 7.05027 5.6962 7.42416 5.69632ZM7.70602 14.893L6.20279 13.7444L11.8399 6.08047L13.3431 7.2291L7.70602 14.893ZM12.1218 15.2762C11.9366 15.2761 11.7533 15.2389 11.5823 15.1666C11.4113 15.0943 11.2559 14.9884 11.1251 14.8548C10.9942 14.7213 10.8904 14.5628 10.8196 14.3884C10.7488 14.214 10.7124 14.027 10.7125 13.8383C10.7125 13.6495 10.7491 13.4626 10.82 13.2882C10.8909 13.1138 10.9948 12.9554 11.1257 12.822C11.2567 12.6885 11.4121 12.5827 11.5832 12.5105C11.7542 12.4383 11.9376 12.4012 12.1227 12.4013C12.4966 12.4014 12.8551 12.553 13.1194 12.8226C13.3837 13.0923 13.5321 13.458 13.532 13.8392C13.5319 14.2204 13.3832 14.586 13.1187 14.8555C12.8543 15.125 12.4957 15.2763 12.1218 15.2762Z" fill="#E54B4B" />
           </svg>
-          <span className="text-[#e54b4b] text-base font-semibold">FLAT 30% OFF</span>
+          <span className="text-[#e54b4b] text-sm sm:text-base font-semibold">FLAT 30% OFF</span>
         </div>
 
         {/* Shop Details */}
-        <div className="p-4 space-y-3 pt-0">
-          <h4 className="text-[#808080] text-base font-medium">{shop.title}</h4>
+        <div className="p-3 sm:p-4 space-y-2 sm:space-y-3 pt-0">
+          <h4 className="text-[#808080] text-sm sm:text-base font-medium truncate">{shop.title}</h4>
 
-          <div className="flex items-center justify-between">
+          <div className="flex flex-row flex-wrap items-start sm:items-center justify-between gap-2 sm:gap-0">
             {/* Time and Distance */}
-            <div className="flex items-center gap-1 text-[#808080] text-sm">
-              <svg width="20" height="20" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div className="flex items-center gap-1 text-[#808080] text-xs sm:text-sm">
+              <svg width="18" height="18" className="sm:w-5 sm:h-5 flex-shrink-0" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18.5736 8.22864L20.0705 6.73176L18.5975 5.25833L16.9962 6.85963C15.5334 5.82295 13.8263 5.18404 12.0423 5.00546V2.87005H14.1257V0.786713H7.87566V2.87005H9.95899V5.00546C8.17497 5.18404 6.46793 5.82295 5.00508 6.85963L3.40378 5.25833L1.93087 6.73176L3.42774 8.22864C2.0305 9.70802 1.09716 11.5642 0.742982 13.5681C0.388806 15.5719 0.629307 17.6356 1.43478 19.5043C2.24026 21.373 3.57543 22.9649 5.27542 24.0833C6.97541 25.2018 8.96575 25.7978 11.0007 25.7978C13.0356 25.7978 15.0259 25.2018 16.7259 24.0833C18.4259 22.9649 19.7611 21.373 20.5665 19.5043C21.372 17.6356 21.6125 15.5719 21.2583 13.5681C20.9042 11.5642 19.9708 9.70802 18.5736 8.22864ZM11.0007 23.7034C9.35248 23.7034 7.74131 23.2146 6.3709 22.299C5.00049 21.3833 3.93239 20.0818 3.30166 18.5591C2.67093 17.0364 2.5059 15.3608 2.82745 13.7443C3.14899 12.1278 3.94266 10.6429 5.1081 9.47749C6.27354 8.31205 7.7584 7.51838 9.37491 7.19684C10.9914 6.87529 12.667 7.04032 14.1897 7.67105C15.7124 8.30178 17.0139 9.36988 17.9296 10.7403C18.8452 12.1107 19.334 13.7219 19.334 15.37C19.3315 17.5794 18.4527 19.6976 16.8905 21.2599C15.3282 22.8221 13.21 23.7009 11.0007 23.7034Z" fill="#2C2D3A" />
                 <path d="M11 9.11996V15.37H4.75C4.75 16.6061 5.11656 17.8145 5.80331 18.8423C6.49007 19.8701 7.46619 20.6712 8.60823 21.1442C9.75027 21.6173 11.0069 21.741 12.2193 21.4999C13.4317 21.2587 14.5453 20.6635 15.4194 19.7894C16.2935 18.9153 16.8888 17.8017 17.1299 16.5893C17.3711 15.3769 17.2473 14.1202 16.7742 12.9782C16.3012 11.8362 15.5001 10.86 14.4723 10.1733C13.4445 9.48652 12.2361 9.11996 11 9.11996Z" fill="#FFDC91" />
               </svg>
-              <span>
+              <span className="truncate">
                 {shop.time} • {shop.distance}
               </span>
             </div>
 
             {/* Location */}
-            <div className="flex items-center gap-1 text-sm">
-              <svg width="15" height="15" className="text-[#4285f4]" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div className="flex items-center gap-1 text-xs sm:text-sm">
+              <svg width="13" height="13" className="sm:w-[15px] sm:h-[15px] flex-shrink-0 text-[#4285f4]" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" clipRule="evenodd" d="M17.7063 0.590088C18.6617 0.239561 19.585 1.18109 19.2413 2.15421L13.2054 19.2495C12.8306 20.3123 11.3646 20.3327 10.9609 19.2801L8.13385 11.915L0.91078 9.0333C-0.120516 8.62164 -0.10053 7.1268 0.94076 6.74367L17.7063 0.589069V0.590088Z" fill="#4285F4" />
               </svg>
-              <span className="text-gray-600">{shop.location}</span>
+              <span className="text-gray-600 truncate">{shop.location}</span>
             </div>
           </div>
         </div>
