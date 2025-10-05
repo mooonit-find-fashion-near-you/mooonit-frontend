@@ -156,7 +156,14 @@ const Navbar: React.FC = () => {
                     {/* Logo */}
                     <figure>
                         <Link href="/">
-                            <Image src="/images/logo.svg" alt="Mooonit Logo" width={120} height={40} />
+                            <Image
+                                src="/images/logo.svg"
+                                alt="Mooonit Logo"
+                                width={0}
+                                height={0}
+                                sizes="100vw"
+                                className="cursor-pointer w-32 lg:w-40 h-auto"
+                            />
                         </Link>
                     </figure>
 
