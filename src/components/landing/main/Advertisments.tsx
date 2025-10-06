@@ -84,8 +84,22 @@ export default function Advertisements({ activeSection }: { activeSection: strin
     if (loading) {
         return (
             <div className="w-full px-4 sm:px-6 lg:px-8">
+                {/* <div className="max-w-7xl mx-auto flex gap-4 sm:gap-6 overflow-hidden"> */}
                 <div className="max-w-7xl mx-auto">
-                    <PromotionalBannerSkeleton />
+                    <Carousel
+                        className="w-full"
+                        opts={{ align: "start", loop: true, }}
+                    >
+                        <CarouselContent className="-ml-2 sm:-ml-4">
+                            {[1, 2, 3].map((i) => (
+                                <CarouselItem key={i} className="pl-2 sm:pl-4 basis-full md:basis-1/2">
+                                    <div className="p-1">
+                                        <PromotionalBannerSkeleton />
+                                    </div>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                    </Carousel>
                 </div>
             </div>
         )
@@ -127,7 +141,7 @@ export default function Advertisements({ activeSection }: { activeSection: strin
                 >
                     <CarouselContent className="-ml-2 sm:-ml-4">
                         {ads.map((ad) => (
-                            <CarouselItem key={ad.id} className="pl-2 sm:pl-4 basis-full md:basis-1/2 lg:basis-1/2">
+                            <CarouselItem key={ad.id} className="pl-2 sm:pl-4 basis-full md:basis-1/2">
                                 <div className="p-1">
                                     <PromotionalBanner
                                         saleText={ad.saleText}

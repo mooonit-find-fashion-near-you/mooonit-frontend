@@ -48,11 +48,21 @@ export default function TrendingShops({ activeSection }: { activeSection: string
                         Trending Shops
                     </h1>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
-                        {[1, 2, 3].map((i) => (
-                            <ShopCardSkeleton key={i} />
-                        ))}
-                    </div>
+                    {/* Updated skeleton to match carousel behavior */}
+                    <Carousel
+                        opts={{ align: "start", loop: true }}
+                        className="w-full"
+                    >
+                        <CarouselContent className="-ml-2 sm:-ml-4">
+                            {[1, 2, 3].map((i) => (
+                                <CarouselItem key={i} className="pl-2 sm:pl-4 basis-full sm:basis-1/2 xl:basis-1/3">
+                                    <div className="pb-6 sm:pb-8">
+                                        <ShopCardSkeleton />
+                                    </div>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                    </Carousel>
                 </div>
             </div>
         )

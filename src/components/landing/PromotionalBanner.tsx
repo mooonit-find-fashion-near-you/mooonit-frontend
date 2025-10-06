@@ -58,17 +58,13 @@ export function PromotionalBanner({
 
 export function PromotionalBannerSkeleton() {
     return (
-        <div className="relative overflow-hidden rounded-xl sm:rounded-2xl animate-pulse bg-gray-200">
+        <div className="relative flex-1 overflow-hidden rounded-xl sm:rounded-2xl animate-pulse bg-gray-200">
             <div className="flex flex-col sm:flex-row items-center justify-between min-h-[300px] sm:h-80 md:h-96">
-                {/* Text Content Skeleton */}
                 <div className="w-full sm:flex-1 p-6 sm:p-8 lg:p-12 z-10 space-y-3 sm:space-y-4 order-2 sm:order-1">
                     <div className="h-4 sm:h-5 w-20 sm:w-24 bg-gray-400 rounded"></div>
                     <div className="h-8 sm:h-10 md:h-12 w-full sm:w-3/4 bg-gray-400 rounded"></div>
                     <div className="h-10 sm:h-12 w-full sm:w-32 bg-gray-400 rounded-full"></div>
                 </div>
-
-                {/* Image Skeleton */}
-                <div className="w-full sm:w-1/2 h-48 sm:h-full bg-gray-300 order-1 sm:order-2"></div>
             </div>
         </div>
     );
