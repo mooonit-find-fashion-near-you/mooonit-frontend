@@ -12,7 +12,6 @@
   font-display: swap;
 }
 
-
 * ::selection {
   @apply bg-[#FFDC91] text-[black];
 }

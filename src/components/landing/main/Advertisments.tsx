@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { PromotionalBanner, PromotionalBannerSkeleton } from "@/components/landing/PromotionalBanner"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import PrimaryButton from "@/components/PrimaryButton"
+import Autoplay from "embla-carousel-autoplay"
 
 type Advertisement = {
     id: string
@@ -33,6 +34,8 @@ export default function Advertisements({ activeSection }: { activeSection: strin
     const [ads, setAds] = useState<Advertisement[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
+
+    const autoplayPlugin = Autoplay({ delay: 3000 })
 
     useEffect(() => {
         const abortController = new AbortController()
@@ -138,6 +141,7 @@ export default function Advertisements({ activeSection }: { activeSection: strin
                 <Carousel
                     className="w-full"
                     opts={{ align: "start", loop: true, }}
+                    plugins={[autoplayPlugin]}
                 >
                     <CarouselContent className="-ml-2 sm:-ml-4">
                         {ads.map((ad) => (
