@@ -65,7 +65,7 @@ const SearchForm = ({
                                 </SelectTrigger>
                                 <SelectContent className="font-[outfit]">
                                     <SelectItem className="cursor-pointer" value="all">All Category</SelectItem>
-                                    <SelectItem className="cursor-pointer" value="women">Women</SelectItem>
+                                    <SelectItem className="cursor-pointer" value="women">Women Clothing</SelectItem>
                                     <SelectItem className="cursor-pointer" value="footwear">Footwear</SelectItem>
                                     <SelectItem className="cursor-pointer" value="accessories">Accessories</SelectItem>
                                     <SelectItem className="cursor-pointer" value="bags">Bags</SelectItem>

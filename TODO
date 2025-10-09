@@ -1,0 +1,38 @@
+#1	src/components/login/LoginForm.tsx#44
+	TODO: Replace with actual API call
+
+#2	src/components/product/RecommendedProducts.tsx#44
+	FIXME: due to overflow shadow of it is not visible. also responsiveness is ruined 
+
+#3	src/components/product/ProductDetails.tsx#39
+	TODO: Display variants in place of SizeSelector 
+
+#4	src/components/login/OTPForm.tsx#49
+	TODO: Replace with actual API call
+
+#5	src/components/login/OTPForm.tsx#81
+	TODO: Replace with actual API call
+
+#6	src/components/login/GenderPopup.tsx#1
+	TODO: Remove prefer not to say
+
+#7	src/components/login/GenderPopup.tsx#2
+	TODO: Fix resend OTP
+
+#8	src/components/login/GenderPopup.tsx#48
+	TODO: Replace with actual API call
+
+#9	src/components/cart/OrderSummary.tsx#1
+	TODO: Order Summary Dropdown. Don't show details at once. Hide under terms & conditions
+
+#10 src/app/shops/[id]/page.tsx
+	TODO: Multiple select category
+
+#11 src/components/ProductCard.tsx
+	TODO: Remove sizing, and show color variants if available
+	TODO: Remove product reviews and show shops reviews instead
+
+#12 src/components/landing/main/SubCategories.tsx
+	TODO: Stack in one line, PS : no scrolling
+
+#13 Handshake of frontend & backend

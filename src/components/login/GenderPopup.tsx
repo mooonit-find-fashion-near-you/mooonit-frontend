@@ -145,15 +145,6 @@ export function GenderPopup({ isOpen, onClose, phoneNumber }: GenderPopupProps) 
                             <span>Complete Profile</span>
                         )}
                     </button>
-
-                    <button
-                        type="button"
-                        onClick={handleSkip}
-                        disabled={isSubmitting}
-                        className="w-full rounded-full cursor-pointer border border-gray-300 bg-transparent h-12 px-6 text-base font-medium text-[#2c2d3a]/70 hover:text-[#2c2d3a] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-                    >
-                        Skip for now
-                    </button>
                 </div>
 
                 {/* Note */}
