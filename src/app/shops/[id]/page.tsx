@@ -12,14 +12,16 @@ import LoadingState from '@/components/feedback/LoadingState';
 import { useShopData } from '@/hooks/useShopData';
 import { useShopFilters } from '@/hooks/useShopFilters';
 
-import { getCategoryOptions, getSelectedCategoryName, getProductCount } from '@/utils/categoryUtils';
+import { getCategoryOptions, getSelectedCategoryNames, getProductCount } from '@/utils/categoryUtils';
 import { Product } from '@/data/mockProducts';
 
 export default function ShopPage() {
   const { id } = useParams();
   const searchParams = useSearchParams();
 
-  const selectedCategorySlug = searchParams.get('category');
+  // Parse multiple categories from URL
+  const categoryParam = searchParams.get('category');
+  const selectedCategorySlugs = categoryParam ? categoryParam.split(',') : [];
   const selectedSection = (searchParams.get('section') || 'women').toLowerCase();
 
   const {
@@ -31,7 +33,7 @@ export default function ShopPage() {
     isInitialized,
     setProducts,
     setLoading
-  } = useShopData({ shopId: id, selectedSection, selectedCategorySlug });
+  } = useShopData({ shopId: id, selectedSection, selectedCategorySlugs });
 
   const handleProductsUpdate = useCallback((products: Product[]) => {
     setProducts(products);
@@ -42,17 +44,17 @@ export default function ShopPage() {
   }, [setLoading]);
 
   const {
-    activeCategory,
+    selectedCategories,
     priceRange,
     selectedSizes,
-    setActiveCategory,
+    handleCategoryToggle,
     setPriceRange,
     handleSizeToggle,
     clearAllFilters
   } = useShopFilters({
     shopId: id,
     selectedSection,
-    selectedCategorySlug,
+    selectedCategorySlugs,
     dynamicPriceRange,
     isInitialized,
     onProductsUpdate: handleProductsUpdate,
@@ -63,14 +65,14 @@ export default function ShopPage() {
   if (!shop) return <LoadingState message="Shop not found." />;
 
   const filterProps = {
-    activeCategory,
+    selectedCategories,
     selectedSection,
     selectedSizes,
     priceRange,
     categoryOptions: getCategoryOptions(selectedSection, categoryCounts),
-    getSelectedCategoryName: () => getSelectedCategoryName(activeCategory, selectedSection),
+    getSelectedCategoryNames: () => getSelectedCategoryNames(selectedCategories, selectedSection),
     getProductCount: (slug: string) => getProductCount(slug, categoryCounts),
-    onCategoryChange: setActiveCategory,
+    onCategoryToggle: handleCategoryToggle,
     onSizeToggle: handleSizeToggle,
     onPriceChange: setPriceRange,
     onClearFilters: clearAllFilters,
@@ -89,9 +91,9 @@ export default function ShopPage() {
           <ProductGrid
             loading={loading}
             products={products}
-            activeCategory={activeCategory}
+            selectedCategories={selectedCategories}
             selectedSection={selectedSection}
-            getSelectedCategoryName={() => getSelectedCategoryName(activeCategory, selectedSection)}
+            getSelectedCategoryNames={() => getSelectedCategoryNames(selectedCategories, selectedSection)}
             onClearFilters={clearAllFilters}
           />
         </div>

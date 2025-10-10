@@ -21,10 +21,21 @@ export const getCategoryOptions = (selectedSection: string, categoryCounts: Cate
     return options;
 };
 
-export const getSelectedCategoryName = (activeCategory: string, selectedSection: string) => {
-    if (activeCategory === 'all') return 'All Categories';
-    const category = subCategoriesData[selectedSection]?.find(cat => cat.slug === activeCategory);
-    return category?.name || activeCategory;
+export const getSelectedCategoryNames = (selectedCategories: string[], selectedSection: string) => {
+    if (selectedCategories.length === 0) return 'All Categories';
+
+    const categoryNames = selectedCategories.map(categorySlug => {
+        const category = subCategoriesData[selectedSection]?.find(cat => cat.slug === categorySlug);
+        return category?.name || categorySlug;
+    });
+
+    if (categoryNames.length === 1) {
+        return categoryNames[0];
+    } else if (categoryNames.length === 2) {
+        return `${categoryNames[0]} & ${categoryNames[1]}`;
+    } else {
+        return `${categoryNames[0]} & ${categoryNames.length - 1} more`;
+    }
 };
 
 export const getProductCount = (categorySlug: string, categoryCounts: CategoryCount) => {
@@ -32,4 +43,14 @@ export const getProductCount = (categorySlug: string, categoryCounts: CategoryCo
         return Object.values(categoryCounts).reduce((acc, count) => acc + count, 0);
     }
     return categoryCounts?.[categorySlug] || 0;
+};
+
+export const getSelectedCategoriesCount = (selectedCategories: string[], categoryCounts: CategoryCount) => {
+    if (selectedCategories.length === 0) {
+        return Object.values(categoryCounts).reduce((acc, count) => acc + count, 0);
+    }
+
+    return selectedCategories.reduce((total, categorySlug) => {
+        return total + (categoryCounts[categorySlug] || 0);
+    }, 0);
 };

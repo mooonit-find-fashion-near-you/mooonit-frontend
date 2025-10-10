@@ -6,15 +6,22 @@ import { Product } from "@/data/mockProducts";
 interface ProductGridProps {
     loading: boolean;
     products: Product[];
-    activeCategory: string;
+    selectedCategories: string[];
     selectedSection: string;
-    getSelectedCategoryName: () => string;
+    getSelectedCategoryNames: () => string;
     onClearFilters: () => void;
 }
 
-export default function ProductGrid({ loading, products, activeCategory, selectedSection, getSelectedCategoryName, onClearFilters }: ProductGridProps) {
+export default function ProductGrid({ 
+    loading, 
+    products, 
+    selectedCategories, 
+    selectedSection, 
+    getSelectedCategoryNames, 
+    onClearFilters 
+}: ProductGridProps) {
     
-    const hasActiveFilters = activeCategory !== "all";
+    const hasActiveFilters = selectedCategories.length > 0;
 
     console.log(products);
 
@@ -33,9 +40,9 @@ export default function ProductGrid({ loading, products, activeCategory, selecte
             <main className="flex-1">
                 <div className="text-center py-12">
                     <p className="text-[#757575] text-lg">
-                        {activeCategory === "all"
+                        {selectedCategories.length === 0
                             ? `No products available for ${selectedSection} section in this shop.`
-                            : `No products available in ${getSelectedCategoryName()} category for ${selectedSection} section.`
+                            : `No products available in ${getSelectedCategoryNames()} for ${selectedSection} section.`
                         }
                     </p>
                     {hasActiveFilters && (

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { shops } from "@/data/shops"
 
-// GET /api/trending-shops?section=Men
+// GET /api/trending-shops?section=Women
 export async function GET(req: Request) {
     const { searchParams } = new URL(req.url)
     const section = searchParams.get("section") || "Women"
