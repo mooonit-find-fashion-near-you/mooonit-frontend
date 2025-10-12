@@ -68,12 +68,6 @@ export function GenderPopup({ isOpen, onClose, phoneNumber }: GenderPopupProps) 
         }
     }
 
-    const handleSkip = () => {
-        onClose()
-        // You can add redirect here: router.push('/dashboard')
-        alert("Welcome to Mooonit! You can update your gender later in settings.")
-    }
-
     if (!isOpen) return null
 
     return (

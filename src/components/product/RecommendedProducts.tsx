@@ -1,7 +1,6 @@
 // components/product/RecommendedProducts.tsx (with shadcn carousel)
 "use client";
 
-import { useRouter } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
 import { Product } from "@/data/mockProducts";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, } from "@/components/ui/carousel";
@@ -13,11 +12,6 @@ interface RecommendedProductsProps {
 export default function RecommendedProducts({
     products,
 }: RecommendedProductsProps) {
-    const router = useRouter();
-
-    const handleProductClick = (productId: string) => {
-        router.push(`/products/${productId}`);
-    };
 
     if (products.length === 0) {
         return null;
@@ -48,20 +42,15 @@ export default function RecommendedProducts({
                             key={product.id}
                             className="pl-5 md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
                         >
-                            <div
-                                className="cursor-pointer"
-                                onClick={() => handleProductClick(product.id)}
-                            >
-                                <ProductCard
-                                    id={product.id}
-                                    image={product.images?.[0] || ""}
-                                    imageAlt={product.title}
-                                    overlayText={product.category}
-                                    title={product.title}
-                                    description={product.description}
-                                    price={product.price.toString()}
-                                />
-                            </div>
+                            <ProductCard
+                                id={product.id}
+                                image={product.images?.[0] || ""}
+                                imageAlt={product.title}
+                                overlayText={product.category}
+                                title={product.title}
+                                description={product.description}
+                                price={product.price.toString()}
+                            />
                         </CarouselItem>
                     ))}
                 </CarouselContent>
