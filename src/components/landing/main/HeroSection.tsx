@@ -25,7 +25,7 @@ export default function HeroSection({ activeSection }: { activeSection: string }
             {/* Content Section */}
             <div className="flex-1 flex flex-col space-y-6 lg:items-end">
                 {/* Title - Repositioned for mobile */}
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5rem] font-bold font-[TOPLUXURY] text-gray-900 leading-tight flex flex-col lg:items-end lg:absolute lg:top-16 lg:right-8">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5rem] font-medium font-[TOPLUXURY] text-gray-900 leading-tight flex flex-col lg:items-end lg:absolute lg:top-16 lg:right-8">
                     {data.title}
                 </h1>
 
@@ -38,7 +38,7 @@ export default function HeroSection({ activeSection }: { activeSection: string }
                         height={200}
                         className="object-cover w-full sm:flex-1 h-36 object-top rounded-lg"
                     />
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[5rem] font-bold font-[TOPLUXURY] text-gray-900">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[5rem] font-medium font-[TOPLUXURY] text-gray-900">
                         {data.subtitle}
                     </h2>
                 </figure>

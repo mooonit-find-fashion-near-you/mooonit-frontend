@@ -107,7 +107,7 @@ const ShopProductsSection: React.FC<ShopProductsSectionProps> = ({ activeSection
                     </>
                 ) : (
                     <>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-6 place-items-center">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center gap-6">
                             {products
                                 .slice(0, 6)
                                 .filter(product => product.images && product.images[0] && product.images[0].trim() !== '')

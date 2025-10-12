@@ -24,7 +24,7 @@ export default function RecommendedProducts({
     }
 
     return (
-        <section className="mb-12">
+        <section>
             <Carousel
                 opts={{ align: "start", loop: true, }}
                 className="w-full"
@@ -42,7 +42,7 @@ export default function RecommendedProducts({
                 </div>
 
                 {/* FIXME: due to overflow shadow of it is not visible. also responsiveness is ruined */}
-                <CarouselContent className="-ml-4">
+                <CarouselContent className="-ml-4 pb-8">
                     {products.map((product) => (
                         <CarouselItem
                             key={product.id}
@@ -65,12 +65,6 @@ export default function RecommendedProducts({
                         </CarouselItem>
                     ))}
                 </CarouselContent>
-
-                {/* Mobile-only navigation arrows */}
-                <div className="flex justify-center mt-6 md:hidden">
-                    <CarouselPrevious className="static translate-y-0 mx-2" />
-                    <CarouselNext className="static translate-y-0 mx-2" />
-                </div>
             </Carousel>
         </section>
     );
