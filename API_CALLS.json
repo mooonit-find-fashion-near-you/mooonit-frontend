@@ -1,0 +1,191 @@
+[
+  {
+    "file": "src/app/cart/page.tsx",
+    "client": "apiClient",
+    "method": "GET",
+    "endpoint": "/api/products",
+    "data": "{ params: { limit: 10 } }"
+  },
+  {
+    "file": "src/app/cart/page.tsx",
+    "client": "—",
+    "method": "GET",
+    "endpoint": "/api/products",
+    "data": "—"
+  },
+  {
+    "file": "src/app/products/[id]/page.tsx",
+    "client": "apiClient",
+    "method": "GET",
+    "endpoint": "/api/products/${id}",
+    "data": "—"
+  },
+  {
+    "file": "src/app/products/[id]/page.tsx",
+    "client": "apiClient",
+    "method": "GET",
+    "endpoint": "/api/products",
+    "data": "—"
+  },
+  {
+    "file": "src/app/products/[id]/page.tsx",
+    "client": "—",
+    "method": "GET",
+    "endpoint": "/api/products/${id}",
+    "data": "—"
+  },
+  {
+    "file": "src/app/products/[id]/page.tsx",
+    "client": "—",
+    "method": "GET",
+    "endpoint": "/api/products",
+    "data": "—"
+  },
+  {
+    "file": "src/app/search/page.tsx",
+    "client": "apiClient",
+    "method": "GET",
+    "endpoint": "/api/mock-search",
+    "data": "{ params: { q: query, category }, }"
+  },
+  {
+    "file": "src/app/search/page.tsx",
+    "client": "—",
+    "method": "GET",
+    "endpoint": "/api/mock-search",
+    "data": "—"
+  },
+  {
+    "file": "src/components/landing/main/Advertisments.tsx",
+    "client": "apiClient",
+    "method": "GET",
+    "endpoint": "/api/advertisements?section=${activeSection}",
+    "data": "{ signal: abortController.signal }"
+  },
+  {
+    "file": "src/components/landing/main/Advertisments.tsx",
+    "client": "—",
+    "method": "GET",
+    "endpoint": "/api/advertisements?section=${activeSection}",
+    "data": "—"
+  },
+  {
+    "file": "src/components/landing/main/ShopsProductsSection.tsx",
+    "client": "apiClient",
+    "method": "GET",
+    "endpoint": "/api/shops?section=${activeSection}&category=${selectedCategory.slug}",
+    "data": "—"
+  },
+  {
+    "file": "src/components/landing/main/ShopsProductsSection.tsx",
+    "client": "apiClient",
+    "method": "GET",
+    "endpoint": "/api/products?section=${activeSection}&category=${selectedCategory.slug}",
+    "data": "—"
+  },
+  {
+    "file": "src/components/landing/main/ShopsProductsSection.tsx",
+    "client": "—",
+    "method": "GET",
+    "endpoint": "/api/shops?section=${activeSection}&category=${selectedCategory.slug}",
+    "data": "—"
+  },
+  {
+    "file": "src/components/landing/main/ShopsProductsSection.tsx",
+    "client": "—",
+    "method": "GET",
+    "endpoint": "/api/products?section=${activeSection}&category=${selectedCategory.slug}",
+    "data": "—"
+  },
+  {
+    "file": "src/components/landing/main/TrendingShops.tsx",
+    "client": "apiClient",
+    "method": "GET",
+    "endpoint": "/api/trending-shops?section=${activeSection}",
+    "data": "—"
+  },
+  {
+    "file": "src/components/landing/main/TrendingShops.tsx",
+    "client": "—",
+    "method": "GET",
+    "endpoint": "/api/trending-shops?section=${activeSection}",
+    "data": "—"
+  },
+  {
+    "file": "src/components/login/GenderPopup.tsx",
+    "client": "fetch",
+    "method": "POST",
+    "endpoint": "/api/user/gender",
+    "data": "{ // method: 'POST', // headers: { 'Content-Type': 'application/json' }, // body: JSON.stringify({ /..."
+  },
+  {
+    "file": "src/components/login/GenderPopup.tsx",
+    "client": "—",
+    "method": "GET",
+    "endpoint": "/api/user/gender",
+    "data": "—"
+  },
+  {
+    "file": "src/components/login/OTPForm.tsx",
+    "client": "fetch",
+    "method": "POST",
+    "endpoint": "/api/verify-otp",
+    "data": "{ // method: 'POST', // headers: { 'Content-Type': 'application/json' }, // body: JSON.stringify({ /..."
+  },
+  {
+    "file": "src/components/login/OTPForm.tsx",
+    "client": "—",
+    "method": "GET",
+    "endpoint": "/api/verify-otp",
+    "data": "—"
+  },
+  {
+    "file": "src/components/product/CustomerReviews.tsx",
+    "client": "apiClient",
+    "method": "GET",
+    "endpoint": "/api/products/${productId}/reviews",
+    "data": "—"
+  },
+  {
+    "file": "src/components/product/CustomerReviews.tsx",
+    "client": "—",
+    "method": "GET",
+    "endpoint": "/api/products/${productId}/reviews",
+    "data": "—"
+  },
+  {
+    "file": "src/services/cartService.ts",
+    "client": "—",
+    "method": "GET",
+    "endpoint": "/api/cart",
+    "data": "—"
+  },
+  {
+    "file": "src/services/productService.ts",
+    "client": "apiClient",
+    "method": "GET",
+    "endpoint": "/api/products",
+    "data": "{ params }"
+  },
+  {
+    "file": "src/services/productService.ts",
+    "client": "fetch",
+    "method": "GET",
+    "endpoint": "/api/products?shopId=${shopId}&section=${section}",
+    "data": "—"
+  },
+  {
+    "file": "src/services/productService.ts",
+    "client": "—",
+    "method": "GET",
+    "endpoint": "/api/products",
+    "data": "—"
+  },
+  {
+    "file": "src/services/productService.ts",
+    "client": "—",
+    "method": "GET",
+    "endpoint": "/api/products?shopId=${shopId}&section=${section}",
+    "data": "—"
+  }
+]
