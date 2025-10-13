@@ -1,4 +1,7 @@
+// TODO: # AXIOS IMPLEMENTATION
+
 import { Product } from '@/data/mockProducts';
+import apiClient from './apiClient';
 
 interface FetchProductsFilters {
     shopId: number;
@@ -33,10 +36,10 @@ export const fetchProducts = async (
                 filters.sizes.length > 0 && { sizes: filters.sizes.join(',') }),
         });
 
-        const response = await fetch(`/api/products?${params}`);
-        if (!response.ok) throw new Error('Failed to fetch products');
+        const response = await apiClient.get(`/api/products`, { params });
+        if (response.status !== 200) throw new Error('Failed to fetch products');
 
-        return await response.json();
+        return response.data;
     } catch (error) {
         console.error('Error fetching products:', error);
         return [];

@@ -3,7 +3,7 @@
 
 import { ArrowBigLeftDash, ArrowBigRightDash, BadgeCheck, Star } from "lucide-react";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import apiClient from "@/services/apiClient";
 
 interface ReviewData {
     averageRating: string;
@@ -36,7 +36,7 @@ export default function CustomerReviews({ productId }: CustomerReviewsProps) {
         const fetchReviews = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get(`/api/products/${productId}/reviews`);
+                const response = await apiClient.get(`/api/products/${productId}/reviews`);
                 setReviewData(response.data);
             } catch (error) {
                 console.error('Error fetching reviews:', error);

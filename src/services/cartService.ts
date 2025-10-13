@@ -1,3 +1,5 @@
+// TODO: # AXIOS IMPLEMENTATION
+
 // lib/cartService.ts
 export interface CartItem {
     id: number

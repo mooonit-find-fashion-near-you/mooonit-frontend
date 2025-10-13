@@ -3,7 +3,7 @@
 
 import Image from "next/image"
 import { QuantityStepper } from "./QuantityStepper"
-import { CartItem as CartItemType } from '@/lib/cartService'
+import { CartItem as CartItemType } from '@/services/cartService'
 
 interface CartItemProps {
     item: CartItemType

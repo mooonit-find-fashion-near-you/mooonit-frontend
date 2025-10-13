@@ -3,8 +3,8 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import ProductCard from "@/components/ProductCard";
+import apiClient from "@/services/apiClient";
 
 interface Product {
     id: string | undefined
@@ -30,7 +30,7 @@ export default function SearchPage() {
             try {
                 setLoading(true);
                 // For now, mock API response (replace with your backend endpoint)
-                const { data } = await axios.get(`/api/mock-search`, {
+                const { data } = await apiClient.get(`/api/mock-search`, {
                     params: { q: query, category },
                 });
                 setResults(data);

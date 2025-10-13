@@ -3,13 +3,13 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Product } from "@/data/mockProducts";
 import ProductImages from "@/components/product/ProductImages";
 import ProductDetails from "@/components/product/ProductDetails";
 import CustomerReviews from "@/components/product/CustomerReviews";
 import RecommendedProducts from "@/components/product/RecommendedProducts";
 import LoadingState from "@/components/feedback/LoadingState";
+import apiClient from "@/services/apiClient";
 
 export default function ProductPage() {
     const { id } = useParams();
@@ -22,13 +22,13 @@ export default function ProductPage() {
     useEffect(() => {
         if (id) {
             // Fetch current product
-            axios.get(`/api/products/${id}`).then((res) => {
+            apiClient.get(`/api/products/${id}`).then((res) => {
                 setProduct(res.data);
                 setSelectedSize(res.data.sizes?.[0] || "");
             });
 
             // Fetch all products for recommendations and navigation
-            axios.get("/api/products").then((res) => {
+            apiClient.get("/api/products").then((res) => {
                 const products = res.data;
                 setAllProducts(products);
 

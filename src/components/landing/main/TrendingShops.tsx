@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 import ShopCard, { ShopCardSkeleton } from "../../ShopCard"
+import apiClient from "@/services/apiClient"
 
 type Shop = {
     id: number
@@ -27,9 +28,8 @@ export default function TrendingShops({ activeSection }: { activeSection: string
         const fetchShops = async () => {
             setLoading(true)
             try {
-                const res = await fetch(`/api/trending-shops?section=${activeSection}`)
-                const data = await res.json()
-                setShops(data)
+                const res = await apiClient.get(`/api/trending-shops?section=${activeSection}`)
+                setShops(res.data)
             } catch (error) {
                 console.error("Failed to load shops:", error)
             } finally {

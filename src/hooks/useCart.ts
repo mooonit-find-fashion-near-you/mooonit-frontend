@@ -2,7 +2,7 @@
 "use client"
 
 import { useState, useEffect } from 'react'
-import { CartItem, cartService } from '@/lib/cartService'
+import { CartItem, cartService } from '@/services/cartService'
 
 export function useCart() {
     const [items, setItems] = useState<CartItem[]>([])

@@ -7,6 +7,7 @@ import RecommendedProducts from "@/components/product/RecommendedProducts"
 import { useCart } from "@/hooks/useCart"
 import { useState, useEffect } from "react"
 import { Product } from "@/data/mockProducts"
+import apiClient from "@/services/apiClient"
 
 export default function Page() {
     const {
@@ -28,9 +29,9 @@ export default function Page() {
         const fetchRecommendedProducts = async () => {
             try {
                 setProductsLoading(true)
-                const response = await fetch('/api/products?limit=10')
-                if (response.ok) {
-                    const products = await response.json()
+                const response = await apiClient.get('/api/products', { params: { limit: 10 } })
+                if (response.status === 200) {
+                    const products = await response.data as Product[]
                     setRecommendedProducts(products.slice(0, 10)) // Limit to 10 products
                 }
             } catch (error) {

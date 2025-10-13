@@ -7,11 +7,11 @@ import { SubCategory } from "@/data/subCategoriesData";
 
 import ShopCard from "@/components/ShopCard";
 import ProductCard from "@/components/ProductCard";
-import axios from "axios";
 import Link from "next/link";
 
 import { Shop } from "@/data/shops";
 import { Product } from "@/data/mockProducts";
+import apiClient from "@/services/apiClient";
 
 interface ShopProductsSectionProps {
     activeSection: string;
@@ -32,12 +32,12 @@ const ShopProductsSection: React.FC<ShopProductsSectionProps> = ({ activeSection
             setLoading(true);
             try {
                 if (activeTab === "Shop") {
-                    const res = await axios.get(
+                    const res = await apiClient.get(
                         `/api/shops?section=${activeSection}&category=${selectedCategory.slug}`
                     );
                     setShops(res.data);
                 } else {
-                    const res = await axios.get(
+                    const res = await apiClient.get(
                         `/api/products?section=${activeSection}&category=${selectedCategory.slug}`
                     );
                     setProducts(res.data);
