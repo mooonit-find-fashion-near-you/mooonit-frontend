@@ -1,3 +1,4 @@
+// components/landing/main/Advertisements.tsx
 "use client"
 
 import { useEffect, useState } from "react"
@@ -5,17 +6,7 @@ import { PromotionalBanner, PromotionalBannerSkeleton } from "@/components/landi
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import PrimaryButton from "@/components/PrimaryButton"
 import Autoplay from "embla-carousel-autoplay"
-import apiClient from "@/services/apiClient"
-
-type Advertisement = {
-    id: string
-    section: string
-    saleText: string
-    headline: string
-    buttonText: string
-    imageUrl: string
-    imageAlt: string
-}
+import { advertisementService, Advertisement } from "@/services/advertisementService"
 
 // Helper function for error type checking
 function isAbortError(error: unknown): error is DOMException {
@@ -23,13 +14,13 @@ function isAbortError(error: unknown): error is DOMException {
 }
 
 // Simple validation function
-function validateAdvertisement(data: unknown): data is Advertisement[] {
-    return Array.isArray(data) && data.every(item =>
-        typeof item?.id === 'string' &&
-        typeof item?.saleText === 'string' &&
-        typeof item?.headline === 'string'
-    )
-}
+// function validateAdvertisement(data: unknown): data is Advertisement[] {
+//     return Array.isArray(data) && data.every(item =>
+//         typeof item?.id === 'string' &&
+//         typeof item?.saleText === 'string' &&
+//         typeof item?.headline === 'string'
+//     )
+// }
 
 export default function Advertisements({ activeSection }: { activeSection: string }) {
     const [ads, setAds] = useState<Advertisement[]>([])
@@ -45,23 +36,10 @@ export default function Advertisements({ activeSection }: { activeSection: strin
             setLoading(true)
             setError(null)
             try {
-                const res = await apiClient.get(`/api/advertisements?section=${activeSection}`, {
-                    signal: abortController.signal
-                })
-
-                if (!res.status || res.status !== 200) {
-                    throw new Error(`Failed to load: ${res.status}`)
-                }
-
-                const data = await res.data;
-
-                if (!validateAdvertisement(data)) {
-                    throw new Error('Invalid data format')
-                }
-
+                // Use the actual service
+                const data = await advertisementService.getAdvertisements(activeSection)
                 setAds(data)
             } catch (error) {
-                // Don't set error for aborted requests
                 if (!isAbortError(error)) {
                     console.error("Failed to load advertisements:", error)
                     setError(error instanceof Error ? error.message : 'Failed to load advertisements')

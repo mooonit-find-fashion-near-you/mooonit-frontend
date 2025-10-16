@@ -1,3 +1,4 @@
+// components/landing/main/ShopsProductsSection.tsx 
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -5,13 +6,20 @@ import SectionButton from "@/components/landing/SectionButton";
 import SubCategories from "./SubCategories";
 import { SubCategory } from "@/data/subCategoriesData";
 
-import ShopCard from "@/components/ShopCard";
+import ShopCard, { Shop } from "@/components/ShopCard";
 import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 
-import { Shop } from "@/data/shops";
 import { Product } from "@/data/mockProducts";
-import apiClient from "@/services/apiClient";
+import { categoryService } from "@/services/categoryService";
+
+interface RawShop {
+    followers: number;
+    rating: number;
+    shop_id: string;
+    shop_logo: string | null;
+    shop_name: string;
+}
 
 interface ShopProductsSectionProps {
     activeSection: string;
@@ -32,18 +40,36 @@ const ShopProductsSection: React.FC<ShopProductsSectionProps> = ({ activeSection
             setLoading(true);
             try {
                 if (activeTab === "Shop") {
-                    const res = await apiClient.get(
-                        `/api/shops?section=${activeSection}&category=${selectedCategory.slug}`
-                    );
-                    setShops(res.data);
+                    const response = await categoryService.getShopsByCategory(selectedCategory.slug);
+
+                    // The shops array is in response.data.data.shops, not response.data.shops
+                    const apiData = response.data.data; // This contains shops, shop_count, subcategory_id
+                    const rawShops = apiData?.shops || [];
+
+                    // Transform the API data to match ShopCard expectations
+                    const transformedShops = rawShops.map((shop: RawShop) => ({
+                        shop_id: shop.shop_id,
+                        shop_logo: shop.shop_logo || '/images/404.png',
+                        shop_name: shop.shop_name,
+                        rating: shop.rating,
+                        location: 'City Center',
+                    }));
+
+                    setShops(transformedShops);
                 } else {
-                    const res = await apiClient.get(
-                        `/api/products?section=${activeSection}&category=${selectedCategory.slug}`
-                    );
-                    setProducts(res.data);
+                    const response = await categoryService.getProductsByCategory(selectedCategory.slug);
+                    console.log("Products API response:", response.data);
+
+                    const apiData = response.data.data; // similar to shops logic
+                    const rawProducts = apiData?.products || [];
+
+                    setProducts(rawProducts);
                 }
             } catch (err) {
                 console.error("Error fetching data:", err);
+                // Fallback to empty arrays
+                setShops([]);
+                setProducts([]);
             } finally {
                 setLoading(false);
             }
@@ -91,7 +117,7 @@ const ShopProductsSection: React.FC<ShopProductsSectionProps> = ({ activeSection
                         </h1>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center gap-6">
                             {shops.slice(0, 6).map((shop) => (
-                                <ShopCard key={shop.id} shop={shop} activeSection={activeSection} selectedCategory={selectedCategory} />
+                                <ShopCard key={shop.shop_id} shop={shop} activeSection={activeSection} selectedCategory={selectedCategory} />
                             ))}
                         </div>
                         {shops.length > 6 && selectedCategory && (

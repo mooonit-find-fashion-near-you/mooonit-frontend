@@ -1,9 +1,10 @@
-// TODO: # AXIOS IMPLEMENTATION
-
+// components/login/GenderPopup.tsx 
 "use client"
 
 import { useState } from "react"
 import { cn } from "@/lib/utils"
+import { authService } from "@/services/authService"
+import { useRouter } from "next/navigation"
 
 type GenderOption = "male" | "female" | "other" | "prefer-not-to-say"
 
@@ -17,6 +18,7 @@ export function GenderPopup({ isOpen, onClose, phoneNumber }: GenderPopupProps) 
     const [selectedGender, setSelectedGender] = useState<GenderOption | null>(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState("")
+    const router = useRouter()
 
     const genderOptions: { value: GenderOption; label: string; icon: string }[] = [
         { value: "male", label: "Male", icon: "♂" },
@@ -40,30 +42,27 @@ export function GenderPopup({ isOpen, onClose, phoneNumber }: GenderPopupProps) 
         setError("")
 
         try {
-            // Simulate API call to save gender
-            await new Promise(resolve => setTimeout(resolve, 1000))
+            const response = await authService.updateGender(selectedGender)
 
-            // TODO: Replace with actual API call
-            // const response = await fetch('/api/user/gender', {
-            //   method: 'POST',
-            //   headers: { 'Content-Type': 'application/json' },
-            //   body: JSON.stringify({ 
-            //     phone: `+91${phoneNumber}`,
-            //     gender: selectedGender 
-            //   })
-            // })
+            if (response.success) {
+                console.log(`Gender ${selectedGender} saved for user ${phoneNumber}`)
 
-            // if (!response.ok) throw new Error('Failed to save gender')
+                // Close popup and redirect to home/dashboard
+                onClose()
 
-            console.log(`Gender ${selectedGender} saved for user ${phoneNumber}`)
+                // Redirect to home page or dashboard
+                setTimeout(() => {
+                    router.push("/account")
+                }, 1000)
 
-            // Close popup and redirect or show success
-            onClose()
-            // You can add redirect here: router.push('/dashboard')
-            alert("Profile setup complete! Welcome to Mooonit!")
-
-        } catch (err) {
-            setError("Failed to save gender. Please try again.")
+                // Optional: Show success message
+                alert("Profile setup complete! Welcome to Mooonit!")
+            } else {
+                setError(response.message || "Failed to save gender. Please try again.")
+            }
+        } catch (err: any) {
+            const errorMessage = err.response?.data?.message || "Failed to save gender. Please try again."
+            setError(errorMessage)
             console.error("Save gender error:", err)
         } finally {
             setIsSubmitting(false)

@@ -1,8 +1,8 @@
-// TODO: # AXIOS IMPLEMENTATION
-
+// components/login/OTPForm.tsx 
 import { OTPInput } from "./OTPInput"
 import { PrimaryLoginButton } from "./PrimaryLoginButton"
 import { ResendOTP } from "./ResendOTP"
+import { authService } from "@/services/authService"
 
 type OTPFormProps = {
     phoneNumber: string
@@ -21,12 +21,11 @@ type OTPFormProps = {
 }
 
 export function OTPForm({
-    // phoneNumber,
+    phoneNumber,
     otpValue,
     setOtpValue,
     isLoading,
     setIsLoading,
-    // error,
     setError,
     resendCountdown,
     setResendCountdown,
@@ -45,25 +44,17 @@ export function OTPForm({
         setError("")
 
         try {
-            // Simulate API verification
-            await new Promise(resolve => setTimeout(resolve, 1500))
+            const response = await authService.verifyOTP(phoneNumber, otpValue)
 
-            // TODO: Replace with actual API call
-            // const response = await fetch('/api/verify-otp', {
-            //   method: 'POST',
-            //   headers: { 'Content-Type': 'application/json' },
-            //   body: JSON.stringify({ 
-            //     phone: `+91${phoneNumber}`, 
-            //     otp: otpValue 
-            //   })
-            // })
-
-            // if (!response.ok) throw new Error('Invalid OTP')
-
-            // Call the success handler which will show gender popup
-            onSuccessfulVerification()
-        } catch (err) {
-            setError("Invalid OTP. Please try again.")
+            if (response.success) {
+                // Call the success handler which will show gender popup
+                onSuccessfulVerification()
+            } else {
+                setError(response.message || "Invalid OTP. Please try again.")
+            }
+        } catch (err: any) {
+            const errorMessage = err.response?.data?.message || "Invalid OTP. Please try again."
+            setError(errorMessage)
             console.error("Verify OTP error:", err)
         } finally {
             setIsLoading(false)
@@ -77,15 +68,19 @@ export function OTPForm({
         setError("")
 
         try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1000))
+            // ✅ ACTUAL API CALL
+            const response = await authService.sendOTP(phoneNumber)
 
-            // TODO: Replace with actual API call
-            setOtpValue("")
-            setResendCountdown(30)
-            setError("")
-        } catch (err) {
-            setError("Failed to resend OTP. Please try again.")
+            if (response.success) {
+                setOtpValue("")
+                setResendCountdown(30)
+                setError("")
+            } else {
+                setError(response.message || "Failed to resend OTP. Please try again.")
+            }
+        } catch (err: any) {
+            const errorMessage = err.response?.data?.message || "Failed to resend OTP. Please try again."
+            setError(errorMessage)
             console.error("Resend OTP error:", err)
         } finally {
             setIsResending(false)

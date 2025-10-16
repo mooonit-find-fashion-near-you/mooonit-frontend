@@ -1,22 +1,11 @@
+// components/landing/main/TrendingShops.tsx 
 "use client"
 
 import { useEffect, useState } from "react"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
-import ShopCard, { ShopCardSkeleton } from "../../ShopCard"
-import apiClient from "@/services/apiClient"
-
-type Shop = {
-    id: number
-    name: string
-    section: string
-    image: string
-    title: string
-    rating: number
-    time: string
-    distance: string
-    location: string
-}
+import ShopCard, { ShopCardSkeleton } from "@/components/ShopCard"
+import { shopService, Shop } from "@/services/shopService"
 
 export default function TrendingShops({ activeSection }: { activeSection: string }) {
     const [shops, setShops] = useState<Shop[]>([])
@@ -28,10 +17,12 @@ export default function TrendingShops({ activeSection }: { activeSection: string
         const fetchShops = async () => {
             setLoading(true)
             try {
-                const res = await apiClient.get(`/api/trending-shops?section=${activeSection}`)
-                setShops(res.data)
+                // Use the actual service
+                const data = await shopService.getTrendingShops(activeSection)
+                setShops(data)
             } catch (error) {
                 console.error("Failed to load shops:", error)
+                setShops([]) // Fallback to empty array
             } finally {
                 setLoading(false)
             }

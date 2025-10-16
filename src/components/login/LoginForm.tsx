@@ -1,7 +1,9 @@
+// components/login/LoginForm.tsx 
 import { Divider } from "./Divider"
 import { GoogleSignInButton } from "./GoogleSignInButton"
 import { PhoneInput } from "./PhoneInput"
 import { PrimaryLoginButton } from "./PrimaryLoginButton"
+import { authService } from "@/services/authService"
 
 type LoginFormProps = {
     phoneNumber: string
@@ -17,7 +19,6 @@ type LoginFormProps = {
 export function LoginForm({
     phoneNumber,
     setPhoneNumber,
-    // error,
     setError,
     isLoading,
     setIsLoading,
@@ -38,15 +39,18 @@ export function LoginForm({
 
         setIsLoading(true)
         try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1000))
+            const response = await authService.sendOTP(phoneNumber)
 
-            // TODO: Replace with actual API call
-            setShowOTP(true)
-            setResendCountdown(30)
-            setError("")
-        } catch (err) {
-            setError("Failed to send OTP. Please try again.")
+            if (response.success) {
+                setShowOTP(true)
+                setResendCountdown(30)
+                setError("")
+            } else {
+                setError(response.message || "Failed to send OTP. Please try again.")
+            }
+        } catch (err: any) {
+            const errorMessage = err.response?.data?.message || "Failed to send OTP. Please try again."
+            setError(errorMessage)
             console.error("Send OTP error:", err)
         } finally {
             setIsLoading(false)
@@ -54,8 +58,9 @@ export function LoginForm({
     }
 
     const handleGoogleSignIn = () => {
-        // Implement Google OAuth flow
+        // TODO: Implement Google OAuth when backend is ready
         console.log("Google sign in initiated")
+        setError("Google sign-in will be available soon!")
     }
 
     return (

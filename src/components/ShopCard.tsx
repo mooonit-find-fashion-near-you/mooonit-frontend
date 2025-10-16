@@ -3,14 +3,13 @@ import { Star } from 'lucide-react';
 import Link from 'next/link';
 import { SubCategory } from '@/data/subCategoriesData';
 
-interface Shop {
-  id: string | number;
-  image: string;
-  title: string;
-  rating: number | string;
-  time: string;
-  distance: string;
-  location: string;
+export interface Shop {
+  shop_id: string;
+  shop_logo: string;
+  shop_name: string;
+  rating: number;
+  followers?: number;
+  location?: string;
 }
 
 interface ShopCardProps {
@@ -22,14 +21,14 @@ interface ShopCardProps {
 const ShopCard = ({ shop, activeSection, selectedCategory }: ShopCardProps) => {
   return (
     <Link
-      href={`/shops/${shop.id}?section=${activeSection}&category=${selectedCategory === "all" ? "all" : selectedCategory?.slug}`}
+      href={`/shops/${shop.shop_id}?section=${activeSection}&category=${selectedCategory === "all" ? "all" : selectedCategory?.slug}`}
     >
-      <div key={shop.id} className="bg-white w-full rounded-2xl overflow-hidden shadow-md font-[outfit] hover:shadow-lg transition-shadow">
+      <div key={shop.shop_id} className="bg-white w-full rounded-2xl overflow-hidden shadow-md font-[outfit] hover:shadow-lg transition-shadow">
         {/* Image Container */}
         <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden rounded-t-2xl rounded-b-4xl">
           <Image
-            src={shop.image}
-            alt={shop.title}
+            src={shop.shop_logo}
+            alt={shop.shop_name}
             className="object-cover w-full h-full"
             loading="lazy"
             width={600}
@@ -57,7 +56,7 @@ const ShopCard = ({ shop, activeSection, selectedCategory }: ShopCardProps) => {
 
           {/* Title Overlay */}
           <div className="absolute bottom-6 sm:bottom-8 left-3 sm:left-4 right-14 sm:right-16">
-            <h3 className="text-white text-base sm:text-lg md:text-xl font-medium leading-tight font-[TOPLUXURY]">{shop.title}</h3>
+            <h3 className="text-white text-base sm:text-lg md:text-xl font-medium leading-tight font-[TOPLUXURY]">{shop.shop_name}</h3>
           </div>
         </div>
 
@@ -71,20 +70,9 @@ const ShopCard = ({ shop, activeSection, selectedCategory }: ShopCardProps) => {
 
         {/* Shop Details */}
         <div className="p-3 sm:p-4 space-y-2 sm:space-y-3 pt-0">
-          <h4 className="text-[#808080] text-sm sm:text-base font-medium truncate">{shop.title}</h4>
+          <h4 className="text-[#808080] text-sm sm:text-base font-medium truncate">{shop.shop_name}</h4>
 
           <div className="flex flex-row flex-wrap items-start sm:items-center justify-between gap-2 sm:gap-0">
-            {/* Time and Distance */}
-            <div className="flex items-center gap-1 text-[#808080] text-xs sm:text-sm">
-              <svg width="18" height="18" className="sm:w-5 sm:h-5 flex-shrink-0" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18.5736 8.22864L20.0705 6.73176L18.5975 5.25833L16.9962 6.85963C15.5334 5.82295 13.8263 5.18404 12.0423 5.00546V2.87005H14.1257V0.786713H7.87566V2.87005H9.95899V5.00546C8.17497 5.18404 6.46793 5.82295 5.00508 6.85963L3.40378 5.25833L1.93087 6.73176L3.42774 8.22864C2.0305 9.70802 1.09716 11.5642 0.742982 13.5681C0.388806 15.5719 0.629307 17.6356 1.43478 19.5043C2.24026 21.373 3.57543 22.9649 5.27542 24.0833C6.97541 25.2018 8.96575 25.7978 11.0007 25.7978C13.0356 25.7978 15.0259 25.2018 16.7259 24.0833C18.4259 22.9649 19.7611 21.373 20.5665 19.5043C21.372 17.6356 21.6125 15.5719 21.2583 13.5681C20.9042 11.5642 19.9708 9.70802 18.5736 8.22864ZM11.0007 23.7034C9.35248 23.7034 7.74131 23.2146 6.3709 22.299C5.00049 21.3833 3.93239 20.0818 3.30166 18.5591C2.67093 17.0364 2.5059 15.3608 2.82745 13.7443C3.14899 12.1278 3.94266 10.6429 5.1081 9.47749C6.27354 8.31205 7.7584 7.51838 9.37491 7.19684C10.9914 6.87529 12.667 7.04032 14.1897 7.67105C15.7124 8.30178 17.0139 9.36988 17.9296 10.7403C18.8452 12.1107 19.334 13.7219 19.334 15.37C19.3315 17.5794 18.4527 19.6976 16.8905 21.2599C15.3282 22.8221 13.21 23.7009 11.0007 23.7034Z" fill="#2C2D3A" />
-                <path d="M11 9.11996V15.37H4.75C4.75 16.6061 5.11656 17.8145 5.80331 18.8423C6.49007 19.8701 7.46619 20.6712 8.60823 21.1442C9.75027 21.6173 11.0069 21.741 12.2193 21.4999C13.4317 21.2587 14.5453 20.6635 15.4194 19.7894C16.2935 18.9153 16.8888 17.8017 17.1299 16.5893C17.3711 15.3769 17.2473 14.1202 16.7742 12.9782C16.3012 11.8362 15.5001 10.86 14.4723 10.1733C13.4445 9.48652 12.2361 9.11996 11 9.11996Z" fill="#FFDC91" />
-              </svg>
-              <span className="truncate">
-                {shop.time} • {shop.distance}
-              </span>
-            </div>
-
             {/* Location */}
             <div className="flex items-center gap-1 text-xs sm:text-sm">
               <svg width="13" height="13" className="sm:w-[15px] sm:h-[15px] flex-shrink-0 text-[#4285f4]" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
