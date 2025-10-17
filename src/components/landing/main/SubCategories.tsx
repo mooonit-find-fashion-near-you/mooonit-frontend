@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
-import SubCategoryCard from "../SubCategoryCard";
+import SubCategoryCard, { SubCategoryCardSkeleton } from "../SubCategoryCard";
 import Link from "next/link";
 import apiClient from "@/services/apiClient";
 
@@ -83,10 +83,9 @@ const SubCategories: React.FC<SubCategoriesProps> = ({ activeSection, hideBg, on
     if (loading) {
         return (
             <section className="px-3 sm:px-4 md:px-6 lg:px-8">
-                <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 max-sm:pb-9 p-4 sm:p-6 md:p-8 lg:p-10 max-w-[95rem] mx-auto">
-                    {/* Loading skeletons */}
-                    {[1, 2, 3, 4].map(i => (
-                        <div key={i} className="w-32 h-32 bg-gray-200 rounded-lg animate-pulse"></div>
+                <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 p-4 sm:p-6 md:p-8 lg:p-10 max-w-[95rem] mx-auto">
+                    {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+                        <SubCategoryCardSkeleton key={i} />
                     ))}
                 </div>
             </section>

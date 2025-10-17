@@ -43,3 +43,14 @@ const SubCategoryCard: React.FC<SubCategoryCardProps> = ({ category, hideBg, isA
 };
 
 export default SubCategoryCard;
+
+export const SubCategoryCardSkeleton = () => {
+    return (
+        <div
+            className="w-[120px] h-[150px] sm:w-[140px] sm:h-[170px] md:w-[160px] md:h-[190px] lg:w-[180px] lg:h-[210px] xl:w-[200px] xl:h-[230px] bg-gray-200 rounded-2xl sm:rounded-3xl animate-pulse flex flex-col items-center justify-between p-4 sm:p-5 md:p-6"
+        >
+            <div className="w-[70%] aspect-square bg-gray-300 rounded-full"></div>
+            <div className="w-3/4 h-6 sm:h-8 bg-gray-300 rounded"></div>
+        </div>
+    );
+}
