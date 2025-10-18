@@ -3,6 +3,7 @@ import { OTPInput } from "./OTPInput"
 import { PrimaryLoginButton } from "./PrimaryLoginButton"
 import { ResendOTP } from "./ResendOTP"
 import { authService } from "@/services/authService"
+import { useEffect } from "react" // Add this import
 
 type OTPFormProps = {
     phoneNumber: string
@@ -34,6 +35,16 @@ export function OTPForm({
     onBack,
     onSuccessfulVerification,
 }: OTPFormProps) {
+    useEffect(() => {
+        if (resendCountdown > 0) {
+            const timer = setTimeout(() => {
+                setResendCountdown(resendCountdown - 1)
+            }, 1000)
+
+            return () => clearTimeout(timer)
+        }
+    }, [resendCountdown, setResendCountdown])
+
     const handleVerifyOTP = async () => {
         if (otpValue.length !== 6) {
             setError("Please enter the 6-digit OTP")
@@ -68,12 +79,11 @@ export function OTPForm({
         setError("")
 
         try {
-            // ✅ ACTUAL API CALL
             const response = await authService.sendOTP(phoneNumber)
 
             if (response.success) {
                 setOtpValue("")
-                setResendCountdown(30)
+                setResendCountdown(30) // Start countdown from 30 seconds
                 setError("")
             } else {
                 setError(response.message || "Failed to resend OTP. Please try again.")
@@ -119,7 +129,7 @@ export function OTPForm({
                 type="button"
                 onClick={onBack}
                 disabled={isLoading}
-                className="mt-4 text-sm text-[#2c2d3a]/70 hover:text-[#2c2d3a] underline disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="mt-4 cursor-pointer text-sm text-[#2c2d3a]/70 hover:text-[#2c2d3a] underline disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
                 Change phone number
             </button>

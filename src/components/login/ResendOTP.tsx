@@ -16,7 +16,7 @@ export function ResendOTP({ countdown, isResending, onResend }: ResendOTPProps) 
                     type="button"
                     onClick={onResend}
                     disabled={isResending}
-                    className="text-[#e54b4b] hover:text-[#c43a3a] text-sm font-medium underline disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="text-[#e54b4b] hover:text-[#c43a3a] text-sm font-medium underline disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
                     aria-label={isResending ? "Resending OTP..." : "Resend OTP"}
                 >
                     {isResending ? "Resending..." : "Resend OTP"}
